@@ -41,14 +41,5 @@ public class PostActTest extends ActivityInstrumentationTestCase2<PostActivity> 
 		solo.waitForView(newPostText);
 		assertEquals("Hugo sagt nicht 'Hallo'.", halloHugo, newPostText.getText().toString());
 	}
-	
-	@Test
-	public void testSaveButton()
-	{
-		EditText newPostText = (EditText)solo.getView(R.id.newPostText);
-		
-		solo.clickOnButton(R.id.btn_new_post);
-		
-	}
 
 }
