@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,13 +17,15 @@ public class AccessDataBase {
 	private String dbpassword = "zV5!sC7% ";
 	private String Driver = "com.mysql.jdbc.Driver";
 	private Connection connection;
+	
 	AccessDataBase(){
 		this.Connect();
 	}
+	
 	public int approveUser(String username, String password){
 		ResultSet rs =  this.ReturnQuery("Select userid from users where username=" + username + " and password =" + password);
 		String userid = "";
-		try {
+		try{
 			while(rs.next()){
 				userid = rs.getString("userid");
 			}
@@ -60,21 +63,64 @@ public class AccessDataBase {
 		}
 		else{
 			rs = this.ReturnQuery("Insert into users (username,password,profilepic) values ('" + username + "','" + password + "','" + profilepic + "')");
-			try {
-				while(rs.next()){
-					userid = rs.getString("userid");
-				}
-			} catch (java.sql.SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return -1;
+			return this.approveUser(username, password);
+		}		
+	}
+	
+	public int postTopic(String title, int categoryid, int userid){
+		ResultSet rs = this.ReturnQuery("Insert into topics (categoryid,userid,title) values ('" + categoryid + "','" + userid + "','" + title + "')");
+		return 0;
+	}
+	
+	public int postEntry(int topicid, int userid, String entrytext){
+		ResultSet rs = this.ReturnQuery("Insert into entries (topicid,userid,entrytext) values ('" + topicid + "','" + userid + "','" + entrytext + "')");
+		return 0;
+	}
+	
+	public ArrayList<String> getTopicList(int categoryid){
+		ArrayList<String> topics = new ArrayList<String>();
+		ResultSet rs = this.ReturnQuery("select title from topics where categoryid='" + categoryid + "'");
+		try {
+			while(rs.next()){
+				topics.add(rs.getString("title"));
 			}
-				
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		return 0;
+		
+		return topics;
+	}
+	
+	public ArrayList<Entry> getEntries(int topicid){
+		
+		ArrayList<Entry> entries = new ArrayList<Entry>();
+		ResultSet rs = this.ReturnQuery("select * from entries where topicid='" + topicid + "'");
+		while(rs.next()){
+			int userid = Integer.parseInt(rs.getString("userid"));
+			Entry entry = new Entry();
+			entry.setRating(Integer.parseInt(rs.getString("rating")));
+			entry.setEntrytext(rs.getString("entrytext"));
+			entry.setDate(rs.getString("date"));		// Problem!!!
+			
+			ResultSet rs1 = this.ReturnQuery("select * from users where userid='" + userid + "'");
+			
+			while(rs1.next()){
+			entry.setUsername(rs1.getString("username"));
+			entry.setUserpicture(rs1.getString("profilepic"));
+			entry.setUsersignature(rs1.getString("signature"));
+			}
+			
+			entries.add(entry);
+		}
+		
+		
 		
 	}
+	
+	
+	
 	
 	
 	
