@@ -1,7 +1,4 @@
-[4/24/13 1:16:00 PM] Laura Bebek: Geben Sie eine Nachricht ein, um sich selbst vorzustellen. Laura Bebek
-[4/24/13 1:17:05 PM] Michael Spitzer: Michael Spitzer has shared contact details with Laura Bebek.
-[4/24/13 1:17:36 PM] Laura Bebek: http://www.informatik-blog.com/2009/01/28/mysql-verbindung-aufbauen-query-senden-abfragen/
-[4/24/13 3:10:30 PM] Laura Bebek: +-------+
++-------+
 | users |
 +-------+----+--------------+-------------+
 | userid | int(11) | primary key |
