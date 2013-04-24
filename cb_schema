@@ -1,0 +1,40 @@
++-------+
+| users |
++-------+----+--------------+-------------+
+| userid | int(11) | primary key |
+| username | varchar(music) | |
+| password | varchar(16) | |
+| givenname | varchar(30) | |
+| surname | varchar(30) | |
+| profilepic | varchar(256) | |
+| signature | varchar(256) | |
++------------+--------------+-------------+
+
++---------+
+| entries |
++---------+--+---------------+-------------+
+| entryid | int(11) | primary key |
+| topicid | int(11) | foreign key |
+| userid | int(11) | foreign key |
+| entrytext | varchar(1024) | |
+| date | timestamp | |
+| rating | int(4) | |
++------------+---------------+-------------+
+
++---------+
+| topics |
++---------+--+---------------+-------------+
+| topicid | int(11) | primary key |
+| categoryid | int(11) | foreign key |
+| userid | int(11) | foreign key |
+| title | varchar(16) | |
+| date | timestamp | |
+| rating | int(4) | |
++------------+---------------+-------------+
+
++-------------+
+| categories |
++-------------+---------------+-------------+
+| catid | int(11) | primary key |
+| catname | varchar(30) | |
++-------------+---------------+-------------+
