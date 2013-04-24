@@ -22,10 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="at.tugraz.mobilforum.PostActivity"
-            android:label="@string/title_activity_post" >
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
