@@ -1,0 +1,43 @@
+[4/24/13 1:16:00 PM] Laura Bebek: Geben Sie eine Nachricht ein, um sich selbst vorzustellen. Laura Bebek
+[4/24/13 1:17:05 PM] Michael Spitzer: Michael Spitzer has shared contact details with Laura Bebek.
+[4/24/13 1:17:36 PM] Laura Bebek: http://www.informatik-blog.com/2009/01/28/mysql-verbindung-aufbauen-query-senden-abfragen/
+[4/24/13 3:10:30 PM] Laura Bebek: +-------+
+| users |
++-------+----+--------------+-------------+
+| userid | int(11) | primary key |
+| username | varchar(music) | |
+| password | varchar(16) | |
+| givenname | varchar(30) | |
+| surname | varchar(30) | |
+| profilepic | varchar(256) | |
+| signature | varchar(256) | |
++------------+--------------+-------------+
+
++---------+
+| entries |
++---------+--+---------------+-------------+
+| entryid | int(11) | primary key |
+| topicid | int(11) | foreign key |
+| userid | int(11) | foreign key |
+| entrytext | varchar(1024) | |
+| date | timestamp | |
+| rating | int(4) | |
++------------+---------------+-------------+
+
++---------+
+| topics |
++---------+--+---------------+-------------+
+| topicid | int(11) | primary key |
+| categoryid | int(11) | foreign key |
+| userid | int(11) | foreign key |
+| title | varchar(16) | |
+| date | timestamp | |
+| rating | int(4) | |
++------------+---------------+-------------+
+
++-------------+
+| categories |
++-------------+---------------+-------------+
+| catid | int(11) | primary key |
+| catname | varchar(30) | |
++-------------+---------------+-------------+
