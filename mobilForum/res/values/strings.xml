@@ -14,5 +14,6 @@
     <string name="name">name</string>
     <string name="time">time</string>
     <string name="date">date</string>
+    <string name="title_activity_topic_post">New Topic</string>
 
 </resources>

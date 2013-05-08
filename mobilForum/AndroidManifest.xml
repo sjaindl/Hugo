@@ -28,9 +28,14 @@
             android:name="at.tugraz.mobilforum.ReadForumActivity"
             android:label="@string/title_activity_read_forum" >
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".PostActivity"></activity>
-        
+        <activity android:name="at.tugraz.mobilforum.LoginActivity" >
+        </activity>
+        <activity android:name="at.tugraz.mobilforum.PostActivity" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.TopicPostActivity"
+            android:label="@string/title_activity_topic_post" >
+        </activity>
     </application>
 
 </manifest>
