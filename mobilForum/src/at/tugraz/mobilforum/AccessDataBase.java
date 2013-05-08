@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AccessDataBase {
 
@@ -89,7 +91,12 @@ public class AccessDataBase {
 		return 0;
 	}
 
-	public ArrayList<String> getTopicList(int categoryid) {
+	public List<Entry> getEntryList(int categoryid, int topicid) {
+		// TODO
+		return null;
+	}
+	
+	public Map<Integer, String> getTopicList(int categoryid) {
 		ArrayList<String> topics = new ArrayList<String>();
 		ResultSet rs = this
 				.returnQuery("select title from topics where categoryid='"
@@ -103,7 +110,7 @@ public class AccessDataBase {
 			e.printStackTrace();
 		}
 
-		return topics;
+		return topics;//todo make it a map
 	}
 
 	public ArrayList<Entry> getEntries(int topicid) {
