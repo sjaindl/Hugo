@@ -41,5 +41,43 @@ public class PostActTest extends ActivityInstrumentationTestCase2<PostActivity> 
 		solo.waitForView(newPostText);
 		assertEquals("Hugo sagt nicht 'Hallo'.", halloHugo, newPostText.getText().toString());
 	}
+	
+	@Test
+	public void testTextLength()
+	{
+		final EditText newPostText = (EditText)solo.getView(R.id.newPostText);
+		View postButton = solo.getView(R.id.btn_new_post);
+		int textLength = 1024;
 
+		solo.waitForView(newPostText);
+		solo.waitForView(postButton);
+		
+		solo.clearEditText(newPostText);
+		solo.waitForView(newPostText);
+		
+		assertFalse("Button should not be enabled (no text)", postButton.isEnabled());
+		
+		StringBuilder textBuilder = new StringBuilder();
+		for(int i = 0; i < textLength - 10; i++)
+		{
+			if((i % 10) == 9)
+				textBuilder.append('\n');
+			else
+				textBuilder.append('a');
+		}
+		solo.enterText(newPostText, textBuilder.toString());
+		
+		solo.waitForView(newPostText);
+		assertTrue("Button should be enabled", postButton.isEnabled());
+		
+		for(int i = 0; i < 15; i++)
+		{
+			solo.enterText(newPostText, "b");
+			solo.waitForView(getActivity().toast.getView());
+			assertTrue("Character count should be shown", getActivity().toast.getView().isShown());
+		}
+
+		solo.waitForView(newPostText);
+		assertFalse("Button should not be enabled (text too long)", postButton.isEnabled());
+	}
 }
