@@ -1,5 +1,8 @@
 package at.tugraz.mobilforum;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 	
+	private int countRows;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,9 +25,13 @@ public class LoginActivity extends Activity {
         tv.setText("Mobile Forum");
         AccessDataBase db = new AccessDataBase();
         ResultSet rs = db.ReturnQuery("select count(*) as num from test where a='1'");
-        while (rs.next()) {
-            countRows = rs.getInt("num");
-        }
+        try {
+			while (rs.next()) {
+			    countRows = rs.getInt("num");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         System.out.println(countRows);
         
         

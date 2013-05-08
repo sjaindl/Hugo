@@ -1,6 +1,7 @@
 package at.tugraz.mobilforum;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -97,35 +98,35 @@ public class AccessDataBase {
 		
 		ArrayList<Entry> entries = new ArrayList<Entry>();
 		ResultSet rs = this.ReturnQuery("select * from entries where topicid='" + topicid + "'");
-		while(rs.next()){
-			int userid = Integer.parseInt(rs.getString("userid"));
-			Entry entry = new Entry();
-			entry.setRating(Integer.parseInt(rs.getString("rating")));
-			entry.setEntrytext(rs.getString("entrytext"));
-			entry.setDate(rs.getString("date"));		// Problem!!!
-			
-			ResultSet rs1 = this.ReturnQuery("select * from users where userid='" + userid + "'");
-			
-			while(rs1.next()){
-			entry.setUsername(rs1.getString("username"));
-			entry.setUserpicture(rs1.getString("profilepic"));
-			entry.setUsersignature(rs1.getString("signature"));
+		try {
+			while(rs.next()){
+				int userid = Integer.parseInt(rs.getString("userid"));
+				Entry entry = new Entry();
+				entry.setRating(Integer.parseInt(rs.getString("rating")));
+				entry.setEntrytext(rs.getString("entrytext"));
+				
+				entry.setDate(rs.getDate("date"));		// Problem!!!
+				
+				ResultSet rs1 = this.ReturnQuery("select * from users where userid='" + userid + "'");
+				
+				while(rs1.next()){
+				entry.setUsername(rs1.getString("username"));
+				entry.setUserpicture(rs1.getString("profilepic"));
+				entry.setUsersignature(rs1.getString("signature"));
+				}
+				
+				entries.add(entry);
 			}
-			
-			entries.add(entry);
+			return entries;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
+		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	  public void Close() {
 	        if (this.connection != null) {
@@ -151,10 +152,10 @@ public class AccessDataBase {
 	            Statement stmt = this.connection.createStatement();
 	            ResultSet rs = stmt.executeQuery(query);
 	            return rs;
-	        } catch (SQLException e) {
-	            System.err.println(e.toString());
-	            return null;
-	        }
+	        } catch (java.sql.SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
 	    }
 	 
 	   public boolean RunQuery(String query) {
