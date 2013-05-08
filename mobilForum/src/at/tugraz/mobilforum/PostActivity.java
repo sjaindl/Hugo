@@ -9,10 +9,13 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PostActivity extends Activity {
 	public Toast toast;
+	
+	int topicId;
 	
 	@Override
 	@SuppressLint("ShowToast")
@@ -20,12 +23,35 @@ public class PostActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 		toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+		getTopicId();
+		showTopicName();
+	}
+	
+	void getTopicId()
+	{
+		Bundle b = getIntent().getExtras();
+		if(null == b)
+		{
+			topicId = 0;
+			return;
+		}
+		topicId = b.getInt("topicId");
+	}
+	
+	void showTopicName()
+	{
+		//TODO get topic name from database
+		
+		TextView topicNameView = (TextView)findViewById(R.id.newPostTopicTitle);
+		String topicTitle = "Topic title here";
+		topicNameView.setText("Reply to: " + topicTitle);
 	}
 	
 	void autoUpdateMenuItemState(Menu menu)
 	{
 		final MenuItem postButton = menu.findItem(R.id.btn_new_post);
 		final EditText inputText = (EditText)findViewById(R.id.newPostText);
+		
 		toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, inputText.getTop() + 50);
 		
 		inputText.addTextChangedListener(new TextWatcher(){
