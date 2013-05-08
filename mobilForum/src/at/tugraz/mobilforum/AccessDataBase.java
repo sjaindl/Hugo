@@ -127,14 +127,9 @@ public class AccessDataBase {
 		} catch (java.sql.SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-<<<<<<< HEAD
-
-		//return topics;//todo make it a map
-		return null;
-=======
-		return topics;
->>>>>>> 40d8782b36dbfeec10660cca241f2e1924ac7cb3
+		} 
+		
+		return topics;//todo make it a map
 	}
 
 	public ArrayList<Entry> getEntries(int topicid) {
