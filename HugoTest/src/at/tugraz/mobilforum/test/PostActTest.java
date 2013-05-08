@@ -73,7 +73,7 @@ public class PostActTest extends ActivityInstrumentationTestCase2<PostActivity> 
 		for(int i = 0; i < 15; i++)
 		{
 			solo.enterText(newPostText, "b");
-			solo.waitForView(getActivity().toast.getView());
+			solo.waitForView(((PostActivity)getActivity()).toast.getView());
 			assertTrue("Character count should be shown", getActivity().toast.getView().isShown());
 		}
 
