@@ -110,7 +110,8 @@ public class AccessDataBase {
 			e.printStackTrace();
 		}
 
-		return topics;//todo make it a map
+		//return topics;//todo make it a map
+		return null;
 	}
 
 	public ArrayList<Entry> getEntries(int topicid) {
