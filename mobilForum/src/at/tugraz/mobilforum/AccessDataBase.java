@@ -3,8 +3,11 @@ package at.tugraz.mobilforum;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -93,23 +96,27 @@ public class AccessDataBase {
 
 	public List<Entry> getEntryList(int categoryid, int topicid) {
 		
-		List<Entry> entries;
+		List<Entry> entries = new LinkedList<Entry>();
 		ResultSet rs = this
 				.returnQuery("select * from topics where categoryid='"
-						+ categoryid + "' and topicid='" +topicid"'");
-		while(rs.next())
-		{
-			ResultSet rs_user = this.returnQuery("select * from users where userid='"
-					+ rs.getInt("userid")"'");
-			Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
-					rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
-			entries.add(actual_entry);
+						+ categoryid + "' and topicid='" +topicid+"'");
+		try {
+			while(rs.next())
+			{
+				ResultSet rs_user = this.returnQuery("select * from users where userid='"
+						+ rs.getInt("userid") + "'");
+				Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
+						rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
+				entries.add(actual_entry);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return entries;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {
-		Map<Integer, String> topics = new ArrayList<String>();
+		Map<Integer, String> topics = new HashMap<Integer, String>();
 		ResultSet rs = this
 				.returnQuery("select title from topics where categoryid='"
 						+ categoryid + "'");
