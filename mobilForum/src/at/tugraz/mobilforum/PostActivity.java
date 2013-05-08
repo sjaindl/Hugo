@@ -26,8 +26,8 @@ public class PostActivity extends Activity {
 	
 	void autoUpdateMenuItemState(Menu menu)
 	{
-		final EditText inputText = (EditText)findViewById(R.id.newPostText);
 		final MenuItem postButton = menu.findItem(R.id.btn_new_post);
+		final EditText inputText = (EditText)findViewById(R.id.newPostText);
 		toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, inputText.getTop() + 50);
 		
 		inputText.addTextChangedListener(new TextWatcher(){
@@ -64,6 +64,18 @@ public class PostActivity extends Activity {
 	        });
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.btn_new_post)
+		{
+			EditText inputText = (EditText)findViewById(R.id.newPostText);
+			AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
