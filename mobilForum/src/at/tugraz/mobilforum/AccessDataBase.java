@@ -92,25 +92,36 @@ public class AccessDataBase {
 	}
 
 	public List<Entry> getEntryList(int categoryid, int topicid) {
-		// TODO
-		return null;
+		
+		List<Entry> entries;
+		ResultSet rs = this
+				.returnQuery("select * from topics where categoryid='"
+						+ categoryid + "' and topicid='" +topicid"'");
+		while(rs.next())
+		{
+			ResultSet rs_user = this.returnQuery("select * from users where userid='"
+					+ rs.getInt("userid")"'");
+			Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
+					rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
+			entries.add(actual_entry);
+		}
+		return entries;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {
-		ArrayList<String> topics = new ArrayList<String>();
+		Map<Integer, String> topics = new ArrayList<String>();
 		ResultSet rs = this
 				.returnQuery("select title from topics where categoryid='"
 						+ categoryid + "'");
 		try {
 			while (rs.next()) {
-				topics.add(rs.getString("title"));
+				topics.put(rs.getInt("id"),rs.getString("title"));
 			}
 		} catch (java.sql.SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return topics;//todo make it a map
+		return topics;
 	}
 
 	public ArrayList<Entry> getEntries(int topicid) {
