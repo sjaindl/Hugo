@@ -23,7 +23,7 @@ public class LoginActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.logintitle);
 
         tv.setText("Mobile Forum");
-        AccessDataBase db = new AccessDataBase();
+        AccessDataBase db = AccessDataBase.getInstance();
         ResultSet rs = db.ReturnQuery("select count(*) as num from test where a='1'");
         try {
 			while (rs.next()) {
