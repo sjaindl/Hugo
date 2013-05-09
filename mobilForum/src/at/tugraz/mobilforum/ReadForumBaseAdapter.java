@@ -51,7 +51,7 @@ public class ReadForumBaseAdapter extends BaseAdapter {
 
 	        //Bitmap bmap = BitmapFactory.decodeFile()
 	        datetv.setText(entry.getDate().toString());
-	        timetv.setText(entry.getTime());
+	        //timetv.setText(entry.getTime());
 	        
 	       // imageLoader.DisplayImage(song.get(CustomizedListView.KEY_THUMB_URL), thumb_image);
 	        return vi;

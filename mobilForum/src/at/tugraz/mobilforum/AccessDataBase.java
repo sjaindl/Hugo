@@ -107,6 +107,7 @@ public class AccessDataBase {
 						+ rs.getInt("userid") + "'");
 				Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
 						rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
+				
 				entries.add(actual_entry);
 			}
 		} catch (SQLException e) {
