@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class AccessDataBase {
 
@@ -93,6 +94,25 @@ public class AccessDataBase {
 						+ topicid + "','" + userid + "','" + entrytext + "')");
 		return 0;
 	}
+	
+	public Entry getRandomEntryFromTopic(int topicid){
+		Random r = new Random();
+		List<Entry> entrylist = this.getEntries(topicid);	
+		return entrylist.get(r.nextInt(this.getEntries(topicid).size()));
+	}
+	
+	public int getRandomCategory(){
+		List<Integer> keysAsArray = new ArrayList<Integer>(this.getCategoryList().keySet());
+				Random r = new Random();
+
+				return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+	}
+
+	public int getRandomTopicFromCategory(int category){
+		List<Integer> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
+		Random r = new Random();
+		return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+	}
 
 	public List<Entry> getEntryList(int categoryid, int topicid) {
 		
@@ -114,6 +134,19 @@ public class AccessDataBase {
 			e.printStackTrace();
 		}
 		return entries;
+	}
+	
+	public int getEntryListCounter(int categoryid, int topicid){
+		return this.getEntryList(categoryid, topicid).size();
+	}
+	
+	
+	public Map<Integer, String> getCategoryList(){
+		/*
+		 * TODO: Implement :)
+		 */
+		Map<Integer, String> categories = new HashMap<Integer, String>();
+		return categories;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {
