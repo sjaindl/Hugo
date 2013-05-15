@@ -28,7 +28,6 @@
             android:name="at.tugraz.mobilforum.ReadForumActivity"
             android:label="@string/title_activity_read_forum" >
         </activity>
-        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".PostActivity"></activity>
         
     </application>
