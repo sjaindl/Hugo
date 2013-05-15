@@ -61,6 +61,9 @@ public class Entry {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
+	public void setDate(long ms) {
+		this.date = new Date(ms);
+	}
 	public int getRating() {
 		return rating;
 	}
