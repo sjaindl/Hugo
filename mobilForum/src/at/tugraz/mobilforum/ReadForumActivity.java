@@ -27,7 +27,7 @@ public class ReadForumActivity extends Activity {
          */
         
         entries = new ArrayList<Entry>();
-        entries = db.getEntries(this.topicid);
+        entries = db.getEntryList(this.topicid);
         adapter = new ReadForumBaseAdapter(entries);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {

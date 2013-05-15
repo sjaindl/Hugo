@@ -126,13 +126,13 @@ public class AccessDataBase extends SQLiteOpenHelper{
 						+ categoryid + "','" + userid + "','" + title + "')");
 		return 0;
 	}
-
+*/
 	public int postEntry(int topicid, int userid, String entrytext) {
-		ResultSet rs = this
-				.returnQuery("Insert into entries (topicid,userid,entrytext) values ('"
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
 						+ topicid + "','" + userid + "','" + entrytext + "')");
 		return 0;
-	}*/
+	}
 
 	/*public List<Entry> getEntryList(int categoryid, int topicid) {
 		
@@ -173,7 +173,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		return topics;//todo make it a map
 	}
 */
-	public List<Entry> getEntries(int topicid) {
+	public List<Entry> getEntryList(int topicid) {
 
 		Log.d(TAG, "read db entries");
 		List<Entry> entries = new ArrayList<Entry>();
