@@ -43,11 +43,12 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (5,'Trinken')");
 		
 		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 4, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 4, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 4, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 4, 1, 'Kotlett', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
 		Log.d(TAG, "db created");
 	 }
 
@@ -66,6 +67,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	
 	public AccessDataBase(Context context) {
 		  super(context, DATABASE_NAME, null,1); 
+		  
 	}
 
 	public static AccessDataBase getInstance() {
@@ -76,6 +78,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "' and password = '" + password+ "'", null, null, null, null);
+		db.close();
 		if (cursor.moveToNext()) {
 			int userid = cursor.getInt(0);
 			// auth: yes
@@ -89,6 +92,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "'", null, null, null, null);
+		db.close();
 		if (cursor.moveToNext()) {
 			// auth: yes
 			return -2;
@@ -101,6 +105,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 							+ "','"
 							+ profilepic
 							+ "')");
+			db.close();
 			return this.approveUser(username, password);
 		}
 	}
@@ -109,6 +114,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL("Insert into topics (categoryid,userid,title) values ('"
 						+ categoryid + "','" + userid + "','" + title + "')");
+		db.close();
 		return 0;
 	}
 
@@ -116,6 +122,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
 						+ topicid + "','" + userid + "','" + entrytext + "')");
+		db.close();
 		return 0;
 	}
 	
@@ -145,6 +152,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		while (cursor.moveToNext()) {
 			categories.put(cursor.getInt(0),cursor.getString(1));
 		}
+		db.close();
 		return categories;
 	}
 	
@@ -156,6 +164,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		while (cursor.moveToNext()) {
 			topics.put(cursor.getInt(0),cursor.getString(1));
 		}
+		db.close();
 		return topics;
 	}
 
@@ -184,16 +193,21 @@ public class AccessDataBase extends SQLiteOpenHelper{
 			entries.add(entry);
 		}
 
-		Log.d(TAG, "done");
+		db.close();
 		return entries;
 	}
 
 	public Cursor query(String query) {
-		return getReadableDatabase().rawQuery(query, null);
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor c = db.rawQuery(query, null);
+		db.close();
+		return c;
 	}
 	
 	public void execute(String query) {
-		getWritableDatabase().execSQL(query);
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL(query);
+		db.close();
 	}
 
 	@Override
