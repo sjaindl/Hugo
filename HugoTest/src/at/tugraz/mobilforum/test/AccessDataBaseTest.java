@@ -21,10 +21,8 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	private static final int TEST_TOPIC_ID = 101;
 	
 
-	/*
 	public void testUserRegistration(){
 		AccessDataBase instance = AccessDataBase.getInstance();
-		connect();
 		int userID = instance.registerUser(TEST_USER_NAME, TEST_USER_PASSWORD, TEST_USER_PIC);
 		assertTrue("Create user with existing user name",userID<=0);
 		userID = instance.registerUser(TEST_USER_NAME+"@"+System.currentTimeMillis(), TEST_USER_PASSWORD, TEST_USER_PIC);
@@ -32,7 +30,6 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	}
 	
 	public void testUserApproval(){
-		connect();
 		AccessDataBase instance = AccessDataBase.getInstance();
 		int userID = instance.approveUser(TEST_USER_NAME, "falsePW");
 		assertTrue("False password works for user approval",userID<=0);
@@ -41,14 +38,12 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	}
 	
 	public void testPostTopic(){
-		connect();
 		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
 		assertEquals("Cannot post Topic", 0, errorCode);
 		Map<Integer, String> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
 		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
 	}
 	
-	*/
 	
 	@Override
 	protected void setUp() throws Exception {

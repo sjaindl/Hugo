@@ -72,15 +72,10 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "' and password = '" + password+ "'", null, null, null, null);
-		String userid = "";
-		while (cursor.moveToNext()) {
-			userid = cursor.getString(0);
-		}
-		if (userid != null) {
+		if (cursor.moveToNext()) {
+			int userid = cursor.getInt(0);
 			// auth: yes
-			int iuserid = Integer.parseInt(userid);
-
-			return iuserid;
+			return userid;
 		} else {
 			return 0;
 		}
@@ -90,7 +85,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "'", null, null, null, null);
-		if (!cursor.moveToNext()) {
+		if (cursor.moveToNext()) {
 			// auth: yes
 			return -2;
 		} else {
@@ -150,7 +145,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	public Map<Integer, String> getTopicList(int categoryid) {
 		Map<Integer, String> topics = new HashMap<Integer, String>();
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"id", "title"},  "categoryid='"
+		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"topicid", "title"},  "categoryid='"
 				+ categoryid + "'", null, null, null, null);
 		while (cursor.moveToNext()) {
 			topics.put(cursor.getInt(0),cursor.getString(1));
@@ -200,6 +195,11 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 
 		Log.d(TAG, "db upgraded");
+	}
+
+	public int getEntryListCounter(int category_id, int topic_id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
