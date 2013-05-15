@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <application
@@ -27,8 +27,6 @@
         <activity
             android:name="at.tugraz.mobilforum.ReadForumActivity"
             android:label="@string/title_activity_read_forum" >
-        </activity>
-        <activity android:name="at.tugraz.mobilforum.LoginActivity" >
         </activity>
         <activity android:name="at.tugraz.mobilforum.PostActivity" >
         </activity>
