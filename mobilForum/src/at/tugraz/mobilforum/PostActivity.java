@@ -96,7 +96,7 @@ public class PostActivity extends Activity {
 		
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				parentActivityIntent = new Intent(this, ReadForumActivity.class);
+				parentActivityIntent = new Intent(this, ReadEntriesActivity.class);
 		        parentActivityIntent.addFlags(
 		                Intent.FLAG_ACTIVITY_CLEAR_TOP |
 		                Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -108,7 +108,7 @@ public class PostActivity extends Activity {
 				EditText inputText = (EditText)findViewById(R.id.newPostText);
 				AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
 				
-	            parentActivityIntent = new Intent(this, ReadForumActivity.class);
+	            parentActivityIntent = new Intent(this, ReadEntriesActivity.class);
 	            parentActivityIntent.addFlags(
 	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	                    Intent.FLAG_ACTIVITY_NEW_TASK);
