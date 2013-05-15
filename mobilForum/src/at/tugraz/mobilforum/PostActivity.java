@@ -93,7 +93,7 @@ public class PostActivity extends Activity {
 		if(item.getItemId() == R.id.btn_new_post)
 		{
 			EditText inputText = (EditText)findViewById(R.id.newPostText);
-			AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
+			//TODO AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
 			return true;
 		}
 		
