@@ -3,6 +3,7 @@ package at.tugraz.mobilforum;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ public class PostActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		getTopicId();
 		showTopicName();
@@ -90,11 +92,29 @@ public class PostActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId() == R.id.btn_new_post)
-		{
-			EditText inputText = (EditText)findViewById(R.id.newPostText);
-			//TODO AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
-			return true;
+		Intent parentActivityIntent;
+		
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				parentActivityIntent = new Intent(this, ReadForumActivity.class);
+		        parentActivityIntent.addFlags(
+		                Intent.FLAG_ACTIVITY_CLEAR_TOP |
+		                Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(parentActivityIntent);
+		        finish();
+				return true;
+				
+			case R.id.btn_new_post:
+				EditText inputText = (EditText)findViewById(R.id.newPostText);
+				AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
+				
+	            parentActivityIntent = new Intent(this, ReadForumActivity.class);
+	            parentActivityIntent.addFlags(
+	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+	                    Intent.FLAG_ACTIVITY_NEW_TASK);
+	            startActivity(parentActivityIntent);
+	            finish();
+				return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
