@@ -44,6 +44,10 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		
 		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 4, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 4, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 4, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 4, 1, 'Kotlett', 190000000, 3)"); 
 		Log.d(TAG, "db created");
 	 }
 
@@ -137,7 +141,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	public Map<Integer, String> getCategoryList(){
 		Map<Integer, String> categories = new HashMap<Integer, String>();
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"catid", "catname"},  null, null, null, null, null);
+		Cursor cursor = db.query(CATEGORY_TABLE, new String[]{"catid", "catname"},  null, null, null, null, null);
 		while (cursor.moveToNext()) {
 			categories.put(cursor.getInt(0),cursor.getString(1));
 		}
