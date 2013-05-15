@@ -109,11 +109,12 @@ public class TopicPostActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent parentActivityIntent;
 		switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // This is called when the Home (Up) button is pressed
 	            // in the Action Bar.
-	            Intent parentActivityIntent = new Intent(this, ReadForumActivity.class);
+	            parentActivityIntent = new Intent(this, ReadForumActivity.class);
 	            parentActivityIntent.addFlags(
 	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	                    Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,9 +122,18 @@ public class TopicPostActivity extends Activity {
 	            finish();
 	            return true;
 	            
-	        case R.id.btn_new_post:
-				EditText inputText = (EditText)findViewById(R.id.newPostText);
-				//TODO AccessDataBase.getInstance().postEntry(0, 0, inputText.getText().toString());
+	        case R.id.btn_new_topic:
+				EditText inputText = (EditText)findViewById(R.id.newTopicText);
+				EditText inputTitle = (EditText)findViewById(R.id.newTopicTitle);
+				AccessDataBase.getInstance().postTopic(inputTitle.getText().toString(), 0, 0);
+				
+				parentActivityIntent = new Intent(this, ReadForumActivity.class);
+	            parentActivityIntent.addFlags(
+	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+	                    Intent.FLAG_ACTIVITY_NEW_TASK);
+	            startActivity(parentActivityIntent);
+	            finish();
+				
 				return true;
 		}
 		
