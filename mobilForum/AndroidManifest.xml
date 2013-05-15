@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="at.tugraz.mobilforum"
@@ -30,41 +29,8 @@
             android:label="@string/title_activity_read_forum" >
         </activity>
         <activity android:name=".PostActivity"></activity>
+        <activity android:name=".TopicPostActivity"></activity>
         
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="at.tugraz.mobilforum"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="17" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="at.tugraz.mobilforum.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="at.tugraz.mobilforum.LoginActivity" >
-        </activity>
-        <activity
-            android:name="at.tugraz.mobilforum.ReadForumActivity"
-            android:label="@string/title_activity_read_forum" >
-        </activity>
-        <activity android:name=".PostActivity"></activity>
-        
->>>>>>> refs/heads/newTopic
     </application>
 
 </manifest>
