@@ -26,7 +26,7 @@
         </activity>
         
         <activity
-            android:name="at.tugraz.mobilforum.ReadForumActivity"
+            android:name="at.tugraz.mobilforum.ReadEntriesActivity"
             android:label="@string/title_activity_read_forum" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
