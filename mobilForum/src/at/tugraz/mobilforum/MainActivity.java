@@ -14,6 +14,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		AccessDataBase db = new AccessDataBase(this);
 		AccessDataBase.setInstance(db);
+		db.getEntries(1);
 		setContentView(R.layout.categorys);
 		Log.e(TAG, "test");
 	}

@@ -14,6 +14,7 @@ import java.util.Map;
 import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
+import android.util.Log;
 
 
 public class AccessDataBase extends SQLiteOpenHelper{
@@ -21,27 +22,28 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	static final String ENTRY_TABLE = "entries";
 	static final String TOPIC_TABLE = "topics";
 	static final String CATEGORY_TABLE = "categories";
-	SQLiteDatabase database;
+	static final String TAG = "AccessDB";
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 	  // TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE "+USER_TABLE+" (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, givenname TEXT, surname TEXT, profilepic TEXT, signature TEXT)");
 		
-		db.execSQL("CREATE TABLE "+CATEGORY_TABLE+" (catid INTEGER PRIMARY KEY AUTOINCREMENT, catname TEXT NOT NULL");
+		db.execSQL("CREATE TABLE "+CATEGORY_TABLE+" (catid INTEGER PRIMARY KEY AUTOINCREMENT, catname TEXT NOT NULL)");
 		  
-		db.execSQL("CREATE TABLE "+TOPIC_TABLE+" (topicid INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(categoryid) REFERENCES"+ CATEGORY_TABLE +"(categoryid), 			FOREIGN KEY(userid) REFERENCES"+ USER_TABLE +"(userid), title TEXT NOT NULL, date DATE, rating INTEGER");
+		db.execSQL("CREATE TABLE "+TOPIC_TABLE+" (topicid INTEGER PRIMARY KEY AUTOINCREMENT, categoryid INTEGER, userid INTEGER, title TEXT NOT NULL, date INTEGER, rating INTEGER, FOREIGN KEY(categoryid) REFERENCES "+ CATEGORY_TABLE +"(catid), FOREIGN KEY(userid) REFERENCES "+ USER_TABLE +" (userid))");
 		
-		db.execSQL("CREATE TABLE "+ENTRY_TABLE+" (entryid INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(topicid) REFERENCES"+ TOPIC_TABLE +"(topicid), FOREIGN 			KEY(userid) REFERENCES"+ USER_TABLE +"(userid), entrytext TEXT NOT NULL, date DATE, rating INTEGER");
+		db.execSQL("CREATE TABLE "+ENTRY_TABLE+" (entryid INTEGER PRIMARY KEY AUTOINCREMENT, topicid INTEGER, userid INTEGER, entrytext TEXT NOT NULL, date INTEGER, rating INTEGER, FOREIGN KEY(topicid) REFERENCES "+ TOPIC_TABLE +" (topicid), FOREIGN KEY(userid) REFERENCES "+ USER_TABLE +" (userid))");
 		  
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (\"Haustiere\")");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (\"Lieblingsfilme\")");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (\"Hugo\")");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (\"ESSEN\")");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (\"Trinken\")");
+		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (1,'Haustiere')");
+		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (2,'Lieblingsfilme')");
+		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (3,'Hugo')");
+		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (4,'ESSEN')");
+		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (5,'Trinken')");
 		
-		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (\"Hugo\", \"hugo123\")");
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 1, \"Kotlett\")"); 
-		database  = db;
+		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 4, 1, 'Kotlett', 190000000, 3)"); 
+		Log.d(TAG, "db created");
 	 }
 
 	final static String DATABASE_NAME = "Forum.db";
@@ -171,9 +173,10 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		return topics;//todo make it a map
 	}
 */
-	public ArrayList<Entry> getEntries(int topicid) {
+	public List<Entry> getEntries(int topicid) {
 
-		ArrayList<Entry> entries = new ArrayList<Entry>();
+		Log.d(TAG, "read db entries");
+		List<Entry> entries = new ArrayList<Entry>();
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(ENTRY_TABLE, new String[]{"userid","rating","entrytext","date"}, "topicid='"+ topicid + "'", null, null, null, null);
 		while (cursor.moveToNext()) {
@@ -194,6 +197,8 @@ public class AccessDataBase extends SQLiteOpenHelper{
 
 			entries.add(entry);
 		}
+
+		Log.d(TAG, "done");
 		return entries;
 	}
 
@@ -253,7 +258,8 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 		// TODO Auto-generated method stub
-		
+
+		Log.d(TAG, "db upgraded");
 	}
 
 }

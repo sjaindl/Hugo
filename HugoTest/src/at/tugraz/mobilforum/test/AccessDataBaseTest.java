@@ -24,15 +24,7 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		AccessDataBase instance = AccessDataBase.getInstance();
 		assertNotNull(instance);
 	}
-	
-	public void testConnection(){
-		AccessDataBase instance = AccessDataBase.getInstance();
-		instance.connect();
-		assertTrue(instance.isConnected());
-		instance.close();
-		assertFalse(instance.isConnected());
-	}
-	
+	/*
 	public void testUserRegistration(){
 		AccessDataBase instance = AccessDataBase.getInstance();
 		connect();
@@ -73,12 +65,5 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		}
 		assertTrue("Entry was not created or cannot be read",foundEntry);
 	}
-	
-	private void connect(){
-		AccessDataBase instance = AccessDataBase.getInstance();
-		if(!instance.isConnected()){
-			instance.connect();
-		}
-	}
-
+	*/
 }
