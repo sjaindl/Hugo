@@ -46,7 +46,7 @@ public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumAct
     	ListView lv = (ListView)solo.getView(R.id.entryListView);
     	int category_id = AccessDataBase.getInstance().getRandomCategory();
     	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
-    	int expectedCount = AccessDataBase.getInstance().getEntryListCounter(category_id, topic_id);
+    	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
         int actualCount =lv.getAdapter().getCount();
         assertEquals(expectedCount, actualCount);
 		assertEquals(true,true);

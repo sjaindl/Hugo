@@ -135,10 +135,12 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 	
 	public Map<Integer, String> getCategoryList(){
-		/*
-		 * TODO: Implement :)
-		 */
 		Map<Integer, String> categories = new HashMap<Integer, String>();
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"catid", "catname"},  null, null, null, null, null);
+		while (cursor.moveToNext()) {
+			categories.put(cursor.getInt(0),cursor.getString(1));
+		}
 		return categories;
 	}
 	
@@ -195,11 +197,6 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 
 		Log.d(TAG, "db upgraded");
-	}
-
-	public int getEntryListCounter(int category_id, int topic_id) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
