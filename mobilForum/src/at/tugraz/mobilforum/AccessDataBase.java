@@ -52,6 +52,14 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
+		
 		Log.d(TAG, "db created");
 	 }
 	
@@ -126,13 +134,14 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		List<Integer> keysAsArray = new ArrayList<Integer>(this.getCategoryList().keySet());
 				Random r = new Random();
 
-				return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+				return keysAsArray.get(r.nextInt(keysAsArray.size()));
 	}
 
 	public int getRandomTopicFromCategory(int category){
 		List<Integer> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
 		Random r = new Random();
-		return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+		Log.d("TAG","size: "+ Integer.toString(keysAsArray.size()));
+		return keysAsArray.get(r.nextInt(keysAsArray.size()));
 	}
 	
 	public Map<Integer, String> getCategoryList(){

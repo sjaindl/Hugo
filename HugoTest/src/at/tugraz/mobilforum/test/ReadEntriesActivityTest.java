@@ -18,25 +18,26 @@ import android.widget.ListView;
 import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
 import at.tugraz.mobilforum.R;
-import at.tugraz.mobilforum.ReadForumActivity;
-import at.tugraz.mobilforum.ReadForumBaseAdapter;
+import at.tugraz.mobilforum.ReadEntriesActivity;
+import at.tugraz.mobilforum.ReadEntriesBaseAdapter;
 
 
-public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumActivity>{
+public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<ReadEntriesActivity>{
 
 
 	private Solo solo;
 	
-	public ReadForumTest() {
-		super(ReadForumActivity.class);
+	public ReadEntriesActivityTest() {
+		super(ReadEntriesActivity.class);
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	protected void setUp() throws Exception
 	{
+		AccessDataBase.setInstance(new AccessDataBase(this.getActivity().getApplicationContext()));
 		super.setUp();
-		solo = new Solo(getInstrumentation(), getActivity());
+			solo = new Solo(getInstrumentation(), getActivity());
 	}
 	
     
@@ -47,7 +48,7 @@ public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumAct
     	int category_id = AccessDataBase.getInstance().getRandomCategory();
     	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
     	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
-        int actualCount =lv.getAdapter().getCount();
+        int actualCount = lv.getChildCount();
         assertEquals(expectedCount, actualCount);
 		assertEquals(true,true);
     }
