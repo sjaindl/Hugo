@@ -8,7 +8,6 @@ public class Entry {
 	String userpicture;
 	String usersignature;
 	String entrytext;
-	String time;
 	java.util.Date date;
 	int rating;
 	
@@ -19,26 +18,16 @@ public class Entry {
 		this.usersignature = ""; 
 		this.entrytext = "";
 		this.date = new Date();
-		this.time ="00:00";
 		this.rating = 0;
-	}
-	
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
 	}
 
 	public Entry(String username, String userpicture, String usersignature, 
-			String entrytext, Date date, String time, int rating){
+			String entrytext, Date date, int rating){
 		this.username = username;
 		this.userpicture = userpicture;
 		this.usersignature = usersignature;
 		this.entrytext = entrytext;
 		this.date = date;
-		this.time = time;
 		this.rating = rating;
 	}
 	
@@ -71,6 +60,9 @@ public class Entry {
 	}
 	public void setDate(java.util.Date date) {
 		this.date = date;
+	}
+	public void setDate(long ms) {
+		this.date = new Date(ms);
 	}
 	public int getRating() {
 		return rating;

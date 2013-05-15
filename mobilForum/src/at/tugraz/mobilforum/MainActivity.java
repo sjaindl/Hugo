@@ -12,6 +12,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		AccessDataBase db = new AccessDataBase(this);
+		AccessDataBase.setInstance(db);
 		setContentView(R.layout.categorys);
 		Log.e(TAG, "test");
 	}
