@@ -23,7 +23,9 @@ public class ReadEntriesActivity extends Activity {
 		}
 		super.onCreate(savedInstanceState);
 		Bundle b = getIntent().getExtras();
-		this.topicid = b.getInt("topicId");
+		/** TODO: get topic id from topic activity */
+		//this.topicid = b.getInt("topicId");
+		this.topicid = 1; 
 		setContentView(R.layout.activity_read_forum);
         lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
