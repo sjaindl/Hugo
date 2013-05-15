@@ -14,5 +14,10 @@
     <string name="name">name</string>
     <string name="time">time</string>
     <string name="date">date</string>
-
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="passwordconfirm">Password Confirm</string>
+    <string name="next">Next</string>
+    <string name="title_reg">Title</string>
+    <string name="alert_reg">Username already exists!</string>
 </resources>
