@@ -20,19 +20,8 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	private static final int TEST_CAT_ID = 42;
 	private static final int TEST_TOPIC_ID = 101;
 	
-	public void testInstance(){
-		AccessDataBase instance = AccessDataBase.getInstance();
-		assertNotNull(instance);
-	}
-	
-	public void testConnection(){
-		AccessDataBase instance = AccessDataBase.getInstance();
-		instance.connect();
-		assertTrue(instance.isConnected());
-		instance.close();
-		assertFalse(instance.isConnected());
-	}
-	
+
+	/*
 	public void testUserRegistration(){
 		AccessDataBase instance = AccessDataBase.getInstance();
 		connect();
@@ -59,11 +48,19 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
 	}
 	
+	*/
+	
+	@Override
+	protected void setUp() throws Exception {
+		AccessDataBase.setInstance(new AccessDataBase(getContext()));
+		super.setUp();
+	}
+
+
 	public void testPostEntry(){
-		connect();
 		int errorCode = AccessDataBase.getInstance().postEntry(TEST_TOPIC_ID, 42, TEST_ENTRY_TEXT);
 		assertEquals("Cannot post Entry", 0, errorCode);
-		List<Entry> entries = AccessDataBase.getInstance().getEntryList(TEST_CAT_ID, TEST_TOPIC_ID);
+		List<Entry> entries = AccessDataBase.getInstance().getEntryList(TEST_TOPIC_ID);
 		boolean foundEntry = false;
 		for(Entry entry : entries){
 			if(entry.getEntrytext().equals(TEST_ENTRY_TEXT)){
@@ -73,12 +70,4 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		}
 		assertTrue("Entry was not created or cannot be read",foundEntry);
 	}
-	
-	private void connect(){
-		AccessDataBase instance = AccessDataBase.getInstance();
-		if(!instance.isConnected()){
-			instance.connect();
-		}
-	}
-
 }
