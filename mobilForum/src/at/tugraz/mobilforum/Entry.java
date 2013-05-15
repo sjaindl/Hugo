@@ -15,12 +15,12 @@ public class Entry {
 		
 		this.username = "";
 		this.userpicture = "";
-		this.usersignature = "";
+		this.usersignature = ""; 
 		this.entrytext = "";
 		this.date = new Date();
 		this.rating = 0;
 	}
-	
+
 	public Entry(String username, String userpicture, String usersignature, 
 			String entrytext, Date date, int rating){
 		this.username = username;

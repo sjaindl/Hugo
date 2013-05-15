@@ -145,6 +145,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 						+ rs.getInt("userid") + "'");
 				Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
 						rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
+				
 				entries.add(actual_entry);
 			}
 		} catch (SQLException e) {
@@ -165,8 +166,9 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		} catch (java.sql.SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return topics;
+		} 
+		
+		return topics;//todo make it a map
 	}
 */
 	public ArrayList<Entry> getEntries(int topicid) {
