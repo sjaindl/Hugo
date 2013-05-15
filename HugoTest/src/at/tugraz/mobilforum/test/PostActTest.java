@@ -1,9 +1,5 @@
 package at.tugraz.mobilforum.test;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import com.jayway.android.robotium.solo.Solo;
