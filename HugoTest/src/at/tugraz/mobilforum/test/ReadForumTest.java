@@ -35,8 +35,9 @@ public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumAct
 	@Override
 	protected void setUp() throws Exception
 	{
+		AccessDataBase.setInstance(new AccessDataBase(this.getActivity().getApplicationContext()));
 		super.setUp();
-		solo = new Solo(getInstrumentation(), getActivity());
+			solo = new Solo(getInstrumentation(), getActivity());
 	}
 	
     
@@ -47,7 +48,7 @@ public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumAct
     	int category_id = AccessDataBase.getInstance().getRandomCategory();
     	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
     	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
-        int actualCount =lv.getAdapter().getCount();
+        int actualCount = lv.getChildCount();
         assertEquals(expectedCount, actualCount);
 		assertEquals(true,true);
     }
