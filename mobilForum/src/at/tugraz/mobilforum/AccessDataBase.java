@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import android.content.Context;
 import android.database.*;
@@ -117,6 +118,33 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
 						+ topicid + "','" + userid + "','" + entrytext + "')");
 		return 0;
+	}
+	
+	public Entry getRandomEntryFromTopic(int topicid){
+		Random r = new Random();
+		List<Entry> entrylist = this.getEntryList(topicid);	
+		return entrylist.get(r.nextInt(entrylist.size()));
+	}
+	
+	public int getRandomCategory(){
+		List<Integer> keysAsArray = new ArrayList<Integer>(this.getCategoryList().keySet());
+				Random r = new Random();
+
+				return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+	}
+
+	public int getRandomTopicFromCategory(int category){
+		List<Integer> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
+		Random r = new Random();
+		return keysAsArray.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
+	}
+	
+	public Map<Integer, String> getCategoryList(){
+		/*
+		 * TODO: Implement :)
+		 */
+		Map<Integer, String> categories = new HashMap<Integer, String>();
+		return categories;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {

@@ -1,15 +1,21 @@
 package at.tugraz.mobilforum.test;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.junit.Test;
 
 import com.jayway.android.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.widget.EditText;
 import android.widget.ListView;
+import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
 import at.tugraz.mobilforum.R;
 import at.tugraz.mobilforum.ReadForumActivity;
@@ -33,69 +39,37 @@ public class ReadForumTest extends ActivityInstrumentationTestCase2<ReadForumAct
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 	
-	@Test
-	public void testEntry()
-	{
-		ListView lv = (ListView)solo.getView(R.id.entryListView);
-		List<Integer>hashes = new ArrayList<Integer>();
-		List<Entry> entries = new ArrayList<Entry>();
-		EditText newPostText = (EditText)solo.getView(R.id.newPostText);
-		for(int i=0;i<50;i++){
-			/*Entry entry = new Entry("hugo" + Integer.toString(i),"avatar2", "hugosig", 
-					"Hugos message", new Date(), "00:00", 1);
-			hashes.add(entry.hashCode());
-			entries.add(entry);*/
-			
-		}
-		ReadForumBaseAdapter adapter = new ReadForumBaseAdapter(entries);
-		lv.setAdapter(adapter);
-		boolean isvalid = false;
-		/*
-		for(int i;i<50;i++){
-			solo.clickInList(i);
-			if(!isvalid){
-				assertFalse(true);
-			}
-		}*/ 
-	    //select 'Product 1'
-	    solo.clickInList(1);
-	    //solo.waitForText(hashes)
-	    assertTrue(solo.waitForText("Product 1 selected"));
-	    solo.goBack();
-	    
-	    //select 'Product 6'
-	    solo.clickInList(1);
-	    assertTrue(solo.waitForText("Product 6 selected"));
-	    solo.goBack();
-	    
-	    //scroll list to line 7
-	    solo.scrollListToLine(0,7);
-	 
-	    //click on 'Product 8'
-	    solo.clickInList(1);
-	    assertTrue(solo.waitForText("Product 8 selected"));
-	    solo.goBack();
-	    
-	    //scroll list to line 10
-	    solo.scrollListToLine(0, 10);
-	    
-	    //select 'Product 11'
-	    solo.clickInList(1);
-	    assertTrue(solo.waitForText("Product 11 selected"));
-	    solo.goBack();
-	    
-	    //select 'Product 7'
-	    solo.scrollListToLine(0, 6);
-	    solo.clickInList(1);
-	    assertTrue(solo.waitForText("Product 7 selected"));
-	    solo.goBack();
-	    
-	    //select 'Product 2'
-	    solo.scrollListToLine(0, 1);
-	    solo.clickInList(1);
-	    assertTrue(solo.waitForText("Product 2 selected"));
-	    solo.goBack();
-		
-		//assertEquals("Hugo sagt nicht 'Hallo'.", halloHugo, newPostText.getText().toString());
-	}
+    
+	/** Testing Listview by checking its item count */
+	@SmallTest
+    public void testListViewEntryCounter(){
+    	ListView lv = (ListView)solo.getView(R.id.entryListView);
+    	int category_id = AccessDataBase.getInstance().getRandomCategory();
+    	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	int expectedCount = AccessDataBase.getInstance().getEntryListCounter(category_id, topic_id);
+        int actualCount =lv.getAdapter().getCount();
+        assertEquals(expectedCount, actualCount);
+		assertEquals(true,true);
+    }
+	
+	/** Testing listview by getting a random entry and look for the entry in the database */
+	@SmallTest
+    public void testRandomListViewEntry(){
+    	ListView lv = (ListView)solo.getView(R.id.entryListView);
+    	//getEntryListCounter(int categoryid, int topicid)
+    	int category_id = AccessDataBase.getInstance().getRandomCategory();
+    	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	Entry random_entry = AccessDataBase.getInstance().getRandomEntryFromTopic(topic_id);
+    	String entrytext = random_entry.toString();
+    	boolean isentryinlist = false;
+    	for(int i=0;i<lv.getChildCount();i++){
+    	Entry entry = (Entry)lv.getItemAtPosition(i);
+    	if(entry.toString()==entrytext.toString()){
+    		isentryinlist = true;
+    		break;
+    		}
+    	}
+        assertEquals(isentryinlist, true);
+    }
+    
 }
