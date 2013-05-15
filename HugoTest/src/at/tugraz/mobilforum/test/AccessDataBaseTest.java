@@ -6,6 +6,7 @@ import java.util.Map;
 
 import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
+import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 
@@ -44,7 +45,6 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
 	}
 	
-	
 	@Override
 	protected void setUp() throws Exception {
 		AccessDataBase.setInstance(new AccessDataBase(getContext()));
@@ -64,5 +64,14 @@ public class AccessDataBaseTest extends AndroidTestCase {
 			}
 		}
 		assertTrue("Entry was not created or cannot be read",foundEntry);
+	}
+	
+	public void testCategories(){
+		Map<Integer, String> categories = AccessDataBase.getInstance().getCategoryList();
+		Cursor cursor = AccessDataBase.getInstance().query("SELECT COUNT(*) FROM categories");
+		cursor.moveToNext();
+		int catCount = cursor.getInt(0);
+		assertEquals("Cannot get categories", catCount, categories.size());
+		assertTrue("No categories!",catCount!=0);
 	}
 }
