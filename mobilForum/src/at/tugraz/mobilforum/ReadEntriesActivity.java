@@ -15,6 +15,9 @@ public class ReadEntriesActivity extends Activity {
 	private ListView lv;
 	List<Entry> entries;
 	private int topicid = 1;
+	
+
+
 	ReadEntriesBaseAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,7 @@ public class ReadEntriesActivity extends Activity {
 		}
 		super.onCreate(savedInstanceState);
 		Bundle b = getIntent().getExtras();
-		/** TODO: get topic id from topic activity */
+		/** TODO: get topic id from read topic activity */
 		//this.topicid = b.getInt("topicId");
 		this.topicid = 1; 
 		setContentView(R.layout.activity_read_forum);
@@ -43,8 +46,6 @@ public class ReadEntriesActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-					
-				 	
 				// TODO Auto-generated method stub
 				
 			}
@@ -62,6 +63,14 @@ public class ReadEntriesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.read_forum, menu);
 		
 		return true;
+	}
+	
+	public int getTopicid() {
+		return topicid;
+	}
+
+	public void setTopicid(int topicid) {
+		this.topicid = topicid;
 	}
 
 }

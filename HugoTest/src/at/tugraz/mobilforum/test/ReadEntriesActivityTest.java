@@ -13,6 +13,7 @@ import com.jayway.android.robotium.solo.Solo;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 import at.tugraz.mobilforum.AccessDataBase;
@@ -26,6 +27,8 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 
 
 	private Solo solo;
+	private int topic_id;
+	private int category_id;
 	
 	public ReadEntriesActivityTest() {
 		super(ReadEntriesActivity.class);
@@ -37,16 +40,17 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 	{
 		AccessDataBase.setInstance(new AccessDataBase(this.getActivity().getApplicationContext()));
 		super.setUp();
-			solo = new Solo(getInstrumentation(), getActivity());
+		solo = new Solo(getInstrumentation(), getActivity());
+    	this.category_id = AccessDataBase.getInstance().getRandomCategory();
+		this.topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
 	}
 	
     
 	/** Testing Listview by checking its item count */
 	@SmallTest
     public void testListViewEntryCounter(){
+		this.getActivity().setTopicid(this.topic_id);
     	ListView lv = (ListView)solo.getView(R.id.entryListView);
-    	int category_id = AccessDataBase.getInstance().getRandomCategory();
-    	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
     	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
         int actualCount = lv.getChildCount();
         assertEquals(expectedCount, actualCount);
@@ -57,15 +61,14 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 	@SmallTest
     public void testRandomListViewEntry(){
     	ListView lv = (ListView)solo.getView(R.id.entryListView);
-    	//getEntryListCounter(int categoryid, int topicid)
-    	int category_id = AccessDataBase.getInstance().getRandomCategory();
-    	int topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	this.getActivity().setTopicid(this.topic_id);
     	Entry random_entry = AccessDataBase.getInstance().getRandomEntryFromTopic(topic_id);
     	String entrytext = random_entry.toString();
     	boolean isentryinlist = false;
     	for(int i=0;i<lv.getChildCount();i++){
     	Entry entry = (Entry)lv.getItemAtPosition(i);
-    	if(entry.toString()==entrytext.toString()){
+    	Log.d("TAG", "entry: " + entry.toString() + "listentry: " + entrytext);
+    	if(entry.toString().equals(entrytext)){
     		isentryinlist = true;
     		break;
     		}
