@@ -1,6 +1,7 @@
 package at.tugraz.mobilforum;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -27,16 +28,16 @@ public class ReadEntriesActivity extends Activity {
 			AccessDataBase.setInstance(new AccessDataBase(this));
 		}
 		super.onCreate(savedInstanceState);
-		//Bundle b = getIntent().getExtras();
-		/** TODO: get topic id from read topic activity */
-		//this.topicid = b.getInt("topicId");
-		this.topicid = 1; 
-		setContentView(R.layout.activity_read_forum);
-        lv = (ListView) findViewById(R.id.entryListView);
+		this.topicid = getIntent().getIntExtra("topicid", 1);
+		setContentView(R.layout.activity_read_entry);
+        lv = (ListView) findViewById(R.id.topicListView);
         AccessDataBase db = AccessDataBase.getInstance();
         /* TODO: gettopicid getcategory
          * 
          */
+        
+        ActionBar actionBar = getActionBar();
+        //actionBar.setCustomView(view);
         
         entries = new ArrayList<Entry>();
         entries = db.getEntryList(this.topicid);

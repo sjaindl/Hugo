@@ -18,6 +18,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.categorys);
 		Log.e(TAG, "test");
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

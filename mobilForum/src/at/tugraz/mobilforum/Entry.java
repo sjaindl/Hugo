@@ -71,10 +71,6 @@ public class Entry {
 		DateFormat df = new SimpleDateFormat("hh:mm",Locale.getDefault()); 
 	    return df.format(this.date);
 	}
-	protected void setDate(Date date) {
-		
-	}
-	
 	
 	public int getRating() {
 		return rating;
