@@ -33,7 +33,7 @@ public class TopicListAdapter extends ArrayAdapter<String> {
         TextView rootTextView = (TextView) view.findViewById(R.id.topic_in_topic_list);
 
         rootTextView.setText(items.get(position));
-        return null;
+        return view;
     }
 
 }

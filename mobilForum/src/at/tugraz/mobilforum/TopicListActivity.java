@@ -126,10 +126,11 @@ public class TopicListActivity extends FragmentActivity {
 			
 			categoryId = getArguments().getInt("categoryId");
             items = new ArrayList<String>();
-            items.add("Blablabla1");
+           items.add("Blablabla1");
             items.add("Blablabla2");
-            ListView listView = (ListView) rootView.findViewById(R.id.list_topics);
+            ListView listView = (ListView) rootView.findViewById(R.id.topic_in_topic_list);
             adapter = new TopicListAdapter(getActivity(), R.layout.topic_in_topic_list, items);
+            Log.d("blaaa","blabla");
             listView.setAdapter(adapter);
 
 			return rootView;
