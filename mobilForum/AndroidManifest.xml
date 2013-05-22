@@ -51,6 +51,18 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.TopicListActivityNew"
+            android:label="@string/title_activity_topic_list_activity_new" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.FragmentActivity"
+            android:label="@string/title_activity_fragment" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.SwipeActivity"
+            android:label="@string/title_activity_swipe" >
+        </activity>
     </application>
 
 </manifest>
