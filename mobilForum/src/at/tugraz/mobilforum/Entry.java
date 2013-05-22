@@ -70,4 +70,8 @@ public class Entry {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+	
+	public String toString(){
+		return this.username + this.userpicture + this.getEntrytext() + this.getRating() + this.getUsersignature();
+	}
 }
