@@ -1,31 +1,39 @@
 package at.tugraz.mobilforum;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class TopicListAdapter extends ArrayAdapter<Map<Integer, String>> {
-	private ArrayList<Map<Integer, String>> items;
-	private Context context;
+import java.util.ArrayList;
+import java.util.Map;
 
-	public TopicListAdapter(Context context, int textViewResourceId,
-			ArrayList<Map<Integer, String>> objects) {
-		super(context, textViewResourceId, objects);
-		
-		this.context = context;
-		this.items = objects;
-	}
-	
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+public class TopicListAdapter extends ArrayAdapter<String> {
+    private ArrayList<String> items;
+    private Context context;
 
-		View view = new View(context);
-		return view;
-	}
+    public TopicListAdapter(Context context, int textViewResourceId,
+                            ArrayList<String> objects) {
+        super(context, textViewResourceId, objects);
+
+        this.context = context;
+        this.items = objects;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.topic_in_topic_list, null);
+        }
+
+        TextView rootTextView = (TextView) view.findViewById(R.id.topic_in_topic_list);
+
+        rootTextView.setText(items.get(position));
+        return null;
+    }
 
 }

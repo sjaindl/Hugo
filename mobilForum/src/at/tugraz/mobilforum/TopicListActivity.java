@@ -1,22 +1,23 @@
 package at.tugraz.mobilforum;
 
-import java.util.Locale;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class TopicListActivity extends FragmentActivity {
 
@@ -102,7 +103,8 @@ public class TopicListActivity extends FragmentActivity {
 	 */
 	public static class TopicListFragment extends Fragment {
 		int categoryId;
-		
+
+        ArrayList<String> items;
 		ListAdapter adapter;
 		
 		public static final TopicListFragment newInstance(int id, String name)
@@ -114,7 +116,7 @@ public class TopicListActivity extends FragmentActivity {
 			return f;
 		}
 
-		public TopicListFragment() {
+		private TopicListFragment() {
 		}
 
 		@Override
@@ -123,7 +125,13 @@ public class TopicListActivity extends FragmentActivity {
 			View rootView = inflater.inflate(R.layout.fragment_topic_list_topics, container, false);
 			
 			categoryId = getArguments().getInt("categoryId");
-			
+            items = new ArrayList<String>();
+            items.add("Blablabla1");
+            items.add("Blablabla2");
+            ListView listView = (ListView) rootView.findViewById(R.id.list_topics);
+            adapter = new TopicListAdapter(getActivity(), R.layout.topic_in_topic_list, items);
+            listView.setAdapter(adapter);
+
 			return rootView;
 		}
 	}

@@ -47,6 +47,9 @@
         <activity
             android:name="at.tugraz.mobilforum.TopicListActivity"
             android:label="@string/title_activity_topic_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
     </application>
 
