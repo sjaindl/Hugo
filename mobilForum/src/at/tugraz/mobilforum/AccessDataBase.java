@@ -47,14 +47,37 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (5,'Trinken')");
 		
 		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
 		
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 1, 1, 'Katze', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 1, 1, 'Hund', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 1, 1, 'Panda', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 1, 1, 'Kroko', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 1, 1, 'BŠr', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 2, 1, 'Matrix', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Stirb Langsam 1', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 2, 1, 'Stirb Langsam 2', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 2, 1, 'Stirb Langsam 3', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 2, 1, 'Stirb Langsam 4.0', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 3, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 3, 1, 'Schnitzl', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Pizza', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 3, 1, 'Lasagne', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 3, 1, 'Ente', 190000000, 3)"); 
+		
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 3, 1, 'Bier', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 3, 1, 'Wien', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Wasser', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 3, 1, 'Saft', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 3, 1, 'Cola', 190000000, 3)"); 
 		
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (2, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (3, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (4, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 1, 1, 'Kotlett', 190000000, 3)"); 
+		
 		
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
@@ -62,6 +85,9 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 1, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (6, 1, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (7, 1, 1, 'Kotlett', 190000000, 3)"); 
+		
+		
+		
 		
 		Log.d(TAG, "db created");
 	 }
@@ -141,10 +167,9 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int getRandomTopicFromCategory(int category){
-		List<Integer> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
+		//List<Topics> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
 		Random r = new Random();
-		Log.d("TAG","size: "+ Integer.toString(keysAsArray.size()));
-		return keysAsArray.get(r.nextInt(keysAsArray.size()));
+		return r.nextInt(this.getTopicList(category).size());
 	}
 	
 	public Map<Integer, String> getCategoryList(){
@@ -156,12 +181,12 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		return categories;
 	}
 	
-	public Map<Integer, String> getTopicList(int categoryid) {
-		Map<Integer, String> topics = new HashMap<Integer, String>();
-		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"topicid", "title"},  "categoryid='"
+	public List<Topic> getTopicList(int categoryid) {
+		List<Topic> topics = new ArrayList<Topic>();
+		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"topicid", "title","userid", "date"},  "categoryid='"
 				+ categoryid + "'", null, null, null, null);
 		while (cursor.moveToNext()) {
-			topics.put(cursor.getInt(0),cursor.getString(1));
+			topics.add(new Topic(cursor.getInt(0),cursor.getString(1),cursor.getLong(3),cursor.getString(2)));
 		}
 		return topics;
 	}
