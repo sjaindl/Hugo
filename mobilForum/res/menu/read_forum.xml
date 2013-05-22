@@ -1,24 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-   <item
-        android:id="@+id/login"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/Login">
-    </item>
-    
     <item
-        android:id="@+id/reply"
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/Reply">
-    </item>
-    
-    <item
-        android:id="@+id/logout"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/Logout">
-    </item>    
-    
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+
 </menu>

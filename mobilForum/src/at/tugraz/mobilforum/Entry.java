@@ -61,17 +61,10 @@ public class Entry {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
-	public void setDate(long ms) {
-		this.date = new Date(ms);
-	}
 	public int getRating() {
 		return rating;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
-	}
-	
-	public String toString(){
-		return this.username + this.userpicture + this.getEntrytext() + this.getRating() + this.getUsersignature();
 	}
 }

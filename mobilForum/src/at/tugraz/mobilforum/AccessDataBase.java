@@ -10,72 +10,17 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import android.content.Context;
-import android.database.*;
-import android.database.sqlite.*;
-import android.util.Log;
+public class AccessDataBase {
 
+	private String dburl = "sql2.freesqldatabase.com";
+	private String dbuser = "sql26597";
+	private String dbpassword = "zV5!sC7% ";
+	private String Driver = "com.mysql.jdbc.Driver";
+	private Connection connection;
+	private static AccessDataBase instance = new AccessDataBase();
 
-public class AccessDataBase extends SQLiteOpenHelper{
-	static final String USER_TABLE = "users";
-	static final String ENTRY_TABLE = "entries";
-	static final String TOPIC_TABLE = "topics";
-	static final String CATEGORY_TABLE = "categories";
-	static final String TAG = "AccessDB";
-	final static String DATABASE_NAME = "Forum.db";
-	private static AccessDataBase instance;
-	private SQLiteDatabase db;
-	
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-	  // TODO Auto-generated method stub
-		db.execSQL("CREATE TABLE "+USER_TABLE+" (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, givenname TEXT, surname TEXT, profilepic TEXT, signature TEXT)");
-		
-		db.execSQL("CREATE TABLE "+CATEGORY_TABLE+" (catid INTEGER PRIMARY KEY AUTOINCREMENT, catname TEXT NOT NULL)");
-		  
-		db.execSQL("CREATE TABLE "+TOPIC_TABLE+" (topicid INTEGER PRIMARY KEY AUTOINCREMENT, categoryid INTEGER, userid INTEGER, title TEXT NOT NULL, date INTEGER, rating INTEGER, FOREIGN KEY(categoryid) REFERENCES "+ CATEGORY_TABLE +"(catid), FOREIGN KEY(userid) REFERENCES "+ USER_TABLE +" (userid))");
-		
-		db.execSQL("CREATE TABLE "+ENTRY_TABLE+" (entryid INTEGER PRIMARY KEY AUTOINCREMENT, topicid INTEGER, userid INTEGER, entrytext TEXT NOT NULL, date INTEGER, rating INTEGER, FOREIGN KEY(topicid) REFERENCES "+ TOPIC_TABLE +" (topicid), FOREIGN KEY(userid) REFERENCES "+ USER_TABLE +" (userid))");
-		  
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (1,'Haustiere')");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (2,'Lieblingsfilme')");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (3,'Hugo')");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (4,'ESSEN')");
-		db.execSQL("INSERT INTO "+ CATEGORY_TABLE +" VALUES (5,'Trinken')");
-		
-		db.execSQL("INSERT INTO "+ USER_TABLE +" VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
-		
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
-		
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (1, 1, 1, 'Kotlett', 190000000, 3)"); 
-		
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
-		
-		Log.d(TAG, "db created");
-	 }
-	
-
-	public static boolean hasInstance(){
-		return instance != null;
-	}
-
-	// should only be called once in the Main Activity
-	public static void setInstance(AccessDataBase inst){
-		instance = inst;
-	}
-	
-	public AccessDataBase(Context context) {
-		  super(context, DATABASE_NAME, null,1); 
-		  db = getWritableDatabase();
+	private AccessDataBase() {
 	}
 
 	public static AccessDataBase getInstance() {
@@ -83,25 +28,48 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int approveUser(String username, String password) {
-		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
-				+ username + "' and password = '" + password+ "'", null, null, null, null);
-		if (cursor.moveToNext()) {
-			int userid = cursor.getInt(0);
+		ResultSet rs = this
+				.returnQuery("Select userid from users where username="
+						+ username + " and password =" + password);
+		String userid = "";
+		try {
+			while (rs.next()) {
+				userid = rs.getString("userid");
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		if (userid != null) {
 			// auth: yes
-			return userid;
+			int iuserid = Integer.parseInt(userid);
+
+			return iuserid;
 		} else {
 			return 0;
 		}
 	}
 
 	public int registerUser(String username, String password, String profilepic) {
-		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
-				+ username + "'", null, null, null, null);
-		if (cursor.moveToNext()) {
+		ResultSet rs = this
+				.returnQuery("Select userid from users where username='"
+						+ username + "'");
+		String userid = "";
+		try {
+			while (rs.next()) {
+				userid = rs.getString("userid");
+			}
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		if (userid != null) {
 			// auth: yes
 			return -2;
 		} else {
-			db.execSQL("Insert into users (username,password,profilepic) values ('"
+			rs = this
+					.returnQuery("Insert into users (username,password,profilepic) values ('"
 							+ username
 							+ "','"
 							+ password
@@ -113,97 +81,144 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int postTopic(String title, int categoryid, int userid) {
-		db.execSQL("Insert into topics (categoryid,userid,title) values ('"
+		ResultSet rs = this
+				.returnQuery("Insert into topics (categoryid,userid,title) values ('"
 						+ categoryid + "','" + userid + "','" + title + "')");
 		return 0;
 	}
 
 	public int postEntry(int topicid, int userid, String entrytext) {
-		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
+		ResultSet rs = this
+				.returnQuery("Insert into entries (topicid,userid,entrytext) values ('"
 						+ topicid + "','" + userid + "','" + entrytext + "')");
 		return 0;
 	}
-	
-	public Entry getRandomEntryFromTopic(int topicid){
-		Random r = new Random();
-		List<Entry> entrylist = this.getEntryList(topicid);	
-		return entrylist.get(r.nextInt(entrylist.size()));
-	}
-	
-	public int getRandomCategory(){
-		List<Integer> keysAsArray = new ArrayList<Integer>(this.getCategoryList().keySet());
-				Random r = new Random();
 
-				return keysAsArray.get(r.nextInt(keysAsArray.size()));
-	}
-
-	public int getRandomTopicFromCategory(int category){
-		List<Integer> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
-		Random r = new Random();
-		Log.d("TAG","size: "+ Integer.toString(keysAsArray.size()));
-		return keysAsArray.get(r.nextInt(keysAsArray.size()));
-	}
-	
-	public Map<Integer, String> getCategoryList(){
-		Map<Integer, String> categories = new HashMap<Integer, String>();
-		Cursor cursor = db.query(CATEGORY_TABLE, new String[]{"catid", "catname"},  null, null, null, null, null);
-		while (cursor.moveToNext()) {
-			categories.put(cursor.getInt(0),cursor.getString(1));
+	public List<Entry> getEntryList(int categoryid, int topicid) {
+		
+		List<Entry> entries = new LinkedList<Entry>();
+		ResultSet rs = this
+				.returnQuery("select * from topics where categoryid='"
+						+ categoryid + "' and topicid='" +topicid+"'");
+		try {
+			while(rs.next())
+			{
+				ResultSet rs_user = this.returnQuery("select * from users where userid='"
+						+ rs.getInt("userid") + "'");
+				Entry actual_entry = new Entry(rs_user.getString("username"), rs_user.getString("userpicture"),
+						rs_user.getString("signature"), rs.getString("entrytext"), rs.getDate("date"), rs.getInt("rating"));
+				
+				entries.add(actual_entry);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return categories;
+		return entries;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {
 		Map<Integer, String> topics = new HashMap<Integer, String>();
-		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"topicid", "title"},  "categoryid='"
-				+ categoryid + "'", null, null, null, null);
-		while (cursor.moveToNext()) {
-			topics.put(cursor.getInt(0),cursor.getString(1));
-		}
-		return topics;
-	}
-
-	public List<Entry> getEntryList(int topicid) {
-
-		Log.d(TAG, "read db entries");
-		List<Entry> entries = new ArrayList<Entry>();
-		Cursor cursor = db.query(ENTRY_TABLE, new String[]{"userid","rating","entrytext","date"}, "topicid='"+ topicid + "'", null, null, null, null);
-		while (cursor.moveToNext()) {
-			int userid = cursor.getInt(0);
-			Entry entry = new Entry();
-			entry.setRating(cursor.getInt(1));
-			entry.setEntrytext(cursor.getString(2));
-
-			entry.setDate(cursor.getLong(3));
-
-			Cursor cuser = db.query(USER_TABLE, new String[]{"username","profilepic","signature"}, "userid='"+ userid + "'", null, null, null, null);
-
-			while (cuser.moveToNext()) {
-				entry.setUsername(cuser.getString(0));
-				entry.setUserpicture(cuser.getString(1));
-				entry.setUsersignature(cuser.getString(2));
+		ResultSet rs = this
+				.returnQuery("select title from topics where categoryid='"
+						+ categoryid + "'");
+		try {
+			while (rs.next()) {
+				topics.put(rs.getInt("id"),rs.getString("title"));
 			}
-
-			entries.add(entry);
-		}
-
-		return entries;
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return topics;//todo make it a map
 	}
 
-	public Cursor query(String query) {
-		Cursor c = db.rawQuery(query, null);
-		return c;
+	public ArrayList<Entry> getEntries(int topicid) {
+
+		ArrayList<Entry> entries = new ArrayList<Entry>();
+		ResultSet rs = this.returnQuery("select * from entries where topicid='"
+				+ topicid + "'");
+		try {
+			while (rs.next()) {
+				int userid = Integer.parseInt(rs.getString("userid"));
+				Entry entry = new Entry();
+				entry.setRating(Integer.parseInt(rs.getString("rating")));
+				entry.setEntrytext(rs.getString("entrytext"));
+
+				entry.setDate(rs.getDate("date")); // Problem!!!
+
+				ResultSet rs1 = this
+						.returnQuery("select * from users where userid='"
+								+ userid + "'");
+
+				while (rs1.next()) {
+					entry.setUsername(rs1.getString("username"));
+					entry.setUserpicture(rs1.getString("profilepic"));
+					entry.setUsersignature(rs1.getString("signature"));
+				}
+
+				entries.add(entry);
+			}
+			return entries;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void close() {
+		if (this.connection != null) {
+			try {
+				this.connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
-	public void execute(String query) {
-		db.execSQL(query);
+	public boolean isConnected(){
+		boolean connected = false;
+		try {
+			connected = connection != null && connection.isValid(0);
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return connected;
 	}
 
-	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
+	public void connect() {
+		try {
+			Class.forName(this.Driver);
+			this.connection = DriverManager.getConnection(this.dburl,
+					this.dbuser, this.dbpassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error Connecting with User:" + this.dbuser
+					+ " and Password:" + this.dbpassword);
+		}
+	}
 
-		Log.d(TAG, "db upgraded");
+	public ResultSet returnQuery(String query) {
+		try {
+			Statement stmt = this.connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			return rs;
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean runQuery(String query) {
+		try {
+			Statement stmt = this.connection.createStatement();
+			return stmt.execute(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

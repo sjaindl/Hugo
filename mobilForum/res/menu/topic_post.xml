@@ -1,8 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/btn_new_topic"
-        android:title="Post"
-        android:menuCategory="system"
-        android:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_save" android:enabled="false"/>
-
-</menu>

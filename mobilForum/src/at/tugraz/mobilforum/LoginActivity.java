@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class LoginActivity extends Activity {
 	
 	private int countRows;
-/*
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,5 +52,5 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-*/
+
 }
