@@ -32,7 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/Category"
         android:layout_below="@+id/Topic"
-        android:layout_marginTop="39dp" >
+        android:layout_marginTop="39dp"
+        android:dividerHeight="@dimen/entrylistdivider"
+        tools:listitem="@android:layout/simple_list_item_1" >
+
     </ListView>
 
 </RelativeLayout>

@@ -74,4 +74,17 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		assertEquals("Cannot get categories", catCount, categories.size());
 		assertTrue("No categories!",catCount!=0);
 	}
+	
+	public void testGetAvatarFilenames(){
+		List<String> avatars = AccessDataBase.getInstance().getAvatarFilenames();
+		List<String> ret_avatars = new ArrayList<String>();
+		Cursor cursor = AccessDataBase.getInstance().query("SELECT profilepic FROM users");
+		while (cursor.moveToNext()) {
+			ret_avatars.add(cursor.getString(0));
+		}		
+		assertEquals(avatars,ret_avatars);
+		
+	}
+	
+	
 }

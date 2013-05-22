@@ -18,6 +18,7 @@ import android.database.sqlite.*;
 import android.util.Log;
 
 
+
 public class AccessDataBase extends SQLiteOpenHelper{
 	static final String USER_TABLE = "users";
 	static final String ENTRY_TABLE = "entries";
@@ -58,7 +59,9 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (2, 2, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (3, 3, 1, 'Kotlett', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (4, 4, 1, 'Kotlett', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 5, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (5, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (6, 1, 1, 'Kotlett', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ ENTRY_TABLE +" VALUES (7, 1, 1, 'Kotlett', 190000000, 3)"); 
 		
 		Log.d(TAG, "db created");
 	 }
@@ -75,7 +78,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	
 	public AccessDataBase(Context context) {
 		  super(context, DATABASE_NAME, null,1); 
-		  db = getWritableDatabase();
+		  db = getWritableDatabase();		
 	}
 
 	public static AccessDataBase getInstance() {
@@ -204,6 +207,16 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 
 		Log.d(TAG, "db upgraded");
+	}
+	
+	public List<String> getAvatarFilenames(){
+		List<String> avatars = new ArrayList<String>();
+		// Query (select profilepic from user)
+		Cursor cursor = db.query(USER_TABLE, new String[]{"profilepic"},null,null,null,null,null);
+		while (cursor.moveToNext()) {
+			avatars.add(cursor.getString(0));
+		}
+		return avatars;
 	}
 
 }

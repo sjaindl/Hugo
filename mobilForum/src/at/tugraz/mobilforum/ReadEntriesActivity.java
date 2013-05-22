@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class ReadEntriesActivity extends Activity {
 			AccessDataBase.setInstance(new AccessDataBase(this));
 		}
 		super.onCreate(savedInstanceState);
-		Bundle b = getIntent().getExtras();
+		//Bundle b = getIntent().getExtras();
 		/** TODO: get topic id from read topic activity */
 		//this.topicid = b.getInt("topicId");
 		this.topicid = 1; 
@@ -46,15 +48,17 @@ public class ReadEntriesActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
-				
+				if(adapter.isChildExpanded(arg2)){
+					TextView tv1 = (TextView)arg1.findViewById(R.id.entryTextView);
+					tv1.setMaxLines(2);
+					adapter.setExpandedStatus(false, arg2);
+				}else{
+					TextView tv2 = (TextView)arg1.findViewById(R.id.entryTextView);
+					tv2.setMaxLines(Integer.MAX_VALUE);
+					adapter.setExpandedStatus(true, arg2);
+				}
 			}
-        	 
-        	
-				
 			});
- 
-
 	}
 
 	@Override
