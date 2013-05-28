@@ -16,6 +16,8 @@ import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
 import android.util.Log;
+import at.tugraz.mobilforum.Entry;
+import at.tugraz.mobilforum.Topic;
 
 
 

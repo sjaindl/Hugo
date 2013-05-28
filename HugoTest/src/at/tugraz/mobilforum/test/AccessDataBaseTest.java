@@ -6,6 +6,7 @@ import java.util.Map;
 
 import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
+import at.tugraz.mobilforum.Topic;
 import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
@@ -41,8 +42,8 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	public void testPostTopic(){
 		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
 		assertEquals("Cannot post Topic", 0, errorCode);
-		Map<Integer, String> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
-		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
+		List<Topic> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		assertTrue("Topic was not created or cannot be read",topics.contains(TEST_TOPIC_NAME));
 	}
 	
 	@Override
