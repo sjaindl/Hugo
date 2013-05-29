@@ -39,5 +39,10 @@
     <string name="Login">Login</string>
     <string name="Logout">Logout</string>
     <string name="title_activity_read_topics">ReadTopicsActivity</string>
+    
+    <string name="dialog_uname">username</string>
+    <string name="dialog_submit">submit</string>
+    <string name="dialog_cancel">cancel</string>
+    <string name="dialog_password">password</string>
 
 </resources>
