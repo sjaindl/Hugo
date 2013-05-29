@@ -167,6 +167,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int getRandomTopicFromCategory(int category){
+		/* TODO: change return type to Topic */
 		//List<Topics> keysAsArray = new ArrayList<Integer>(this.getTopicList(category).keySet());
 		Random r = new Random();
 		return r.nextInt(this.getTopicList(category).size());
