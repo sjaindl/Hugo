@@ -16,12 +16,12 @@ import android.widget.ImageView;
 public class ReadTopicsBaseAdapter extends BaseAdapter {
 	private List<Topic> topics;
 	private static LayoutInflater inflater=null;
-	private Activity activity;
+	private Context context;
 
-	public ReadTopicsBaseAdapter(Activity a, List<Topic> entries) {
-		this.activity = a;
+	public ReadTopicsBaseAdapter(Context c, List<Topic> entries) {
+		this.context = c;
         this.topics = entries;  
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -50,7 +50,7 @@ public class ReadTopicsBaseAdapter extends BaseAdapter {
 	        View vi=convertView;
 	        TextView tv;
 	        if(convertView==null)
-	        	vi = new TextView(activity);
+	        	vi = new TextView(context);
 
 	        tv = (TextView)vi;
 	        Topic t = this.getItem(position);

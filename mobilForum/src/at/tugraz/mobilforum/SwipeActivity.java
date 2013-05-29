@@ -22,6 +22,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.display.DisplayManager.DisplayListener;
 import android.os.Bundle;
@@ -34,9 +35,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SwipeActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -179,21 +182,54 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
        @Override
        public View onCreateView(LayoutInflater inflater, ViewGroup container,
                Bundle savedInstanceState) {
-           View rootView = inflater.inflate(R.layout.fragment_topic_list_activity_new_dummy, container, false);
+           View rootView = inflater.inflate(R.layout.activity_read_topics, container, false);
            Bundle args = getArguments();
            //DO STUFF HERE
-          ListView listview = (ListView) rootView.findViewById(R.id.listblabla);
+//          ListView listview = (ListView) rootView.findViewById(R.id.listblabla);
+//
+//           ArrayList<String> list = new ArrayList<String>();
+//           ArrayAdapter<String> adapter;
+//           adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, list);
+//          
+//           for(int i = 0; i < 4; i++){
+//          
+//        	   list.add(i, getDatafromDB(i));
+//        	   
+//           }
+//          listview.setAdapter(adapter);
 
-           ArrayList<String> list = new ArrayList<String>();
-           ArrayAdapter<String> adapter;
-           adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, list);
-          
-           for(int i = 0; i < 4; i++){
-          
-        	   list.add(i, getDatafromDB(i));
-        	   
-           }
-          listview.setAdapter(adapter);
+       	 ListView lv;
+       	 List<Topic> topics;
+           lv = (ListView) rootView.findViewById(R.id.topicListView);
+           AccessDataBase db = AccessDataBase.getInstance();
+           /* TODO: gettopicid getcategory
+            * 
+            */
+           
+           
+           topics = new ArrayList<Topic>();
+           Topic t1 = new Topic(1,"1. Topic", 320459235, "user1");
+           Topic t2 = new Topic(2, "2. Topic", 234234523, "user2");
+           topics.add(t1);
+           topics.add(t2);
+           
+           final Context context = inflater.getContext();
+           final ReadTopicsBaseAdapter readTopicsBaseAdapter;
+           readTopicsBaseAdapter = new ReadTopicsBaseAdapter(context,topics);
+           
+           lv.setAdapter(readTopicsBaseAdapter);
+           lv.setOnItemClickListener(new OnItemClickListener() {
+
+   			@Override
+   			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+   					long arg3) {
+   				Intent i = new Intent();
+
+   				i.putExtra("topicid", readTopicsBaseAdapter.getItem(arg2).getTopicid());
+   				i.setClass(context, ReadEntriesActivity.class);
+   				startActivity(i);
+   			}
+   			});
 
           return rootView;
        }
