@@ -306,8 +306,6 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	public boolean isUsernameTaken(String username) {
 		Cursor cursor = db.query(USER_TABLE, new String[] { "count(*)" },
 				"username='" + username + "'", null, null, null, null);
-
-		Log.d("DT", cursor.getString(0));
 		if (cursor.moveToFirst()) {
 			Integer userID = cursor.getInt(0);
 			if (userID > 0) {

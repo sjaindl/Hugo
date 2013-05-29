@@ -24,6 +24,10 @@ public class ImageAdapter extends BaseAdapter{
 						R.drawable.daisy, R.drawable.elefant, R.drawable.ente,
 						R.drawable.maus, R.drawable.mickey, R.drawable.minnie
 	    };
+	 
+	 private String[] imageTitle = {
+			 "avatar","bob","calimero","daisy","elefant","ente","maus","mickey","minnie"
+	 };
 	
 	public ImageAdapter(Context context, int resourceId) {
 		//super(context, resourceId);
@@ -64,9 +68,8 @@ public class ImageAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) {
-		
-		// TODO Auto-generated method stub
-		return null;
+
+		return imageTitle[position];
 	}
 	
 

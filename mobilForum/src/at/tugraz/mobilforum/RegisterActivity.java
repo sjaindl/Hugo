@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -18,6 +19,8 @@ public class RegisterActivity extends Activity {
 		setContentView(R.layout.activity_register);
 		findViewById(R.id.activity_register_button_next).setEnabled(true);
 		final Button button = (Button) findViewById(R.id.activity_register_button_next);
+		
+		
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				checkInput();
@@ -26,7 +29,12 @@ public class RegisterActivity extends Activity {
 	}
 
 	void checkInput() {
-		 AccessDataBase db = AccessDataBase.getInstance();
+		if(!AccessDataBase.hasInstance()){
+			AccessDataBase.setInstance(new AccessDataBase(this));
+			AccessDataBase.isDefined = false;
+		}
+		AccessDataBase db = AccessDataBase.getInstance();
+		 
 		Editable username = ((EditText) findViewById(R.id.activity_register_username))
 				.getText();
 		Editable passwd = ((EditText) findViewById(R.id.activity_register_edit_password))
@@ -39,7 +47,7 @@ public class RegisterActivity extends Activity {
 				|| passwdconf.toString().isEmpty()) {
 			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
 		}
-		else if(passwdconf.toString().equals(passwd.toString())){
+		else if(!passwdconf.toString().equals(passwd.toString())){
 			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
 			
 		}
@@ -48,8 +56,12 @@ public class RegisterActivity extends Activity {
 		}
 		else
 		{
-				
+			Intent i = new Intent();
 
+			i.putExtra("username", username.toString());
+			i.putExtra("password",passwd.toString());
+			i.setClass(getApplicationContext(), RegisterAvatarActivity.class);
+			startActivity(i);
 		}
 	}
 

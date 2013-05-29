@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ReadTopicsActivity extends Activity {
-	
+
 	private int categoryid;
 	private ListView lv;
 	private List<Topic> topics;
@@ -28,7 +28,6 @@ public class ReadTopicsActivity extends Activity {
 		setContentView(R.layout.activity_read_topics);
 		if(!AccessDataBase.hasInstance()){
 			AccessDataBase.setInstance(new AccessDataBase(this));
-			//AccessDataBase.isDefined = false;
 		}
 		super.onCreate(savedInstanceState);
 		//Bundle b = getIntent().getExtras();
@@ -36,7 +35,7 @@ public class ReadTopicsActivity extends Activity {
 		//this.topicid = b.getInt("topicId");
 		this.categoryid = 1; 
 		setContentView(R.layout.activity_read_topics);
-        lv = (ListView) findViewById(R.id.entryListView);
+        lv = (ListView) findViewById(R.id.topicListView);
         AccessDataBase db = AccessDataBase.getInstance();
         /* TODO: gettopicid getcategory
          * 
@@ -58,7 +57,7 @@ public class ReadTopicsActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Intent i = new Intent();
-				
+
 				i.putExtra("topicid", readTopicsBaseAdapter.getItem(arg2).getTopicid());
 				i.setClass(getApplicationContext(), ReadEntriesActivity.class);
 				startActivity(i);
