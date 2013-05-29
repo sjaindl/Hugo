@@ -1,4 +1,4 @@
-package com.example.testfordialog;
+package at.tugraz.mobilforum;
 
 
 import android.os.Bundle;
