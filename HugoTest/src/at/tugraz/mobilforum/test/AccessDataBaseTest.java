@@ -6,6 +6,8 @@ import java.util.Map;
 
 import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
+import at.tugraz.mobilforum.Topic;
+import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 
@@ -40,10 +42,17 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	public void testPostTopic(){
 		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
 		assertEquals("Cannot post Topic", 0, errorCode);
-		Map<Integer, String> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
-		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
+		List<Topic> topics =  AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		boolean isInList = false;
+		for(int i=0;i<topics.size();i++){
+			if(topics.get(i).getTitle().equals(TEST_TOPIC_NAME)){
+				isInList = true;
+				break;
+			}
+		}
+		assertTrue("Topic was not created or cannot be read", isInList);
 	}
-	
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -65,4 +74,26 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		}
 		assertTrue("Entry was not created or cannot be read",foundEntry);
 	}
+	
+	public void testCategories(){
+		Map<Integer, String> categories = AccessDataBase.getInstance().getCategoryList();
+		Cursor cursor = AccessDataBase.getInstance().query("SELECT COUNT(*) FROM categories");
+		cursor.moveToNext();
+		int catCount = cursor.getInt(0);
+		assertEquals("Cannot get categories", catCount, categories.size());
+		assertTrue("No categories!",catCount!=0);
+	}
+	
+	public void testGetAvatarFilenames(){
+		List<String> avatars = AccessDataBase.getInstance().getAvatarFilenames();
+		List<String> ret_avatars = new ArrayList<String>();
+		Cursor cursor = AccessDataBase.getInstance().query("SELECT profilepic FROM users");
+		while (cursor.moveToNext()) {
+			ret_avatars.add(cursor.getString(0));
+		}		
+		assertEquals(avatars,ret_avatars);
+		
+	}
+	
+	
 }
