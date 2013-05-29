@@ -114,7 +114,7 @@ public class TopicPostActivity extends Activity {
 	        case android.R.id.home:
 	            // This is called when the Home (Up) button is pressed
 	            // in the Action Bar.
-	            parentActivityIntent = new Intent(this, ReadForumActivity.class);
+	            parentActivityIntent = new Intent(this, ReadEntriesActivity.class);
 	            parentActivityIntent.addFlags(
 	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	                    Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -127,7 +127,7 @@ public class TopicPostActivity extends Activity {
 				EditText inputTitle = (EditText)findViewById(R.id.newTopicTitle);
 				AccessDataBase.getInstance().postTopic(inputTitle.getText().toString(), 0, 0);
 				
-				parentActivityIntent = new Intent(this, ReadForumActivity.class);
+				parentActivityIntent = new Intent(this, ReadEntriesActivity.class);
 	            parentActivityIntent.addFlags(
 	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	                    Intent.FLAG_ACTIVITY_NEW_TASK);

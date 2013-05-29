@@ -12,13 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ImageView;
 
-public class ReadForumBaseAdapter extends BaseAdapter {
+public class ReadEntriesBaseAdapter extends BaseAdapter {
 	private List<Entry> entries;
 	private static LayoutInflater inflater=null;
 	private Activity activity;
 	private List<Boolean> isExpanded;
 
-	public ReadForumBaseAdapter(Activity a, List<Entry> entries) {
+	public ReadEntriesBaseAdapter(Activity a, List<Entry> entries) {
 		this.activity = a;
         this.entries = entries;  
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

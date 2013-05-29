@@ -24,6 +24,9 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	static final String TOPIC_TABLE = "topics";
 	static final String CATEGORY_TABLE = "categories";
 	static final String TAG = "AccessDB";
+	final static String DATABASE_NAME = "Forum.db";
+	private static AccessDataBase instance;
+	private SQLiteDatabase db;
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -59,9 +62,6 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		
 		Log.d(TAG, "db created");
 	 }
-
-	final static String DATABASE_NAME = "Forum.db";
-	private static AccessDataBase instance;
 	
 
 	public static boolean hasInstance(){
@@ -75,7 +75,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	
 	public AccessDataBase(Context context) {
 		  super(context, DATABASE_NAME, null,1); 
-		  
+		  db = getWritableDatabase();
 	}
 
 	public static AccessDataBase getInstance() {
@@ -83,10 +83,8 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int approveUser(String username, String password) {
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "' and password = '" + password+ "'", null, null, null, null);
-		db.close();
 		if (cursor.moveToNext()) {
 			int userid = cursor.getInt(0);
 			// auth: yes
@@ -97,15 +95,12 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	}
 
 	public int registerUser(String username, String password, String profilepic) {
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(USER_TABLE, new String[]{"userid"}, "username='"
 				+ username + "'", null, null, null, null);
-		db.close();
 		if (cursor.moveToNext()) {
 			// auth: yes
 			return -2;
 		} else {
-			db = getWritableDatabase();
 			db.execSQL("Insert into users (username,password,profilepic) values ('"
 							+ username
 							+ "','"
@@ -113,24 +108,19 @@ public class AccessDataBase extends SQLiteOpenHelper{
 							+ "','"
 							+ profilepic
 							+ "')");
-			db.close();
 			return this.approveUser(username, password);
 		}
 	}
 
 	public int postTopic(String title, int categoryid, int userid) {
-		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL("Insert into topics (categoryid,userid,title) values ('"
 						+ categoryid + "','" + userid + "','" + title + "')");
-		db.close();
 		return 0;
 	}
 
 	public int postEntry(int topicid, int userid, String entrytext) {
-		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
 						+ topicid + "','" + userid + "','" + entrytext + "')");
-		db.close();
 		return 0;
 	}
 	
@@ -156,24 +146,20 @@ public class AccessDataBase extends SQLiteOpenHelper{
 	
 	public Map<Integer, String> getCategoryList(){
 		Map<Integer, String> categories = new HashMap<Integer, String>();
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(CATEGORY_TABLE, new String[]{"catid", "catname"},  null, null, null, null, null);
 		while (cursor.moveToNext()) {
 			categories.put(cursor.getInt(0),cursor.getString(1));
 		}
-		db.close();
 		return categories;
 	}
 	
 	public Map<Integer, String> getTopicList(int categoryid) {
 		Map<Integer, String> topics = new HashMap<Integer, String>();
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(TOPIC_TABLE, new String[]{"topicid", "title"},  "categoryid='"
 				+ categoryid + "'", null, null, null, null);
 		while (cursor.moveToNext()) {
 			topics.put(cursor.getInt(0),cursor.getString(1));
 		}
-		db.close();
 		return topics;
 	}
 
@@ -181,7 +167,6 @@ public class AccessDataBase extends SQLiteOpenHelper{
 
 		Log.d(TAG, "read db entries");
 		List<Entry> entries = new ArrayList<Entry>();
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(ENTRY_TABLE, new String[]{"userid","rating","entrytext","date"}, "topicid='"+ topicid + "'", null, null, null, null);
 		while (cursor.moveToNext()) {
 			int userid = cursor.getInt(0);
@@ -202,21 +187,16 @@ public class AccessDataBase extends SQLiteOpenHelper{
 			entries.add(entry);
 		}
 
-		db.close();
 		return entries;
 	}
 
 	public Cursor query(String query) {
-		SQLiteDatabase db = getReadableDatabase();
 		Cursor c = db.rawQuery(query, null);
-		db.close();
 		return c;
 	}
 	
 	public void execute(String query) {
-		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL(query);
-		db.close();
 	}
 
 	@Override
