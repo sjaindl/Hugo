@@ -45,6 +45,26 @@
         <activity android:name="at.tugraz.mobilforum.TopicPostActivity" >
         </activity>
         <activity
+            android:name="at.tugraz.mobilforum.TopicListActivity"
+            android:label="@string/title_activity_topic_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.TopicListActivityNew"
+            android:label="@string/title_activity_topic_list_activity_new" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.FragmentActivity"
+            android:label="@string/title_activity_fragment" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.SwipeActivity"
+            android:label="@string/title_activity_swipe" >
+        </activity>
+        
+        <activity
             android:name="at.tugraz.mobilforum.ReadTopicsActivity"
             android:label="@string/title_activity_read_topics" >
             

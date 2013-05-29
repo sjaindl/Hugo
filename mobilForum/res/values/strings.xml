@@ -21,9 +21,15 @@
     <string name="title_reg">Title</string>
     <string name="alert_reg">Username already exists!</string>
     <string name="title_activity_topic_post">New Topic</string>
+    <string name="title_activity_topic_list">TopicListActivity</string>
+    <string name="title_section1">Category 1</string>
+    <string name="title_activity_topic_list_activity_new">TopicListActivityNew</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_fragment">FragmentActivity</string>
+    <string name="title_activity_swipe">SwipeActivity</string>
     <string name="Reply">Reply</string>
     <string name="Login">Login</string>
     <string name="Logout">Logout</string>
     <string name="title_activity_read_topics">ReadTopicsActivity</string>
-
 </resources>
