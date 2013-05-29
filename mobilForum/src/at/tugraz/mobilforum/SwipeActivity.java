@@ -128,15 +128,7 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                     // a launchpad into the other demonstrations in this example application.
                     return new LaunchpadSectionFragment();
 
-                case 1:
-
-                	 Fragment fragment = new DummySectionFragment();
-                     Bundle args = new Bundle();
-                     args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-                     fragment.setArguments(args);
-                     return fragment;
-                case 2:
-                	
+              
                 
                 	
                 default:
@@ -221,8 +213,8 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_section_dummy, container, false);
             Bundle args = getArguments();
-            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                    Integer.toString(args.getInt(ARG_OBJECT)));
+            ((TextView) rootView.findViewById(android.R.id.text1)).setText("This is a text..!");
+            //((TextView) rootView.findViewById(android.R.id.text2)).setText("In ya face!");
 
             return rootView;
         }
