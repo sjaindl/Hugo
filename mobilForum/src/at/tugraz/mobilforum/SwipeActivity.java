@@ -190,7 +190,7 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                             // to the external activity.
                             Intent externalActivityIntent = new Intent(Intent.ACTION_PICK);
                             externalActivityIntent.setType("image/*");
-                            externalActivityIntent.addFlags(
+                            externalActivityInssh-rsa tent.addFlags(
                                     Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                             startActivity(externalActivityIntent);
                         }
