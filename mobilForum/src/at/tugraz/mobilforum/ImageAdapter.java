@@ -22,11 +22,12 @@ public class ImageAdapter extends BaseAdapter{
 	 private Integer[] mThumbIds = {
 			 			R.drawable.avatar2, R.drawable.bob, R.drawable.calimero,
 						R.drawable.daisy, R.drawable.elefant, R.drawable.ente,
-						R.drawable.maus, R.drawable.mickey, R.drawable.minnie
+						R.drawable.maus, R.drawable.mickey, R.drawable.minnie,
+						R.drawable.gary, R.drawable.sandy, R.drawable.spongebob
 	    };
 	 
 	 private String[] imageTitle = {
-			 "avatar","bob","calimero","daisy","elefant","ente","maus","mickey","minnie"
+			 "avatar","bob","calimero","daisy","elefant","ente","maus","mickey","minnie","gary","sandy","spongebob"
 	 };
 	
 	public ImageAdapter(Context context, int resourceId) {
