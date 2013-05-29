@@ -18,8 +18,6 @@ public class MainActivity extends Activity {
 		db.getEntryList(1);
 		setContentView(R.layout.activity_main);
 		Log.e(TAG, "test");
-		
-		
 	}
 	
 	@Override

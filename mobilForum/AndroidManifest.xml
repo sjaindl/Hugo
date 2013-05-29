@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name="at.tugraz.mobilforum.ReadForumActivity"
-            android:label="@string/title_activity_read_forum" >
+            android:label="@string/title_activity_read_entries" >
         </activity>
         <activity
             android:name="at.tugraz.mobilforum.RegisterAvatarActivity"
@@ -78,6 +78,16 @@
         <activity
             android:name="at.tugraz.mobilforum.ReadTopicsActivity"
             android:label="@string/title_activity_read_topics" >
+            
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.ReadEntriesActivity"
+            android:label="@string/title_activity_read_entries" >
             
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
