@@ -17,7 +17,7 @@ public class RegisterAvatarActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_avatar_register2);
+		setContentView(R.layout.activity_avatar_register);
 		
 		final GridView avatar_grid = (GridView) findViewById(R.id.avatar_grid);
 		
@@ -27,11 +27,9 @@ public class RegisterAvatarActivity extends Activity {
 				R.drawable.maus, R.drawable.mickey, R.drawable.minnie };
 		
 		adapter = new ImageAdapter(this,
-				R.layout.activity_avatar_register_grid, avatarPictures);
+				R.layout.activity_avatar_register);
 		
 		avatar_grid.setAdapter(adapter);
-		//ImageView image = (ImageView) findViewById(R.id.activity_register_grid_imageview);
-		//image.setImageResource(R.drawable.avatar2);
 	
 
 		avatar_grid.setOnItemClickListener(new OnItemClickListener() {
@@ -40,10 +38,11 @@ public class RegisterAvatarActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				avatar_grid.getAdapter().getView(arg2, arg1, null);
+				
 			}
 		});
-		
-		/*final Button button = (Button) findViewById(R.id.activity_avatar_button_next);
+		/*
+		final Button button = (Button) findViewById(R.id.activity_avatar_button_next);
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				adapter.notifyDataSetChanged();

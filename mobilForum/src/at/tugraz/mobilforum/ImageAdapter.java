@@ -1,5 +1,7 @@
 package at.tugraz.mobilforum;
 
+import java.util.List;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter{
@@ -14,37 +17,40 @@ public class ImageAdapter extends BaseAdapter{
 	private Context context;
 	private int resource;
 	private Integer[] imageRessources;
+	private List<ImageView> images;
 	
-	public ImageAdapter(Context context, int resourceId, Integer[] imageRessources) {
+	 private Integer[] mThumbIds = {
+			 			R.drawable.avatar2, R.drawable.bob, R.drawable.calimero,
+						R.drawable.daisy, R.drawable.elefant, R.drawable.ente,
+						R.drawable.maus, R.drawable.mickey, R.drawable.minnie
+	    };
+	
+	public ImageAdapter(Context context, int resourceId) {
 		//super(context, resourceId);
 		
 		// TODO Auto-generated constructor stub
 		
 		this.context = context;
 		this.resource = resourceId;
-		this.imageRessources = imageRessources;
+		//this.imageRessources = imageRessources;
 		notifyDataSetChanged();
 		
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d("TestAdapter", "Adapter: getView");
-		ViewHolder holder; 
-		
-		if (convertView == null){
-			LayoutInflater inflater = LayoutInflater.from(context);
-			convertView = inflater.inflate(resource, parent, false);
-			holder = new ViewHolder();
-			holder.avatar = (ImageView) convertView.findViewById(R.id.activity_register_grid_imageview);
-			convertView.setTag(holder);
-		} else{
-			holder = (ViewHolder) convertView.getTag();
-		}
-		
-		holder.avatar.setImageResource(imageRessources[position]);		
-		
-		return convertView;
+        ImageView imageView;
+        if (convertView == null) {  // if it's not recycled, initialize some attributes
+            imageView = new ImageView(this.context);
+            imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(2, 2, 2, 2);
+        } else {
+            imageView = (ImageView) convertView;
+        }
+
+        imageView.setImageResource(mThumbIds[position]);
+        return imageView;
 	}
 	
 	public static class ViewHolder {
@@ -53,15 +59,16 @@ public class ImageAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		 return mThumbIds.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 	@Override
 	public long getItemId(int position) {

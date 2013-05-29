@@ -26,7 +26,7 @@ public class RegisterActivity extends Activity {
 	}
 
 	void checkInput() {
-
+		 AccessDataBase db = AccessDataBase.getInstance();
 		Editable username = ((EditText) findViewById(R.id.activity_register_username))
 				.getText();
 		Editable passwd = ((EditText) findViewById(R.id.activity_register_edit_password))
@@ -34,17 +34,22 @@ public class RegisterActivity extends Activity {
 		Editable passwdconf = ((EditText) findViewById(R.id.activity_register_edit_password_confirm))
 				.getText();
 
+
 		if (username.toString().isEmpty() || passwd.toString().isEmpty()
 				|| passwdconf.toString().isEmpty()) {
 			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
 		}
-		else if((username.toString().equals("Test"))) // || ((AccsessDataBase.getInstance().registerUser(username.toString(), passwd.toString(), "") >= 0)
-		{
+		else if(passwdconf.toString().equals(passwd.toString())){
+			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
+			
+		}
+		else if(db.isUsernameTaken(username.toString())){
 			showAlert(getString(R.string.alert_reg_username), getString(R.string.title_reg_username));
 		}
 		else
 		{
-			//weiter zur nächsten Activity
+				
+
 		}
 	}
 
