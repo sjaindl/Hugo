@@ -6,6 +6,11 @@ import java.util.Map;
 
 import at.tugraz.mobilforum.AccessDataBase;
 import at.tugraz.mobilforum.Entry;
+<<<<<<< HEAD
+=======
+import at.tugraz.mobilforum.Topic;
+import android.database.Cursor;
+>>>>>>> master
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 
@@ -55,8 +60,16 @@ public class AccessDataBaseTest extends AndroidTestCase {
 		connect();
 		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
 		assertEquals("Cannot post Topic", 0, errorCode);
-		Map<Integer, String> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
-		assertTrue("Topic was not created or cannot be read",topics.containsValue(TEST_TOPIC_NAME));
+		List<Topic> topics =  AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		boolean isInList = false;
+		for(int i=0;i<topics.size();i++){
+			if(topics.get(i).getTitle().equals(TEST_TOPIC_NAME)){
+				isInList = true;
+				break;
+			}
+		}
+		assertTrue("Topic was not created or cannot be read", isInList);
 	}
 	
 	public void testPostEntry(){
@@ -80,5 +93,21 @@ public class AccessDataBaseTest extends AndroidTestCase {
 			instance.connect();
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public void testGetAvatarFilenames(){
+		List<String> avatars = AccessDataBase.getInstance().getAvatarFilenames();
+		List<String> ret_avatars = new ArrayList<String>();
+		Cursor cursor = AccessDataBase.getInstance().query("SELECT profilepic FROM users");
+		while (cursor.moveToNext()) {
+			ret_avatars.add(cursor.getString(0));
+		}		
+		assertEquals(avatars,ret_avatars);
+		
+	}
+	
+	
+>>>>>>> master
 }

@@ -1,6 +1,9 @@
 package at.tugraz.mobilforum;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Entry {
 	
@@ -15,19 +18,19 @@ public class Entry {
 		
 		this.username = "";
 		this.userpicture = "";
-		this.usersignature = ""; 
+		this.usersignature = "";
 		this.entrytext = "";
 		this.date = new Date();
 		this.rating = 0;
 	}
 
 	public Entry(String username, String userpicture, String usersignature, 
-			String entrytext, Date date, int rating){
+			String entrytext, long date, int rating, String time){
 		this.username = username;
 		this.userpicture = userpicture;
 		this.usersignature = usersignature;
 		this.entrytext = entrytext;
-		this.date = date;
+		this.date = new Date(date);    
 		this.rating = rating;
 	}
 	
@@ -55,16 +58,39 @@ public class Entry {
 	public void setEntrytext(String entrytext) {
 		this.entrytext = entrytext;
 	}
-	public java.util.Date getDate() {
-		return date;
+	public String getDate() {
+		DateFormat df = new SimpleDateFormat("dd.MM.",Locale.getDefault()); 
+	    return df.format(this.date);
 	}
-	public void setDate(java.util.Date date) {
-		this.date = date;
+	
+	public void setDate(long date){
+		this.date = new Date(date);
 	}
+<<<<<<< HEAD
+=======
+	
+	public String getTime() {
+		DateFormat df = new SimpleDateFormat("hh:mm",Locale.getDefault()); 
+	    return df.format(this.date);
+	}
+	
+>>>>>>> master
 	public int getRating() {
 		return rating;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+<<<<<<< HEAD
+=======
+	
+	public String toString(){
+		return this.username + this.userpicture + this.getEntrytext() + this.getRating() + this.getUsersignature();
+	}
+	
+	public String getShortEntryText(){
+		String shorttext ="";
+		return shorttext;
+	}
+>>>>>>> master
 }
