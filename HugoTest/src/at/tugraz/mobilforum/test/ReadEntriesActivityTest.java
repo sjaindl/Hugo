@@ -29,12 +29,12 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 	private Solo solo;
 	private int topic_id;
 	private int category_id;
-	
+
 	public ReadEntriesActivityTest() {
 		super(ReadEntriesActivity.class);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -42,9 +42,11 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
     	this.category_id = AccessDataBase.getInstance().getRandomCategory();
-		this.topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	// TODO: implement random test
+    	//this.topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	this.topic_id = 1;
 	}
-	
+
     
 	/** Testing Listview by checking its item count */
 	@SmallTest
@@ -54,9 +56,9 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
     	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
         int actualCount = lv.getChildCount();
         assertEquals(expectedCount, actualCount);
-		assertEquals(true,true);
+		//assertEquals(true,true);
     }
-	
+
 	/** Testing listview by getting a random entry and look for the entry in the database */
 	@SmallTest
     public void testRandomListViewEntry(){

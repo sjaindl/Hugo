@@ -5,8 +5,14 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+    
+    <supports-screens 
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="false"/>
 
     <application
         android:allowBackup="true"
@@ -25,14 +31,19 @@
         <activity android:name="at.tugraz.mobilforum.LoginActivity" >
         </activity>
         <activity
-            android:name="at.tugraz.mobilforum.ReadEntriesActivity"
-            android:label="@string/title_activity_read_forum" >
+            android:name="at.tugraz.mobilforum.ReadForumActivity"
+            android:label="@string/title_activity_read_entries" >
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.RegisterAvatarActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="at.tugraz.mobilforum.RegisterActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,6 +73,27 @@
         <activity
             android:name="at.tugraz.mobilforum.SwipeActivity"
             android:label="@string/title_activity_swipe" >
+        </activity>
+        
+        <activity
+            android:name="at.tugraz.mobilforum.ReadTopicsActivity"
+            android:label="@string/title_activity_read_topics" >
+            
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="at.tugraz.mobilforum.ReadEntriesActivity"
+            android:label="@string/title_activity_read_entries" >
+            
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

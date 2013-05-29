@@ -18,10 +18,8 @@ public class MainActivity extends Activity {
 		db.getEntryList(1);
 		setContentView(R.layout.activity_main);
 		Log.e(TAG, "test");
-		
-		
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
