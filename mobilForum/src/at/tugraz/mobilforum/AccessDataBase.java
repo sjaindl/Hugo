@@ -1,25 +1,16 @@
 package at.tugraz.mobilforum;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
 import android.util.Log;
 import at.tugraz.mobilforum.Entry;
 import at.tugraz.mobilforum.Topic;
-
-
 
 public class AccessDataBase extends SQLiteOpenHelper{
 	static final String USER_TABLE = "users";
