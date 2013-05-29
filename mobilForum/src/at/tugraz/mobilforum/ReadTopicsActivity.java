@@ -35,7 +35,7 @@ public class ReadTopicsActivity extends Activity {
 		//this.topicid = b.getInt("topicId");
 		this.categoryid = 1; 
 		setContentView(R.layout.activity_read_topics);
-        lv = (ListView) findViewById(R.id.topicListView);
+        lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
         /* TODO: gettopicid getcategory
          * 

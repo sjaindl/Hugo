@@ -42,8 +42,16 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	public void testPostTopic(){
 		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
 		assertEquals("Cannot post Topic", 0, errorCode);
-		List<Topic> topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
-		assertTrue("Topic was not created or cannot be read",topics.contains(TEST_TOPIC_NAME));
+		List<Topic> topics =  AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
+		boolean isInList = false;
+		for(int i=0;i<topics.size();i++){
+			if(topics.get(i).getTitle().equals(TEST_TOPIC_NAME)){
+				isInList = true;
+				break;
+			}
+		}
+		assertTrue("Topic was not created or cannot be read", isInList);
 	}
 	
 	@Override

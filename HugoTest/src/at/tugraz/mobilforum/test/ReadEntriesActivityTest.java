@@ -42,7 +42,9 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
     	this.category_id = AccessDataBase.getInstance().getRandomCategory();
-		this.topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	// TODO: implement random test
+    	//this.topic_id = AccessDataBase.getInstance().getRandomTopicFromCategory(category_id);
+    	this.topic_id = 1;
 	}
 	
     
@@ -50,17 +52,17 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
 	@SmallTest
     public void testListViewEntryCounter(){
 		this.getActivity().setTopicid(this.topic_id);
-    	ListView lv = (ListView)solo.getView(R.id.topicListView);
+    	ListView lv = (ListView)solo.getView(R.id.entryListView);
     	int expectedCount = AccessDataBase.getInstance().getEntryList(topic_id).size();
         int actualCount = lv.getChildCount();
         assertEquals(expectedCount, actualCount);
-		assertEquals(true,true);
+		//assertEquals(true,true);
     }
 	
 	/** Testing listview by getting a random entry and look for the entry in the database */
 	@SmallTest
     public void testRandomListViewEntry(){
-    	ListView lv = (ListView)solo.getView(R.id.topicListView);
+    	ListView lv = (ListView)solo.getView(R.id.entryListView);
     	this.getActivity().setTopicid(this.topic_id);
     	Entry random_entry = AccessDataBase.getInstance().getRandomEntryFromTopic(topic_id);
     	String entrytext = random_entry.toString();

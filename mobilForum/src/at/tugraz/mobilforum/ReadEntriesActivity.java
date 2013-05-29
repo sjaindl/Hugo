@@ -30,7 +30,7 @@ public class ReadEntriesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.topicid = getIntent().getIntExtra("topicid", 1);
 		setContentView(R.layout.activity_read_entry);
-        lv = (ListView) findViewById(R.id.topicListView);
+        lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
         /* TODO: gettopicid getcategory
          * 
