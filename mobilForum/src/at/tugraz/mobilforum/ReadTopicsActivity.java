@@ -28,6 +28,7 @@ public class ReadTopicsActivity extends Activity {
 		setContentView(R.layout.activity_read_topics);
 		if(!AccessDataBase.hasInstance()){
 			AccessDataBase.setInstance(new AccessDataBase(this));
+			//AccessDataBase.isDefined = false;
 		}
 		super.onCreate(savedInstanceState);
 		//Bundle b = getIntent().getExtras();
