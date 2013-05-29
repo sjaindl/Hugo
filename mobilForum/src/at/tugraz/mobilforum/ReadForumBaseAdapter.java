@@ -1,35 +1,33 @@
 package at.tugraz.mobilforum;
 
-import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD:mobilForum/src/at/tugraz/mobilforum/ReadForumBaseAdapter.java
+=======
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+>>>>>>> master:mobilForum/src/at/tugraz/mobilforum/ReadEntriesBaseAdapter.java
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ImageView;
 
-public class ReadEntriesBaseAdapter extends BaseAdapter {
+public class ReadForumBaseAdapter extends BaseAdapter {
 	private List<Entry> entries;
-	private static LayoutInflater inflater=null;
-	private Activity activity;
-	private List<Boolean> isExpanded;
-
-	public ReadEntriesBaseAdapter(Activity a, List<Entry> entries) {
-		this.activity = a;
+	
+	public ReadForumBaseAdapter(List<Entry> entries) {
         this.entries = entries;  
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.isExpanded = new ArrayList<Boolean>();
-        for(int index=0;index<getCount();index++){
-        	isExpanded.add(false);
-        }
     }
+<<<<<<< HEAD:mobilForum/src/at/tugraz/mobilforum/ReadForumBaseAdapter.java
+
+	     
+=======
 	
 	
+>>>>>>> master:mobilForum/src/at/tugraz/mobilforum/ReadEntriesBaseAdapter.java
 	@Override
 	public int getCount() {
 		 return this.entries.size();		 
@@ -83,11 +81,14 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 	        View vi=convertView;
+<<<<<<< HEAD:mobilForum/src/at/tugraz/mobilforum/ReadForumBaseAdapter.java
+=======
 	        
 	        Log.d("getView","*************************************" + Integer.toString(position));
 	        if(convertView==null)
 	            vi = inflater.inflate(R.layout.list_entry, null);
 	        
+>>>>>>> master:mobilForum/src/at/tugraz/mobilforum/ReadEntriesBaseAdapter.java
 	        TextView entrytv = (TextView)vi.findViewById(R.id.entryTextView); 
 		       
 	        if(this.isExpanded.get(position)){

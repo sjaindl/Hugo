@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class RegisterActivity extends Activity {
@@ -15,87 +16,17 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-
-		final EditText listener = ((EditText) findViewById(R.id.activity_register_username));
-		listener.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
+		findViewById(R.id.activity_register_button_next).setEnabled(true);
+		final Button button = (Button) findViewById(R.id.activity_register_button_next);
+		button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
 				checkInput();
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-
-				findViewById(R.id.activity_register_button_next).setEnabled(
-						false);
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		final EditText listener2 = ((EditText) findViewById(R.id.activity_register_edit_password));
-		listener2.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				checkInput();
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-
-				findViewById(R.id.activity_register_button_next).setEnabled(
-						false);
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		final EditText listener3 = ((EditText) findViewById(R.id.activity_register_edit_password_confirm));
-		listener3.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				checkInput();
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-
-				findViewById(R.id.activity_register_button_next).setEnabled(
-						false);
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
 
 	void checkInput() {
-
-		findViewById(R.id.activity_register_button_next).setEnabled(false);
-
+		 AccessDataBase db = AccessDataBase.getInstance();
 		Editable username = ((EditText) findViewById(R.id.activity_register_username))
 				.getText();
 		Editable passwd = ((EditText) findViewById(R.id.activity_register_edit_password))
@@ -103,51 +34,51 @@ public class RegisterActivity extends Activity {
 		Editable passwdconf = ((EditText) findViewById(R.id.activity_register_edit_password_confirm))
 				.getText();
 
-		if (username.toString().equals("")) {
-			findViewById(R.id.activity_register_button_next).setEnabled(false);
-		} else if (passwd.toString().equals(passwdconf.toString())) {
 
-			// (AccessDataBase.getInstance().registerUser(username.toString(),passwd.toString(),
-			// "") >= 0)
-			// gehört in die if da unten, wenn die db geht
-			if (username.toString().equals("Test")) // DB
-			{
-				findViewById(R.id.activity_register_button_next).setEnabled(
-						true);
-			} else {
-				// Alert Start
-				final Context context = this;
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						context);
-
-				// set title
-				alertDialogBuilder.setTitle(R.string.title_reg);
-
-				alertDialogBuilder
-						.setMessage(R.string.alert_reg)
-						.setCancelable(false)
-						.setPositiveButton(android.R.string.ok,
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int which) {
-										dialog.cancel();
-									}
-								});
-
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
-				alertDialog.show();
-				// Alert Ende
-				((EditText) findViewById(R.id.activity_register_username))
-						.setText("");
-				findViewById(R.id.activity_register_button_next).setEnabled(
-						false);
-			}
-		} else {
-			findViewById(R.id.activity_register_button_next).setEnabled(false);
+		if (username.toString().isEmpty() || passwd.toString().isEmpty()
+				|| passwdconf.toString().isEmpty()) {
+			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
 		}
+		else if(passwdconf.toString().equals(passwd.toString())){
+			showAlert(getString(R.string.alert_reg_input_error), getString(R.string.title_reg_input_error));
+			
+		}
+		else if(db.isUsernameTaken(username.toString())){
+			showAlert(getString(R.string.alert_reg_username), getString(R.string.title_reg_username));
+		}
+		else
+		{
+				
+
+		}
+	}
+
+	void showAlert(String message, String title) {
+		// Alert Start
+		final Context context = this;
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				context);
+
+		// set title
+		alertDialogBuilder.setTitle(title);
+
+		alertDialogBuilder
+				.setMessage(message)
+				.setCancelable(false)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.cancel();
+							}
+						});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+		// Alert Ende
 	}
 
 	/*

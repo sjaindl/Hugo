@@ -66,18 +66,23 @@ public class Entry {
 	public void setDate(long date){
 		this.date = new Date(date);
 	}
+<<<<<<< HEAD
+=======
 	
 	public String getTime() {
 		DateFormat df = new SimpleDateFormat("hh:mm",Locale.getDefault()); 
 	    return df.format(this.date);
 	}
 	
+>>>>>>> master
 	public int getRating() {
 		return rating;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+<<<<<<< HEAD
+=======
 	
 	public String toString(){
 		return this.username + this.userpicture + this.getEntrytext() + this.getRating() + this.getUsersignature();
@@ -87,4 +92,5 @@ public class Entry {
 		String shorttext ="";
 		return shorttext;
 	}
+>>>>>>> master
 }

@@ -13,23 +13,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadEntriesActivity extends Activity {
-	
+public class ReadForumActivity extends Activity {
+
 	private ListView lv;
 	List<Entry> entries;
-	private int topicid = 1;
-	
-
-
-	ReadEntriesBaseAdapter adapter;
+	private int topicid = 0;
+	ReadForumBaseAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if(!AccessDataBase.hasInstance()){
-			AccessDataBase.setInstance(new AccessDataBase(this));
-		}
 		super.onCreate(savedInstanceState);
+<<<<<<< HEAD:mobilForum/src/at/tugraz/mobilforum/ReadForumActivity.java
+		setContentView(R.layout.activity_read_forum);
+=======
 		this.topicid = getIntent().getIntExtra("topicid", 1);
 		setContentView(R.layout.activity_read_entry);
+>>>>>>> master:mobilForum/src/at/tugraz/mobilforum/ReadEntriesActivity.java
         lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
         /* TODO: gettopicid getcategory
@@ -40,15 +38,19 @@ public class ReadEntriesActivity extends Activity {
         //actionBar.setCustomView(view);
         
         entries = new ArrayList<Entry>();
-        entries = db.getEntryList(this.topicid);
-        
-        adapter = new ReadEntriesBaseAdapter(this,entries);
+        entries = db.getEntries(this.topicid);
+        adapter = new ReadForumBaseAdapter(entries);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
+        	 
+        	@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+<<<<<<< HEAD:mobilForum/src/at/tugraz/mobilforum/ReadForumActivity.java
+				// TODO Auto-generated method stub
+			}
+				
+=======
 				if(adapter.isChildExpanded(arg2)){
 					TextView tv1 = (TextView)arg1.findViewById(R.id.entryTextView);
 					tv1.setMaxLines(2);
@@ -59,6 +61,7 @@ public class ReadEntriesActivity extends Activity {
 					adapter.setExpandedStatus(true, arg2);
 				}
 			}
+>>>>>>> master:mobilForum/src/at/tugraz/mobilforum/ReadEntriesActivity.java
 			});
 	}
 
@@ -66,16 +69,7 @@ public class ReadEntriesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.read_forum, menu);
-		
 		return true;
-	}
-	
-	public int getTopicid() {
-		return topicid;
-	}
-
-	public void setTopicid(int topicid) {
-		this.topicid = topicid;
 	}
 
 }

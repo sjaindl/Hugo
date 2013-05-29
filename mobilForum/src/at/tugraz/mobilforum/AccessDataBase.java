@@ -45,7 +45,7 @@ public class AccessDataBase extends SQLiteOpenHelper{
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 1, 1, 'Hund', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (3, 1, 1, 'Panda', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (4, 1, 1, 'Kroko', 190000000, 3)"); 
-		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 1, 1, 'BŠr', 190000000, 3)"); 
+		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (5, 1, 1, 'Bï¿½r', 190000000, 3)"); 
 		
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (1, 2, 1, 'Matrix', 190000000, 3)"); 
 		db.execSQL("INSERT INTO "+ TOPIC_TABLE +" VALUES (2, 2, 1, 'Stirb Langsam 1', 190000000, 3)"); 

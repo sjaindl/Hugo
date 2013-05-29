@@ -18,6 +18,11 @@
     <string name="password">Password</string>
     <string name="passwordconfirm">Password Confirm</string>
     <string name="next">Next</string>
+    <string name="title_reg_username">Username</string>
+    <string name="alert_reg_username">Username wrong or already exists!</string>
+    <string name="title_reg_input_error">Wrong Input</string>
+    <string name="alert_reg_input_error">Please check your input!</string>
+  	<string name="register">Register</string>
     <string name="title_reg">Title</string>
     <string name="alert_reg">Username already exists!</string>
     <string name="title_activity_topic_post">New Topic</string>

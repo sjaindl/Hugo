@@ -41,9 +41,8 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		
 		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
 		
-		assertFalse(nextButton.isEnabled());
 		solo.clearEditText(userName);
-		solo.enterText(userName, "Test");
+		solo.enterText(userName, "TestUser");
 		solo.clearEditText(userPassword);
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
@@ -52,7 +51,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.clickOnButton(0);
 	}
 	
-	public void testRegistrationAlert(){
+	public void testRegistrationAlertUserExists(){
 		RelativeLayout relativeLayout = (RelativeLayout)solo.getView(R.id.activity_register_layout);
 		assertNotNull(relativeLayout);
 		
@@ -66,17 +65,69 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		assertNotNull(userPasswordConfirm);
 		
 		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
-		
-		assertFalse(nextButton.isEnabled());
+
 		solo.clearEditText(userName);
-		solo.enterText(userName, "Testitest");
+		solo.enterText(userName, "Test");
 		solo.clearEditText(userPassword);
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		assertFalse(nextButton.isEnabled());
-		solo.sleep(1000);
-		assertTrue("No Alert",solo.searchText(solo.getString(R.string.alert_reg), 5000));
+		assertTrue(nextButton.isEnabled());
+		solo.clickOnButton(0);
+		assertTrue(solo.searchText(solo.getString(R.string.alert_reg_username)));
+		
 	}
 	
+	public void testRegistrationAlertWrongInput(){
+		RelativeLayout relativeLayout = (RelativeLayout)solo.getView(R.id.activity_register_layout);
+		assertNotNull(relativeLayout);
+		
+		EditText userName = (EditText)solo.getView(R.id.activity_register_username);
+		assertNotNull(userName);
+		
+		EditText userPassword = (EditText)solo.getView(R.id.activity_register_edit_password);
+		assertNotNull(userPassword);
+		
+		EditText userPasswordConfirm = (EditText)solo.getView(R.id.activity_register_edit_password_confirm);
+		assertNotNull(userPasswordConfirm);
+		
+		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
+
+		solo.clearEditText(userName);
+		solo.enterText(userName, "Test");
+		solo.clearEditText(userPassword);
+		solo.enterText(userPassword, "test");
+		solo.clearEditText(userPasswordConfirm);
+		solo.enterText(userPasswordConfirm, "");
+		assertTrue(nextButton.isEnabled());
+		solo.clickOnButton(0);
+		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
+		
+		solo.clickOnButton(0);
+		
+		solo.clearEditText(userName);
+		solo.enterText(userName, "Test");
+		solo.clearEditText(userPassword);
+		solo.enterText(userPassword, "");
+		solo.clearEditText(userPasswordConfirm);
+		solo.enterText(userPasswordConfirm, "test");
+		assertTrue(nextButton.isEnabled());
+		solo.clickOnButton(0);
+		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
+		
+		solo.clickOnButton(0);
+		
+		solo.clearEditText(userName);
+		solo.enterText(userName, "");
+		solo.clearEditText(userPassword);
+		solo.enterText(userPassword, "test");
+		solo.clearEditText(userPasswordConfirm);
+		solo.enterText(userPasswordConfirm, "test");
+		assertTrue(nextButton.isEnabled());
+		solo.clickOnButton(0);
+		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
+		
+		solo.clickOnButton(0);
+		
+	}
 }
