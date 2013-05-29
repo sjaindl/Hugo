@@ -16,6 +16,8 @@
 
 package at.tugraz.mobilforum;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -26,9 +28,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class SwipeActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -124,21 +128,32 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                     // a launchpad into the other demonstrations in this example application.
                     return new LaunchpadSectionFragment();
 
+                case 1:
+
+                	 Fragment fragment = new DummySectionFragment();
+                     Bundle args = new Bundle();
+                     args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
+                     fragment.setArguments(args);
+                     return fragment;
+                case 2:
+                	
+                
+                	
                 default:
                     // The other sections of the app are dummy placeholders.
-                    Fragment fragment = new DummySectionFragment();
-                    Bundle args = new Bundle();
-                    args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-                    fragment.setArguments(args);
-                    return fragment;
+                    Fragment fragment1 = new DummySectionFragment();
+                    Bundle args1 = new Bundle();
+                    args1.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
+                    fragment1.setArguments(args1);
+                    return fragment1;
             }
         }
-
+//Jonny: getCount - soll den Wert aus der DB bekommen
         @Override
         public int getCount() {
             return 3;
         }
-
+//Jonny: get PageTitle: soll den Namen der Category aus der DB bekommen
         @Override
         public CharSequence getPageTitle(int position) {
             return "Section " + (position + 1);
@@ -155,6 +170,12 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
 
+
+          
+            
+            
+            
+            /*
             // Demonstration of a collection-browsing activity.
             rootView.findViewById(R.id.demo_collection_button)
                     .setOnClickListener(new View.OnClickListener() {
@@ -164,7 +185,8 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                             startActivity(intent);
                         }
                     });
-
+*/
+            /*
             // Demonstration of navigating to external activities.
             rootView.findViewById(R.id.demo_external_activity)
                     .setOnClickListener(new View.OnClickListener() {
@@ -181,7 +203,7 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                             startActivity(externalActivityIntent);
                         }
                     });
-
+*/
             return rootView;
         }
     }

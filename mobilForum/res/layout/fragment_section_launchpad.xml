@@ -12,7 +12,8 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  -->
+-->
+
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -23,17 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <Button android:id="@+id/demo_collection_button"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="demo_collection"/>
-
-        <Button android:id="@+id/demo_external_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="demo_external_activity" />
-
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/jonnyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </FrameLayout>
