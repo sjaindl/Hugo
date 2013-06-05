@@ -30,8 +30,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		
-		initDatabase();
+		initDatabase(db);
 		if (isDefined == false) {
 			//fillDatabase();
 			isDefined = true;
@@ -122,7 +121,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (7, 1, 1, 'Kotlett', 190000000, 3)");
 	}
 
-	public void initDatabase(){
+	public void initDatabase(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ USER_TABLE
 				+ " (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, givenname TEXT, surname TEXT, profilepic TEXT, signature TEXT)");
