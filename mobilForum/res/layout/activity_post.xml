@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="bottom"
-    tools:context=".PostActivity" >
+    tools:context=".PostEntryActivity" >
 
     <EditText
         android:id="@+id/newPostText"

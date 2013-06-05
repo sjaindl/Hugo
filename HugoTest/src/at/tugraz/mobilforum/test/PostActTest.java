@@ -11,15 +11,15 @@ import com.jayway.android.robotium.solo.Solo;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.EditText;
-import at.tugraz.mobilforum.PostActivity;
+import at.tugraz.mobilforum.PostEntryActivity;
 import at.tugraz.mobilforum.R;
 
-public class PostActTest extends ActivityInstrumentationTestCase2<PostActivity> {
+public class PostActTest extends ActivityInstrumentationTestCase2<PostEntryActivity> {
 
 	private Solo solo;
 	
 	public PostActTest() {
-		super(PostActivity.class);
+		super(PostEntryActivity.class);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -73,7 +73,7 @@ public class PostActTest extends ActivityInstrumentationTestCase2<PostActivity> 
 		for(int i = 0; i < 15; i++)
 		{
 			solo.enterText(newPostText, "b");
-			solo.waitForView(((PostActivity)getActivity()).toast.getView());
+			solo.waitForView(((PostEntryActivity)getActivity()).toast.getView());
 			assertTrue("Character count should be shown", getActivity().toast.getView().isShown());
 		}
 
