@@ -39,7 +39,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		EditText userPasswordConfirm = (EditText)solo.getView(R.id.activity_register_edit_password_confirm);
 		assertNotNull(userPasswordConfirm);
 		
-		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
+	
 		
 		solo.clearEditText(userName);
 		solo.enterText(userName, "TestUser");
@@ -47,7 +47,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		assertTrue(nextButton.isEnabled());
+		
 		solo.clickOnButton(0);
 	}
 	
@@ -64,7 +64,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		EditText userPasswordConfirm = (EditText)solo.getView(R.id.activity_register_edit_password_confirm);
 		assertNotNull(userPasswordConfirm);
 		
-		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
+
 
 		solo.clearEditText(userName);
 		solo.enterText(userName, "Test");
@@ -72,7 +72,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		assertTrue(nextButton.isEnabled());
+	
 		solo.clickOnButton(0);
 		assertTrue(solo.searchText(solo.getString(R.string.alert_reg_username)));
 		
@@ -90,8 +90,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		
 		EditText userPasswordConfirm = (EditText)solo.getView(R.id.activity_register_edit_password_confirm);
 		assertNotNull(userPasswordConfirm);
-		
-		Button nextButton = (Button)solo.getView(R.id.activity_register_button_next);
+	
 
 		solo.clearEditText(userName);
 		solo.enterText(userName, "Test");
@@ -99,7 +98,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "");
-		assertTrue(nextButton.isEnabled());
+	
 		solo.clickOnButton(0);
 		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
 		
@@ -111,7 +110,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		assertTrue(nextButton.isEnabled());
+		
 		solo.clickOnButton(0);
 		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
 		
@@ -123,11 +122,12 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		assertTrue(nextButton.isEnabled());
+		
 		solo.clickOnButton(0);
 		assertTrue(solo.searchText(solo.getString(R.string.title_reg_input_error)));
 		
 		solo.clickOnButton(0);
 		
 	}
+	
 }

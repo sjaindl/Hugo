@@ -103,6 +103,10 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                             .setTabListener(this));
         }
     }
+    
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
