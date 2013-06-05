@@ -1,6 +1,5 @@
 package at.tugraz.mobilforum;
 
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
  
 public class AndroidDialog extends Activity {
  
@@ -55,12 +55,13 @@ public class AndroidDialog extends Activity {
      .findViewById(R.id.btn_login);
    Button cancelbutton = (Button) alertDialog
      .findViewById(R.id.btn_cancel);
-   
-   Log.d("password","hugo");
-   
- // blabla
-   AccessDataBase inst = null;
-   AccessDataBase.setInstance( inst);
+      
+  
+   if(!AccessDataBase.hasInstance()){
+		AccessDataBase.setInstance(new AccessDataBase(this));
+		AccessDataBase.isDefined = false;
+	}
+	final AccessDataBase db = AccessDataBase.getInstance();
    
  
    
@@ -69,34 +70,33 @@ public class AndroidDialog extends Activity {
     @Override
     public void onClick(View v) {
     	
-    	boolean test = true;
+    	 	
+    	int userId;
+    		     		
+    	final Editable userName = ((EditText) alertDialog.findViewById(R.id.txt_name)).getText();
     	
-    	int user_id = 0;
+    	final Editable passwdconf = ((EditText) alertDialog.findViewById(R.id.password)).getText();
+    	//Log.d("user name", userName.toString());
+    	//Log.d("user password", passwdconf.toString());
+    	userId = db.approveUser(userName.toString(), passwdconf.toString());
+    	Log.d("user id", Integer.toString(userId));
     		
+  	    SharedPreferences sp=getSharedPreferences("Login", 0);
+  	    SharedPreferences.Editor Ed=sp.edit();
+  	    Ed.putString("userId", Integer.toString(userId));                 
+  	    Ed.commit(); 
     	
-       		
-    		final Editable userName = ((EditText) alertDialog.findViewById(R.id.txt_name)).getText();
-    		Log.d("password",userName.toString());
-    		final Editable passwdconf = ((EditText) alertDialog.findViewById(R.id.password)).getText();
-    		Log.d("password", passwdconf.toString());
-    		
-    	//	user_id =	AccessDataBase.getInstance().approveUser(userName.toString(), passwdconf.toString());
-    		
-    	if( test)    		
-    	{	
-    		
-    	  Bundle bundle = new Bundle();
-          bundle.putString("USERID", Integer.toString(user_id));
-    		
-         alertDialog.dismiss();     
-         Toast.makeText(
-        		 
-         AndroidDialog.this,
-         "Thank you , you are in",
-         Toast.LENGTH_LONG).show();
+    	if(userId != 0 )    		
+    	{	   		
+          alertDialog.dismiss();     
+          Toast.makeText(     		 
+          AndroidDialog.this,
+          "Loggon Successful ",
+          Toast.LENGTH_LONG).show();
     	}
     	else
     	{
+    	   alertDialog.dismiss(); 
     	  Toast.makeText(
     	  AndroidDialog.this,
     	  "Wrong Login, please try again ",
@@ -112,7 +112,7 @@ public class AndroidDialog extends Activity {
      alertDialog.dismiss();
      Toast.makeText(
      AndroidDialog.this,
-     "Wrong Login, please try again ",
+     "Incorrect",
      Toast.LENGTH_LONG).show();
     }
    });
