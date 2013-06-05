@@ -1,0 +1,8 @@
+<resources>
+
+<string-array name="dialog_imageupload_items">
+    <item>"camera"</item>
+    <item>"file system"</item>
+</string-array>
+
+</resources>

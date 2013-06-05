@@ -44,5 +44,7 @@
     <string name="dialog_submit">submit</string>
     <string name="dialog_cancel">cancel</string>
     <string name="dialog_password">password</string>
+    <string name="dialog_imageupload">Upload image</string>
+    <string name="imageUploadButtonText">imageUploadButtonText</string>
 
 </resources>

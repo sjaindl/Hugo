@@ -8,6 +8,12 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
     
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    
+    
+    
     <supports-screens 
         android:smallScreens="true"
         android:normalScreens="true"
@@ -54,6 +60,11 @@
         </activity>
         <activity android:name="at.tugraz.mobilforum.PostActivity" 
             android:screenOrientation="portrait">
+              <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="at.tugraz.mobilforum.TopicPostActivity" 
             android:screenOrientation="portrait">

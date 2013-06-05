@@ -11,8 +11,10 @@ public class Entry {
 	String userpicture;
 	String usersignature;
 	String entrytext;
+	String uploadedImageURI;
 	java.util.Date date;
 	int rating;
+	
 	
 	public Entry(){
 		
@@ -82,5 +84,13 @@ public class Entry {
 	
 	public String toString(){
 		return this.username + this.userpicture + this.getEntrytext() + this.getRating() + this.getUsersignature();
+	}
+
+	public String getUploadedImageURI() {
+		return uploadedImageURI;
+	}
+
+	public void setUploadedImageURI(String uploadedImageURI) {
+		this.uploadedImageURI = uploadedImageURI;
 	}
 }

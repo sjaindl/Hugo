@@ -97,28 +97,28 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (5, 3, 1, 'Cola', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (1, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (1, 1, 1, 'Kotlett', NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (2, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (2, 1, 1, 'Kotlett', NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (3, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (3, 1, 1, 'Kotlett', NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (4, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (4, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (5, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (5, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (2, 2, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (2, 2, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (3, 3, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (3, 3, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (4, 4, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (4, 4, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (5, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (5, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (6, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (6, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (7, 1, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (7, 1, 1, 'Kotlett', NULL,  190000000, 3)");
 	}
 
 	public void initDatabase(SQLiteDatabase db){
@@ -138,7 +138,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ ENTRY_TABLE
-				+ " (entryid INTEGER PRIMARY KEY AUTOINCREMENT, topicid INTEGER, userid INTEGER, entrytext TEXT NOT NULL, date INTEGER, rating INTEGER, FOREIGN KEY(topicid) REFERENCES "
+				+ " (entryid INTEGER PRIMARY KEY AUTOINCREMENT, topicid INTEGER, userid INTEGER, entrytext TEXT NOT NULL, imageuri TEXT, date INTEGER, rating INTEGER, FOREIGN KEY(topicid) REFERENCES "
 				+ TOPIC_TABLE + " (topicid), FOREIGN KEY(userid) REFERENCES "
 				+ USER_TABLE + " (userid))");
 	}
@@ -194,9 +194,9 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		return 0;
 	}
 
-	public int postEntry(int topicid, int userid, String entrytext) {
-		db.execSQL("Insert into entries (topicid,userid,entrytext) values ('"
-				+ topicid + "','" + userid + "','" + entrytext + "')");
+	public int postEntry(int topicid, int userid, Entry entry) {
+		db.execSQL("Insert into entries (topicid,userid,entrytext,imageuri) values ('"
+				+ topicid + "','" + userid + "','" + entry.getEntrytext() + "','" + entry.getUploadedImageURI() + "')");
 		return 0;
 	}
 
@@ -249,17 +249,16 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		Log.d(TAG, "read db entries");
 		List<Entry> entries = new ArrayList<Entry>();
 		Cursor cursor = db.query(ENTRY_TABLE, new String[] { "userid",
-				"rating", "entrytext", "date" }, "topicid='" + topicid + "'",
+				"rating", "entrytext", "imageuri", "date" }, "topicid='" + topicid + "'",
 				null, null, null, null);
 		while (cursor.moveToNext()) {
 			int userid = cursor.getInt(0);
 			Entry entry = new Entry();
 			entry.setRating(cursor.getInt(1));
 			entry.setEntrytext(cursor.getString(2));
-
-			entry.setDate(cursor.getLong(3));
-
-			Cursor cuser = db.query(USER_TABLE, new String[] { "username",
+			entry.setUploadedImageURI(cursor.getString(3));
+			entry.setDate(cursor.getLong(4));
+				Cursor cuser = db.query(USER_TABLE, new String[] { "username",
 					"profilepic", "signature" }, "userid='" + userid + "'",
 					null, null, null, null);
 

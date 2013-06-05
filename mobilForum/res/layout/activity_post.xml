@@ -6,21 +6,39 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="bottom"
     tools:context=".PostActivity" >
 
     <EditText
         android:id="@+id/newPostText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:gravity="top|left"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="60dp"
+        android:gravity="left"
         android:inputType="textMultiLine"
         android:scrollHorizontally="false" >
 
         <requestFocus />
     </EditText>
+
+    <ImageView
+        android:id="@+id/imageUploadView"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/newPostText"
+        android:layout_below="@+id/newPostText"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/imageupload" />
+
+    <Button
+        android:id="@+id/imageUploadButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageUploadView"
+        android:text="@string/imageUploadButtonText" />
 
 </RelativeLayout>
