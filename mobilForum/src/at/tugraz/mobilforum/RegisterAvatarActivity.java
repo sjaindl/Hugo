@@ -1,6 +1,7 @@
 package at.tugraz.mobilforum;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +53,12 @@ public class RegisterAvatarActivity extends Activity {
 				avatar_grid.getAdapter().getView(arg2, arg1, null);
 				String image_name = (String)avatar_grid.getAdapter().getItem(arg2);
 				db.registerUser(inst.username, inst.password, image_name);
-				/* TODO: start category view */
+				Intent i = new Intent();
+
+				i.putExtra("username",  inst.username);
+				i.putExtra("password",inst.password);
+				i.setClass(getApplicationContext(), SwipeActivity.class);
+				startActivity(i);
 			}
 		});
 		
