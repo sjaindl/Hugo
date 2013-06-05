@@ -66,6 +66,8 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
         // of the app.
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
+
+        
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
 
@@ -133,7 +135,8 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
 
         @Override
         public Fragment getItem(int i) {
-         
+	
+
         	return new ListViewFragment().setData("segment "+i);
 //        	switch (i) {
 //            

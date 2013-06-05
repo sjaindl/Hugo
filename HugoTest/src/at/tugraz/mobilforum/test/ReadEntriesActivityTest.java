@@ -77,5 +77,6 @@ public class ReadEntriesActivityTest extends ActivityInstrumentationTestCase2<Re
     	}
         assertEquals(isentryinlist, true);
     }
+	
     
 }
