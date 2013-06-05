@@ -26,19 +26,19 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	final static String DATABASE_NAME = "Forum.db";
 	private static AccessDataBase instance;
 	private SQLiteDatabase db;
-	public static boolean isDefined = true;
+	public static boolean isDefined;
+
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		initDatabase(db);
-		if (isDefined == false) {
-			//fillDatabase();
-			isDefined = true;
+		if(!isUsernameTaken("hugo123")){
+			fillDatabase(db);
 		}
 		Log.d(TAG, "db created");
 	}
 		
-	private void fillDatabase() {
+	private void fillDatabase(SQLiteDatabase db) {
 		db.execSQL("INSERT INTO " + CATEGORY_TABLE
 				+ " VALUES (1,'Haustiere')");
 		db.execSQL("INSERT INTO " + CATEGORY_TABLE
@@ -64,37 +64,37 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (5, 1, 1, 'BŠr', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (1, 2, 1, 'Matrix', 190000000, 3)");
+				+ " VALUES (6, 2, 1, 'Matrix', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (2, 2, 1, 'Stirb Langsam 1', 190000000, 3)");
+				+ " VALUES (7, 2, 1, 'Stirb Langsam 1', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (3, 2, 1, 'Stirb Langsam 2', 190000000, 3)");
+				+ " VALUES (8, 2, 1, 'Stirb Langsam 2', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (4, 2, 1, 'Stirb Langsam 3', 190000000, 3)");
+				+ " VALUES (9, 2, 1, 'Stirb Langsam 3', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (5, 2, 1, 'Stirb Langsam 4.0', 190000000, 3)");
+				+ " VALUES (10, 2, 1, 'Stirb Langsam 4.0', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (1, 3, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (11, 3, 1, 'Kotlett', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (2, 3, 1, 'Schnitzl', 190000000, 3)");
+				+ " VALUES (12, 3, 1, 'Schnitzl', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (3, 3, 1, 'Pizza', 190000000, 3)");
+				+ " VALUES (13, 3, 1, 'Pizza', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (4, 3, 1, 'Lasagne', 190000000, 3)");
+				+ " VALUES (14, 3, 1, 'Lasagne', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (5, 3, 1, 'Ente', 190000000, 3)");
+				+ " VALUES (15, 3, 1, 'Ente', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (1, 3, 1, 'Bier', 190000000, 3)");
+				+ " VALUES (16, 3, 1, 'Bier', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (2, 3, 1, 'Wien', 190000000, 3)");
+				+ " VALUES (17, 3, 1, 'Wien', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (3, 3, 1, 'Wasser', 190000000, 3)");
+				+ " VALUES (18, 3, 1, 'Wasser', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (4, 3, 1, 'Saft', 190000000, 3)");
+				+ " VALUES (19, 3, 1, 'Saft', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (5, 3, 1, 'Cola', 190000000, 3)");
+				+ " VALUES (20, 3, 1, 'Cola', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
 				+ " VALUES (1, 1, 1, 'Kotlett', NULL, 190000000, 3)");
@@ -108,17 +108,17 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (5, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (2, 2, 1, 'Kotlett',  NULL, 190000000, 3)");
+				+ " VALUES (6, 2, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (3, 3, 1, 'Kotlett',  NULL, 190000000, 3)");
+				+ " VALUES (7, 3, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (4, 4, 1, 'Kotlett',  NULL, 190000000, 3)");
+				+ " VALUES (8, 4, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (5, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
+				+ " VALUES (9, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (6, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
+				+ " VALUES (10, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (7, 1, 1, 'Kotlett', NULL,  190000000, 3)");
+				+ " VALUES (11, 1, 1, 'Kotlett', NULL,  190000000, 3)");
 	}
 
 	public void initDatabase(SQLiteDatabase db){
@@ -154,6 +154,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 
 	public AccessDataBase(Context context) {
 		super(context, DATABASE_NAME, null, 1);
+		context.deleteDatabase("Forum.db"); // FIXXXME: remove after database reset /** TODO: remove after database reset */
 		db = getWritableDatabase();
 	}
 

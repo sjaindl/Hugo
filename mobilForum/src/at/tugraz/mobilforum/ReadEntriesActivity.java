@@ -3,10 +3,13 @@ package at.tugraz.mobilforum;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,17 +31,32 @@ public class ReadEntriesActivity extends Activity {
 			AccessDataBase.setInstance(new AccessDataBase(this));
 		}
 		super.onCreate(savedInstanceState);
+		Button button_post_entry = (Button) findViewById(R.id.item1);
+
+		
+		
+		button_post_entry.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent();
+				i.putExtra("topicid", topicid);
+				i.setClass(getApplicationContext(), PostEntryActivity.class);
+				startActivity(i);
+			}
+			
+		});
+		
+		
 		this.topicid = getIntent().getIntExtra("topicid", 1);
 		setContentView(R.layout.activity_read_entry);
         lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
+        
         /* TODO: gettopicid getcategory
          * 
          */
-        
-        ActionBar actionBar = getActionBar();
-        //actionBar.setCustomView(view);
-        
+      
         entries = new ArrayList<Entry>();
         entries = db.getEntryList(this.topicid);
         
@@ -65,7 +83,7 @@ public class ReadEntriesActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.read_forum, menu);
+		getMenuInflater().inflate(R.menu.activity_read_entry, menu);
 
 		return true;
 	}
