@@ -10,6 +10,7 @@ import at.tugraz.mobilforum.Topic;
 import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 public class AccessDataBaseTest extends AndroidTestCase {
 
@@ -56,13 +57,17 @@ public class AccessDataBaseTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
+		getContext().deleteDatabase("Forum.db");
 		AccessDataBase.setInstance(new AccessDataBase(getContext()));
 		super.setUp();
 	}
 
 
 	public void testPostEntry(){
-		int errorCode = AccessDataBase.getInstance().postEntry(TEST_TOPIC_ID, 42, TEST_ENTRY_TEXT);
+		
+		Entry testentry = new Entry();
+		testentry.setEntrytext(TEST_ENTRY_TEXT);
+		int errorCode = AccessDataBase.getInstance().postEntry(TEST_TOPIC_ID, 42, testentry);
 		assertEquals("Cannot post Entry", 0, errorCode);
 		List<Entry> entries = AccessDataBase.getInstance().getEntryList(TEST_TOPIC_ID);
 		boolean foundEntry = false;
