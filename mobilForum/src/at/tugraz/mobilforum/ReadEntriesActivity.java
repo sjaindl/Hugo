@@ -1,7 +1,6 @@
 package at.tugraz.mobilforum;
 
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -34,10 +33,6 @@ public class ReadEntriesActivity extends Activity {
         /* TODO: gettopicid getcategory
          * 
          */
-        
-        ActionBar actionBar = getActionBar();
-        //actionBar.setCustomView(view);
-        
         entries = new ArrayList<Entry>();
         entries = db.getEntryList(this.topicid);
         

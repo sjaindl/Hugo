@@ -17,9 +17,7 @@ public class ImageAdapter extends BaseAdapter{
 	private Context context;
 	private int resource;
 	private Integer[] imageRessources;
-	private List<ImageView> images;
-	
-	 private Integer[] mThumbIds = {
+	private Integer[] mThumbIds = {
 			 			R.drawable.avatar2, R.drawable.bob, R.drawable.calimero,
 						R.drawable.daisy, R.drawable.elefant, R.drawable.ente,
 						R.drawable.maus, R.drawable.mickey, R.drawable.minnie,
@@ -31,21 +29,15 @@ public class ImageAdapter extends BaseAdapter{
 	 };
 	
 	public ImageAdapter(Context context, int resourceId) {
-		//super(context, resourceId);
-		
-		// TODO Auto-generated constructor stub
-		
 		this.context = context;
 		this.resource = resourceId;
-		//this.imageRessources = imageRessources;
-		notifyDataSetChanged();
-		
+		notifyDataSetChanged();	
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
+        if (convertView == null) {
             imageView = new ImageView(this.context);
             imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -69,14 +61,11 @@ public class ImageAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) {
-
 		return imageTitle[position];
 	}
 	
-
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
