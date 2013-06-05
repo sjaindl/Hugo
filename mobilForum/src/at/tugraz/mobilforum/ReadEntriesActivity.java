@@ -1,6 +1,7 @@
 package at.tugraz.mobilforum;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -18,12 +19,13 @@ public class ReadEntriesActivity extends Activity {
 	List<Entry> entries;
 	private int topicid = 1;
 
+
+
 	ReadEntriesBaseAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if(!AccessDataBase.hasInstance()){
 			AccessDataBase.setInstance(new AccessDataBase(this));
-			AccessDataBase.isDefined = false;
 		}
 		super.onCreate(savedInstanceState);
 		this.topicid = getIntent().getIntExtra("topicid", 1);
@@ -33,6 +35,10 @@ public class ReadEntriesActivity extends Activity {
         /* TODO: gettopicid getcategory
          * 
          */
+        
+        ActionBar actionBar = getActionBar();
+        //actionBar.setCustomView(view);
+        
         entries = new ArrayList<Entry>();
         entries = db.getEntryList(this.topicid);
         
@@ -43,16 +49,15 @@ public class ReadEntriesActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				//TODO
-//				if(adapter.isChildExpanded(arg2)){
-//					TextView tv1 = (TextView)arg1.findViewById(R.id.entryTextView);
-//					tv1.setMaxLines(2);
-//					adapter.setExpandedStatus(false, arg2);
-//				}else{
-//					TextView tv2 = (TextView)arg1.findViewById(R.id.entryTextView);
-//					tv2.setMaxLines(Integer.MAX_VALUE);
-//					adapter.setExpandedStatus(true, arg2);
-//				}
+				if(adapter.isChildExpanded(arg2)){
+					TextView tv1 = (TextView)arg1.findViewById(R.id.entryTextView);
+					tv1.setMaxLines(2);
+					adapter.setExpandedStatus(false, arg2);
+				}else{
+					TextView tv2 = (TextView)arg1.findViewById(R.id.entryTextView);
+					tv2.setMaxLines(Integer.MAX_VALUE);
+					adapter.setExpandedStatus(true, arg2);
+				}
 			}
 			});
 	}
