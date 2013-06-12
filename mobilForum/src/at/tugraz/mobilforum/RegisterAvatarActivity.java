@@ -68,6 +68,7 @@ public class RegisterAvatarActivity extends Activity {
 		    	Ed.commit(); 
 				i.setClass(getApplicationContext(), SwipeActivity.class);
 				startActivity(i);
+				finish();
 			}
 		});
 		

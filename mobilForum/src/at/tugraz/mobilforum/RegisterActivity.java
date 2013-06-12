@@ -71,6 +71,7 @@ public class RegisterActivity extends Activity {
 			
 			i.setClass(getApplicationContext(), RegisterAvatarActivity.class);
 			startActivity(i);
+			finish();
 		}
 	}
 
