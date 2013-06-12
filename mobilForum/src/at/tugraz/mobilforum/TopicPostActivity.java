@@ -70,7 +70,7 @@ public class TopicPostActivity extends Activity {
 		final TopicPostActivity ps = this;
 		
 		postButton.setOnClickListener(new OnClickListener(){
-
+			//BLAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 			@Override
 			public void onClick(View arg0) {
 				if(inputText.getText().length()>=1){
