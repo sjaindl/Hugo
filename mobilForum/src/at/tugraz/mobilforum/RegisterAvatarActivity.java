@@ -59,6 +59,7 @@ public class RegisterAvatarActivity extends Activity {
 				i.putExtra("password",inst.password);
 				i.setClass(getApplicationContext(), SwipeActivity.class);
 				startActivity(i);
+				finish();
 			}
 		});
 		

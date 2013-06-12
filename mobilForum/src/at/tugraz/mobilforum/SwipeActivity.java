@@ -112,9 +112,16 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
         
     }
     
-    @Override
-    public void onBackPressed() {
-    }
+//    @Override
+//    public void onBackPressed() {
+//    	 //1://android.os.Process.killProcess(android.os.Process.myPid());
+//    	  /*//2
+//    		super.onStop();  
+//          this.finish();
+//          */
+//    	//3
+//    	
+//    }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
