@@ -77,6 +77,17 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        
+          <activity
+            android:name="at.tugraz.mobilforum.AndroidDialog"
+			android:label="@string/title_activity_topic_list" 
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            
+        </activity>
+        
         <activity
             android:name="at.tugraz.mobilforum.TopicListActivityNew"
             android:label="@string/title_activity_topic_list_activity_new" 

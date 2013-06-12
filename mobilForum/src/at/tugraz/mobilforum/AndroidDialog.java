@@ -78,6 +78,11 @@ public class AndroidDialog extends Activity {
     	final Editable passwdconf = ((EditText) alertDialog.findViewById(R.id.password)).getText();
     	//Log.d("user name", userName.toString());
     	//Log.d("user password", passwdconf.toString());
+    	
+    	/** TODO: fix database
+    	 * 
+    	 * 
+    	 */
     	userId = db.approveUser(userName.toString(), passwdconf.toString());
     	Log.d("user id", Integer.toString(userId));
     		

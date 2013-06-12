@@ -32,9 +32,11 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		initDatabase(db);
+		this.db = db;
 		if(!isUsernameTaken("hugo123")){
 			fillDatabase(db);
 		}
+		this.db = null;
 		Log.d(TAG, "db created");
 	}
 		
