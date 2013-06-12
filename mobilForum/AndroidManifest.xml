@@ -102,6 +102,9 @@
             android:name="at.tugraz.mobilforum.SwipeActivity"
             android:label="@string/title_activity_swipe" 
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
         
         <activity

@@ -59,7 +59,6 @@ public class AndroidDialog extends Activity {
   
    if(!AccessDataBase.hasInstance()){
 		AccessDataBase.setInstance(new AccessDataBase(this));
-		AccessDataBase.isDefined = false;
 	}
 	final AccessDataBase db = AccessDataBase.getInstance();
    

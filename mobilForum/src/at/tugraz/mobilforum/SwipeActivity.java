@@ -18,6 +18,7 @@ package at.tugraz.mobilforum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -62,6 +63,12 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
+
+
+        if(!AccessDataBase.hasInstance()){
+     		AccessDataBase.setInstance(new AccessDataBase(this));
+     	}
+        
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -102,6 +109,7 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        
     }
     
     @Override
@@ -129,49 +137,35 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
      */
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
+        Map<Integer,String> categories;
+        
         public AppSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+
+         	final AccessDataBase db = AccessDataBase.getInstance();
+         	categories = db.getCategoryList();
         }
 
         @Override
         public Fragment getItem(int i) {
 	
-
-        	return new ListViewFragment().setData("segment "+i);
-//        	switch (i) {
-//            
-//            //hole von der DB die anzahl der Kategorien
-//            //schleife#############################
-//            //schicke eine anfrage an die datebank und gib alle einträge an der[i] stelle zurück
-//            //schreibe alle einträge der Kategorie i in Tab i.
-//            
-//                case 0:
-//                    // The first section of the app is the most interesting -- it offers
-//                    // a launchpad into the other demonstrations in this example application.
-//                
-//                    return new ListViewFragment();
-//                case 1:
-//                	return  new ListViewFragment1();
-//                case 2:
-//                	return new ListViewFragment1();
-//                case 3:
-//                	return new ListViewFragment2();
-//                case 4:
-//                	return new ListViewFragment3();
-//                	
-//                default:
-//                	return new ListViewFragment(null);
-//            }
+        	int id = getCatIDforPosition(i);
+        	return new ListViewFragment().setData(id, categories.get(id));
+        	
         }
 //Jonny: getCount - soll den Wert aus der DB bekommen
         @Override
         public int getCount() {
-            return 5;
+            return categories.size();
         }
 //Jonny: get PageTitle: soll den Namen der Category aus der DB bekommen
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Section " + (position + 1);
+            return categories.get(getCatIDforPosition(position));
+        }
+        
+        private int getCatIDforPosition(int p){
+        	return (Integer)categories.keySet().toArray()[p];
         }
     }
 
@@ -179,10 +173,12 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
     
     public static class ListViewFragment extends Fragment {
    	 
-    	String data;
+    	String category;
+    	int catid;
 
-    	public ListViewFragment setData(String data){
-    		this.data = data;
+    	public ListViewFragment setData(int catid, String cat){
+    		this.category = cat;
+    		this.catid = catid;
     		return this;
     	}
     	
@@ -209,16 +205,9 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
        	 List<Topic> topics;
            lv = (ListView) rootView.findViewById(R.id.topicListView);
            AccessDataBase db = AccessDataBase.getInstance();
-           /* TODO: gettopicid getcategory
-            * 
-            */
+           topics = db.getTopicList(catid);
            
            
-           topics = new ArrayList<Topic>();
-           Topic t1 = new Topic(1,"1. Topic", 320459235, "user1");
-           Topic t2 = new Topic(2, "2. Topic", 234234523, "user2");
-           topics.add(t1);
-           topics.add(t2);
            
            final Context context = inflater.getContext();
            final ReadTopicsBaseAdapter readTopicsBaseAdapter;
@@ -250,140 +239,11 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
     	  	   list.add(0, "David ist der Beste!");
     	  	   list.add(1, "Jonny ist auch nicht schlecht!");
     	  	   list.add(2, "in ya face!");
-    	  	   list.add(3, data);
+    	  	   list.add(3, category);
 
     	  	   return list.get(CategoryNumber);
 
     	     }
        
    }
-    
-//    
-//    public static class ListViewFragment1 extends Fragment {
-//      	 
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_topic_list_activity_new_dummy, container, false);
-//            Bundle args = getArguments();
-//            //DO STUFF HERE
-//           ListView listview = (ListView) rootView.findViewById(R.id.listblabla);
-//3
-//            ArrayList<String> list = new ArrayList<String>();
-//            ArrayAdapter<String> adapter;
-//            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, list);
-//           
-//            for(int i = 0; i < 3; i++){
-//           
-//         	   //list.add(i, getDatafromDB(i));
-//         	   
-//            }
-//            list.add("Coding is not a Crime!!!");
-//            list.add("HalloBallo!");
-//            
-//           listview.setAdapter(adapter);
-//
-//           return rootView;
-//        }
-//        
-//        
-//        public  String getDatafromDB(int CategoryNumber){
-//     	  	  //databasedummy
-//     	  	   //i ... kategorien
-//     	  	   ArrayList<String> list = new ArrayList<String>();
-//     	  	   ArrayList<String> fromDB = new ArrayList<String>();
-//     	  	   list.add(0, "David ist der Beste!");
-//     	  	   list.add(1, "Jonny ist auch nicht schlecht!");
-//     	  	   list.add(2, "in ya face!");
-//
-//     	  	   return list.get(CategoryNumber);
-//
-//     	     }
-//        
-//    }
-//    
-//    public static class ListViewFragment2 extends Fragment {
-//     	 
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_topic_list_activity_new_dummy, container, false);
-//            Bundle args = getArguments();
-//            //DO STUFF HERE
-//           ListView listview = (ListView) rootView.findViewById(R.id.listblabla);
-//
-//            ArrayList<String> list = new ArrayList<String>();
-//            ArrayAdapter<String> adapter;
-//            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, list);
-//           ListViewFragment
-//            for(int i = 0; i < 3; i++){
-//           
-//         	   //list.add(i, getDatafromDB(i));
-//         	   
-//            }
-//            list.add("go home...");
-//            
-//            
-//           listview.setAdapter(adapter);
-//
-//           return rootView;
-//        }
-//        
-//        
-//        public  String getDatafromDB(int CategoryNumber){
-//     	  	  //databasedummy
-//     	  	   //i ... kategorien
-//     	  	   ArrayList<String> list = new ArrayList<String>();
-//     	  	   ArrayList<String> fromDB = new ArrayList<String>();
-//     	  	   list.add(0, "David ist der Beste!");
-//     	  	   list.add(1, "Jonny ist auch nicht schlecht!");
-//     	  	   list.add(2, "in ya face!");
-//
-//     	  	   return list.get(CategoryNumber);
-//
-//     	     }
-//        
-//    }ListViewFragment
-//    public static class ListViewFragment3 extends Fragment {
-//    	 
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_topic_list_activity_new_dummy, container, false);
-//            Bundle args = getArguments();
-//            //DO STUFF HERE
-//           ListView listview = (ListView) rootView.findViewById(R.id.listblabla);
-//
-//            ArrayList<String> list = new ArrayList<String>();
-//            ArrayAdapter<String> adapter;
-//            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, list);
-//           
-//            for(int i = 0; i < 3; i++){
-//           
-//         	   //list.add(i, getDatafromDB(i));
-//         	   
-//            }
-//            list.add("you're drunk!");
-//            
-//            
-//           listview.setAdapter(adapter);
-//
-//           return rootView;
-//        }
-//        
-//        
-//        public  String getDatafromDB(int CategoryNumber){
-//     	  	  //databasedummy
-//     	  	   //i ... kategorien
-//     	  	   ArrayList<String> list = new ArrayList<String>();
-//     	  	   ArrayList<String> fromDB = new ArrayList<String>();
-//     	  	   list.add(0, "David ist der Beste!");
-//     	  	   list.add(1, "Jonny ist auch nicht schlecht!");
-//     	  	   list.add(2, "in ya face!");
-//
-//     	  	   return list.get(CategoryNumber);
-//
-//     	     }
-//        
-//    }
 }

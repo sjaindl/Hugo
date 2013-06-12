@@ -33,7 +33,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		initDatabase(db);
 		this.db = db;
-		if(!isUsernameTaken("hugo123")){
+		if(!isUsernameTaken("Hugo")){
 			fillDatabase(db);
 		}
 		this.db = null;
@@ -313,6 +313,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				return true;
 			}
 		}
+		cursor.close();
 		return false;
 	}
 
