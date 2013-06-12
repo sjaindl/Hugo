@@ -13,9 +13,15 @@ import android.widget.EditText;
 
 public class RegisterActivity extends Activity {
 
+	private int topicid = 0;
+	private int categoryid = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		  this.topicid = getIntent().getIntExtra("topicid", 1);
+		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
+
 		setContentView(R.layout.activity_register);
 		findViewById(R.id.activity_register_button_next).setEnabled(true);
 		final Button button = (Button) findViewById(R.id.activity_register_button_next);
@@ -60,6 +66,9 @@ public class RegisterActivity extends Activity {
 
 			i.putExtra("username", username.toString());
 			i.putExtra("password",passwd.toString());
+			i.putExtra("topicid",this.topicid);
+			i.putExtra("categorycid",this.categoryid);
+			
 			i.setClass(getApplicationContext(), RegisterAvatarActivity.class);
 			startActivity(i);
 		}

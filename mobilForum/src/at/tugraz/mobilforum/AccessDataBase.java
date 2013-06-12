@@ -202,6 +202,13 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		cursor.moveToNext();
 		return cursor.getString(0);
 	}
+	
+	public int getUserId(String username){
+		Cursor cursor = db.query(USER_TABLE, new String[] { "userid" },
+				"username='" + username + "'", null, null, null, null);
+		cursor.moveToNext();
+		return cursor.getInt(0);
+	}
 
 	public int postTopic(String title, int categoryid, int userid) {
 		db.execSQL("Insert into topics (categoryid,userid,title) values ('"

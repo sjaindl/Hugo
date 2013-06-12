@@ -5,7 +5,11 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.ClipData.Item;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -22,12 +26,14 @@ public class ReadEntriesActivity extends Activity {
 	private ListView lv;
 	List<Entry> entries;
 	private int topicid = 1;
+	private int categoryid = 1;
 
 
 
 	ReadEntriesBaseAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		if(!AccessDataBase.hasInstance()){
 			AccessDataBase.setInstance(new AccessDataBase(this));
 		}
@@ -40,6 +46,8 @@ public class ReadEntriesActivity extends Activity {
         AccessDataBase db = AccessDataBase.getInstance();
         
         int cid = db.getCategoryFromTopic(topicid);
+        
+        this.categoryid = cid;
         String category = db.getCategoryFromId(cid);
         String topicName = db.getTopicFromId(topicid);
 
@@ -73,28 +81,130 @@ public class ReadEntriesActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_read_entry, menu);
-//		View button_post_entry = findViewById(R.id.item1);
-//
-//		
-//		
-//		button_post_entry.setOnClickListener(new OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				Intent i = new Intent();
-//				i.putExtra("topicid", topicid);
-//				i.setClass(getApplicationContext(), PostEntryActivity.class);
-//				startActivity(i);
-//			}
-//			
-//		});
+	public boolean onPrepareOptionsMenu (Menu menu){
+		SharedPreferences sp = this.getSharedPreferences("Login", 0);
+		menu.clear();
+		
+		String user = sp.getString("userId", ""); 
+		final ReadEntriesActivity rea = this;
+		
+		
+		Log.d("TAG","MENU CHECK USERID: " + user);
+		
+			menu.add("Reply");
+			menu.add("Logout");
+			menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+
+				@Override
+				public boolean onMenuItemClick(MenuItem arg0) {
+					// TODO reply
+					
+					
+					return false;
+				}
+				
+				
+			});
+			
+			menu.getItem(1).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+
+				@Override
+				public boolean onMenuItemClick(MenuItem arg0) {
+					// TODO logout
+					SharedPreferences sp = rea.getSharedPreferences("Login", 0);
+					SharedPreferences.Editor Ed=sp.edit();
+		  	  	    Ed.clear();
+			  	  	Ed.commit(); 
+			  	  	Intent i = new Intent();
+					i.setClass(getApplicationContext(), SwipeActivity.class);
+					
+					startActivity(i);
+					return false;
+				}
+				
+				
+			});
+			
+		
+		menu.add("login");
+		menu.add("register");	
+
+		
+		menu.getItem(2).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0) {
+				//login
+				Intent i = new Intent();
+				i.putExtra("topicid",rea.topicid);
+				i.putExtra("categorycid",rea.categoryid);
+				i.setClass(getApplicationContext(), AndroidDialog.class);
+				startActivity(i);
+				return false;
+			}
+			
+			
+		});
+		
+		menu.getItem(3).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0) {
+				//register
+				Intent i = new Intent();
+				i.putExtra("topicid",rea.topicid);
+				i.putExtra("categorycid",rea.categoryid);
+				i.setClass(getApplicationContext(), RegisterActivity.class);
+				startActivity(i);
+				return false;
+				}
+			
+			
+		});
+		
+		int userid = 0;
+				
+		if(user.equals("")){
+			userid = 0;
+		}
+		else{
+			userid = Integer.parseInt(user);
+		}
+		
+		if(userid != 0)
+		{
+			// logged in
+			menu.getItem(0).setVisible(true);
+			menu.getItem(1).setVisible(true);
+			menu.getItem(2).setVisible(false);
+			menu.getItem(3).setVisible(false);	
+		}
+		else{
+			menu.getItem(0).setVisible(false);
+			menu.getItem(1).setVisible(false);
+			menu.getItem(2).setVisible(true);
+			menu.getItem(3).setVisible(true);	
+			
+		}
+		
+		
+		
 		
 
+
 		return true;
+		
+	} 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		
+		getMenuInflater().inflate(R.menu.activity_read_entry, menu);
+		
+				return true;
 	}
+
 
 	public int getTopicid() {
 		return topicid;

@@ -25,6 +25,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager.DisplayListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,7 +63,15 @@ public class SwipeActivity extends FragmentActivity implements ActionBar.TabList
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
-
+        
+        
+  	    SharedPreferences sp=getSharedPreferences("Login", 0);
+  	    if(!sp.getBoolean("Login", true)){
+  	        SharedPreferences.Editor Ed=sp.edit();
+  	  	    Ed.clear();
+  	  	    Ed.putString("userId", "0");                 
+  	  	    Ed.commit(); 
+  	    }
 
 
         if(!AccessDataBase.hasInstance()){

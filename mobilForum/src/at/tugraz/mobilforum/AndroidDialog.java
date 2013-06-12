@@ -11,17 +11,26 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
  
 public class AndroidDialog extends Activity {
  
  final private static int DIALOG_LOGIN = 1;
+ private int categoryid = 0;
+ private int topicid = 0;
+ 
+ 
  
  @Override
  public void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   showDialog(DIALOG_LOGIN);
+  this.topicid = getIntent().getIntExtra("topicid", 1);
+  this.categoryid = getIntent().getIntExtra("categoryid", 1);
+  
 
+  
  }
  
  @Override
@@ -51,6 +60,7 @@ public class AndroidDialog extends Activity {
   switch (id) {
   case DIALOG_LOGIN:
    final AlertDialog alertDialog = (AlertDialog) dialog;
+   alertDialog.setCanceledOnTouchOutside(true);
    Button loginbutton = (Button) alertDialog
      .findViewById(R.id.btn_login);
    Button cancelbutton = (Button) alertDialog
@@ -62,7 +72,8 @@ public class AndroidDialog extends Activity {
 	}
 	final AccessDataBase db = AccessDataBase.getInstance();
    
- 
+  	final AndroidDialog ad = this;
+    
    
    loginbutton.setOnClickListener(new View.OnClickListener() {
  
@@ -84,11 +95,7 @@ public class AndroidDialog extends Activity {
     	 */
     	userId = db.approveUser(userName.toString(), passwdconf.toString());
     	Log.d("user id", Integer.toString(userId));
-    		
-  	    SharedPreferences sp=getSharedPreferences("Login", 0);
-  	    SharedPreferences.Editor Ed=sp.edit();
-  	    Ed.putString("userId", Integer.toString(userId));                 
-  	    Ed.commit(); 
+    	 
     	
     	if(userId != 0 )    		
     	{	   		
@@ -97,7 +104,15 @@ public class AndroidDialog extends Activity {
           AndroidDialog.this,
           "Loggon Successful ",
           Toast.LENGTH_LONG).show();
-    	}
+          SharedPreferences sp=getSharedPreferences("Login", 0);
+    	  SharedPreferences.Editor Ed=sp.edit();
+    	  Ed.putString("userId", Integer.toString(userId));                 
+    	  Ed.commit(); 
+    	  Intent i = new Intent();
+    	  i.putExtra("topicid",ad.topicid);
+    	  i.setClass(getApplicationContext(), ReadEntriesActivity.class);
+    	  startActivity(i);
+		}
     	else
     	{
     	   alertDialog.dismiss(); 
@@ -105,19 +120,19 @@ public class AndroidDialog extends Activity {
     	  AndroidDialog.this,
     	  "Wrong Login, please try again ",
     	  Toast.LENGTH_LONG).show();
+    	  Intent i = new Intent();
+			i.setClass(getApplicationContext(), AndroidDialog.class);
+			startActivity(i);
     	}
     }
    });
- 
+    
    cancelbutton.setOnClickListener(new View.OnClickListener() {
  
     @Override
     public void onClick(View v) {
      alertDialog.dismiss();
-     Toast.makeText(
-     AndroidDialog.this,
-     "Incorrect",
-     Toast.LENGTH_LONG).show();
+     ad.finish();
     }
    });
    break;

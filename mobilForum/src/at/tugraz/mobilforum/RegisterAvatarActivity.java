@@ -2,6 +2,7 @@ package at.tugraz.mobilforum;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,11 +18,16 @@ public class RegisterAvatarActivity extends Activity {
 	private ImageAdapter adapter;
 	private String username;
 	private String password;
+	private int topicid = 0;
+	private int categoryid = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.username = "";
 		this.password = "";
+		
+		  this.topicid = getIntent().getIntExtra("topicid", 1);
+		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
 		if(savedInstanceState != null){
 			this.username = this.getIntent().getExtras().getString("username");
 			this.password = this.getIntent().getExtras().getString("password");	
@@ -54,9 +60,12 @@ public class RegisterAvatarActivity extends Activity {
 				String image_name = (String)avatar_grid.getAdapter().getItem(arg2);
 				db.registerUser(inst.username, inst.password, image_name);
 				Intent i = new Intent();
-
-				i.putExtra("username",  inst.username);
-				i.putExtra("password",inst.password);
+				SharedPreferences sp=getSharedPreferences("Login", 0);
+		    	SharedPreferences.Editor Ed=sp.edit();
+		    	int userid = db.getUserId(inst.username);
+		    	Log.d("TAG", "USER ID: " + userid);
+		    	Ed.putString("userId", Integer.toString(userid));                 
+		    	Ed.commit(); 
 				i.setClass(getApplicationContext(), SwipeActivity.class);
 				startActivity(i);
 			}

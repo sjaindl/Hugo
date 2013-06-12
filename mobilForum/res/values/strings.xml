@@ -49,5 +49,6 @@
     <string name="dialog_password">password</string>
     <string name="dialog_imageupload">Upload image</string>
     <string name="imageUploadButtonText">imageUploadButtonText</string>
+    <string name="menu_register">menu_register</string>
     
 </resources>
