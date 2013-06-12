@@ -77,26 +77,30 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (10, 2, 1, 'Stirb Langsam 4.0', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (11, 3, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (11, 4, 1, 'Kotlett', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (12, 3, 1, 'Schnitzl', 190000000, 3)");
+				+ " VALUES (12, 4, 1, 'Schnitzl', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (13, 3, 1, 'Pizza', 190000000, 3)");
+				+ " VALUES (13, 4, 1, 'Pizza', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (14, 3, 1, 'Lasagne', 190000000, 3)");
+				+ " VALUES (14, 4, 1, 'Lasagne', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (15, 3, 1, 'Ente', 190000000, 3)");
+				+ " VALUES (15, 4, 1, 'Ente', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (16, 3, 1, 'Bier', 190000000, 3)");
+				+ " VALUES (16, 5, 1, 'Bier', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (17, 3, 1, 'Wien', 190000000, 3)");
+				+ " VALUES (17, 5, 1, 'Wien', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (18, 3, 1, 'Wasser', 190000000, 3)");
+				+ " VALUES (18, 5, 1, 'Wasser', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (19, 3, 1, 'Saft', 190000000, 3)");
+				+ " VALUES (19, 5, 1, 'Saft', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (20, 3, 1, 'Cola', 190000000, 3)");
+				+ " VALUES (20, 5, 1, 'Cola', 190000000, 3)");
+		
+
+		db.execSQL("INSERT INTO " + TOPIC_TABLE
+				+ " VALUES (21, 3, 1, 'Best Forum EVER', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
 				+ " VALUES (1, 1, 1, 'Kotlett', NULL, 190000000, 3)");
@@ -126,7 +130,8 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	public void initDatabase(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ USER_TABLE
-				+ " (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, givenname TEXT, surname TEXT, profilepic TEXT, signature TEXT)");
+				+ " (userid INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				" username TEXT NOT NULL, password TEXT NOT NULL, givenname TEXT, surname TEXT, profilepic TEXT, signature TEXT)");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ CATEGORY_TABLE
@@ -190,6 +195,13 @@ public class AccessDataBase extends SQLiteOpenHelper {
 			return this.approveUser(username, password);
 		}
 	}
+	
+	public String getUserName(int userid){
+		Cursor cursor = db.query(USER_TABLE, new String[] { "username" },
+				"userid='" + userid + "'", null, null, null, null);
+		cursor.moveToNext();
+		return cursor.getString(0);
+	}
 
 	public int postTopic(String title, int categoryid, int userid) {
 		db.execSQL("Insert into topics (categoryid,userid,title) values ('"
@@ -242,9 +254,34 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				null, null, null, null);
 		while (cursor.moveToNext()) {
 			topics.add(new Topic(cursor.getInt(0), cursor.getString(1), cursor
-					.getLong(3), cursor.getString(2)));
+					.getLong(3), getUserName(cursor.getInt(2))));
+			
 		}
 		return topics;
+	}
+	
+	public int getCategoryFromTopic(int topicid) {
+		Cursor cursor = db.query(TOPIC_TABLE, new String[] { "categoryid",
+				"title", "userid", "date" }, "topicid='" + topicid + "'",
+				null, null, null, null);
+		cursor.moveToNext();
+		return cursor.getInt(0);
+	}
+
+	public String getTopicFromId(int topicid) {
+		Cursor cursor = db.query(TOPIC_TABLE, new String[] { "title"},
+		"topicid='" + topicid + "'",
+				null, null, null, null);
+		cursor.moveToNext();
+		return cursor.getString(0);
+	}
+	
+	public String getCategoryFromId(int categoryid) {
+		Cursor cursor = db.query(CATEGORY_TABLE, new String[] { "catname"},
+		"catid='" + categoryid + "'",
+				null, null, null, null);
+		cursor.moveToNext();
+		return cursor.getString(0);
 	}
 
 	public List<Entry> getEntryList(int topicid) {
@@ -308,8 +345,9 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		Cursor cursor = db.query(USER_TABLE, new String[] { "count(*)" },
 				"username='" + username + "'", null, null, null, null);
 		if (cursor.moveToFirst()) {
-			Integer userID = cursor.getInt(0);
-			if (userID > 0) {
+			Integer cnt = cursor.getInt(0);
+			if (cnt > 0) {
+				cursor.close();
 				return true;
 			}
 		}

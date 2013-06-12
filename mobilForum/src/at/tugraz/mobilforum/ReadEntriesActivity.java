@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.ClipData.Item;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,32 +32,23 @@ public class ReadEntriesActivity extends Activity {
 			AccessDataBase.setInstance(new AccessDataBase(this));
 		}
 		super.onCreate(savedInstanceState);
-		Button button_post_entry = (Button) findViewById(R.id.item1);
 
-		
-		
-		button_post_entry.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent();
-				i.putExtra("topicid", topicid);
-				i.setClass(getApplicationContext(), PostEntryActivity.class);
-				startActivity(i);
-			}
-			
-		});
-		
+		setContentView(R.layout.activity_read_entry);
 		
 		this.topicid = getIntent().getIntExtra("topicid", 1);
-		setContentView(R.layout.activity_read_entry);
         lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
         
-        /* TODO: gettopicid getcategory
-         * 
-         */
-      
+        int cid = db.getCategoryFromTopic(topicid);
+        String category = db.getCategoryFromId(cid);
+        String topicName = db.getTopicFromId(topicid);
+
+        TextView topicsText = (TextView)findViewById(R.id.Topic);
+        TextView categoryText = (TextView)findViewById(R.id.Category);
+        
+        topicsText.setText(topicName);
+        categoryText.setText(category);
+
         entries = new ArrayList<Entry>();
         entries = db.getEntryList(this.topicid);
         
@@ -84,6 +76,22 @@ public class ReadEntriesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_read_entry, menu);
+//		View button_post_entry = findViewById(R.id.item1);
+//
+//		
+//		
+//		button_post_entry.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent();
+//				i.putExtra("topicid", topicid);
+//				i.setClass(getApplicationContext(), PostEntryActivity.class);
+//				startActivity(i);
+//			}
+//			
+//		});
+		
 
 		return true;
 	}
