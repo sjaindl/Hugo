@@ -42,16 +42,17 @@ public class PostEntryActivity extends Activity {
 	private Uri uri = null;
 	private int topicid = 1;
 	private int userid = 1;
+	private int categoryid = 1;
 
 	private Entry entry = null;
 
 	@Override
 	@SuppressLint("ShowToast")
 	protected void onCreate(Bundle savedInstanceState) {
-		this.topicid = getIntent().getIntExtra("topicid", 1);
-		AccessDataBase.setInstance(new AccessDataBase(this.getApplicationContext()));
-		//this.userid = // shared preferences  /** TODO: access shared preferences */
+		  this.topicid = getIntent().getIntExtra("topicid", 1);
+		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
 
+		AccessDataBase.setInstance(new AccessDataBase(this.getApplicationContext()));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 		toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
@@ -136,7 +137,12 @@ public class PostEntryActivity extends Activity {
 					entry.setEntrytext(inputText.getText().toString());
 					AccessDataBase.getInstance().postEntry(topicid, userid, entry);
 					Toast.makeText(ps, "Entry posted", Toast.LENGTH_SHORT).show();
-					ps.finish();
+					Intent i = new Intent();
+					i.putExtra("topicid",ps.topicid);
+					i.putExtra("categorycid",ps.categoryid);
+					
+					i.setClass(getApplicationContext(), ReadEntriesActivity.class);
+					startActivity(i);
 					return true;
 				}
 				return false;
@@ -228,7 +234,7 @@ public class PostEntryActivity extends Activity {
 		    	iv.invalidate();
 		    	iv.setMaxHeight(500);
 		    	iv.setMaxWidth(500);
-
+		    	iv.setPadding(5, 5, 5, 5);
 
 		    	String localfilepath = "";
 

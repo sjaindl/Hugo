@@ -13,24 +13,20 @@
         android:id="@+id/newPostText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="110dp"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="60dp"
+        android:ems="10"
         android:gravity="left"
         android:inputType="textMultiLine"
-        android:scrollHorizontally="false" >
-
-        <requestFocus />
-    </EditText>
+        android:scrollHorizontally="false" />
 
     <ImageView
         android:id="@+id/imageUploadView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_alignLeft="@+id/newPostText"
-        android:layout_below="@+id/newPostText"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/imageupload" />
 
     <Button
@@ -38,7 +34,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageUploadView"
+        android:layout_alignBottom="@+id/imageUploadView"
+        android:layout_alignRight="@+id/newPostText"
+        android:layout_marginRight="22dp"
         android:text="@string/imageUploadButtonText" />
-
+   
 </RelativeLayout>

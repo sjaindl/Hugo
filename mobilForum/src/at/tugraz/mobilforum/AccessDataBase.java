@@ -161,7 +161,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 
 	public AccessDataBase(Context context) {
 		super(context, DATABASE_NAME, null, 1);
-		context.deleteDatabase("Forum.db"); // FIXXXME: remove after database reset /** TODO: remove after database reset */
+		//context.deleteDatabase("Forum.db"); // FIXXXME: remove after database reset /** TODO: remove after database reset */
 		db = getWritableDatabase();
 	}
 

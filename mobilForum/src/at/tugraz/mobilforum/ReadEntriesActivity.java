@@ -91,15 +91,18 @@ public class ReadEntriesActivity extends Activity {
 		
 		Log.d("TAG","MENU CHECK USERID: " + user);
 		
-			menu.add("Reply");
-			menu.add("Logout");
+			menu.add("Antworten");
+			menu.add("Ausloggen");
 			menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener(){
 
 				@Override
 				public boolean onMenuItemClick(MenuItem arg0) {
 					// TODO reply
-					
-					
+					Intent i = new Intent();
+					i.putExtra("topicid",rea.topicid);
+					i.putExtra("categorycid",rea.categoryid);
+					i.setClass(getApplicationContext(), PostEntryActivity.class);
+					startActivity(i);
 					return false;
 				}
 				
@@ -126,8 +129,8 @@ public class ReadEntriesActivity extends Activity {
 			});
 			
 		
-		menu.add("login");
-		menu.add("register");	
+		menu.add("Einloggen");
+		menu.add("Registrieren");	
 
 		
 		menu.getItem(2).setOnMenuItemClickListener(new OnMenuItemClickListener(){

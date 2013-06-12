@@ -48,7 +48,8 @@
     <string name="dialog_cancel">cancel</string>
     <string name="dialog_password">password</string>
     <string name="dialog_imageupload">Upload image</string>
-    <string name="imageUploadButtonText">imageUploadButtonText</string>
+    <string name="imageUploadButtonText">Bild</string>
     <string name="menu_register">menu_register</string>
+    <string name="uploadImagebtn">Bild</string>
     
 </resources>
