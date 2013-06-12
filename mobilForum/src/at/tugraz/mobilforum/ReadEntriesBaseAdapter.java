@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,11 +109,36 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 
 	        Entry entry = this.getItem(position);
 	        entrytv.setText(entry.getEntrytext());
+	        ImageView img = (ImageView)vi.findViewById(R.id.entry_image);
+	        if(
+	        	(entry.getUploadedImageURI() != null)
+	        	){
+	        	  Options opt = new Options();
+			    	opt.inScaled = true;
+			    	opt.inSampleSize = 4;
+		        Bitmap mImageBitmap = BitmapFactory.decodeFile(entry.getUploadedImageURI(), opt);
+		        if(mImageBitmap != null){
+		        img.setImageBitmap(mImageBitmap);
+		        img.bringToFront();
+		    	img.invalidate();
+		    	img.setMaxHeight(500);
+		    	img.setMaxWidth(500);
+		    	img.setPadding(5, 5, 5, 5);
+		        }
+		        else{
+		        	img.setMaxHeight(0);
+		        	img.setMaxWidth(0);     
+		        	img.setVisibility(View.GONE);
+		        }
+	        }
+	        else{
+	        	img.setMaxHeight(0);
+	        	img.setMaxWidth(0);     
+	        	img.setVisibility(View.GONE);
+	        }
 	        nametv.setText(entry.getUsername());
-	        /* TODO: get image name from database */
 	        avatariv.setImageResource(R.drawable.avatar2);
-
-	        //Bitmap bmap = BitmapFactory.decodeFile()
+	        
 	        datetv.setText(entry.getDate());
 	        timetv.setText(entry.getTime());
 	        //timetv.setText(entry.getTime());

@@ -22,6 +22,7 @@ public class Entry {
 		this.userpicture = "";
 		this.usersignature = "";
 		this.entrytext = "";
+		this.uploadedImageURI = "";
 		this.date = new Date();
 		this.rating = 0;
 	}
