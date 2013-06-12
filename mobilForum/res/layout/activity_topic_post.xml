@@ -8,25 +8,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TopicPostActivity" >
 
-    <Button
-        android:id="@+id/btn_newTopic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="72dp"
-        android:text="New Topic" />
-
     <EditText
         android:id="@+id/txt_topicTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="43dp"
-        android:layout_toLeftOf="@+id/button1"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/btn_newTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_topicTitle"
+        android:layout_alignRight="@+id/txt_topicTitle"
+        android:layout_below="@+id/txt_topicTitle"
+        android:layout_marginTop="21dp"
+        android:text="Create New Topic" />
 
 </RelativeLayout>
