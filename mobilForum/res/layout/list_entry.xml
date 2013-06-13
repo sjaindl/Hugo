@@ -48,11 +48,10 @@
 
     <ImageView
         android:id="@+id/entry_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/entryTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/imgview" />
+        android:src="@drawable/entry_image" />
 
 </RelativeLayout>

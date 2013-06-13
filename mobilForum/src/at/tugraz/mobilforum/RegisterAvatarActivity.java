@@ -28,10 +28,8 @@ public class RegisterAvatarActivity extends Activity {
 		
 		  this.topicid = getIntent().getIntExtra("topicid", 1);
 		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
-		if(savedInstanceState != null){
-			this.username = this.getIntent().getExtras().getString("username");
-			this.password = this.getIntent().getExtras().getString("password");	
-		}
+		  this.username = this.getIntent().getExtras().getString("username");
+	      this.password = this.getIntent().getExtras().getString("password");	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_avatar_register);
 		
@@ -58,11 +56,12 @@ public class RegisterAvatarActivity extends Activity {
 				AccessDataBase db = AccessDataBase.getInstance();
 				avatar_grid.getAdapter().getView(arg2, arg1, null);
 				String image_name = (String)avatar_grid.getAdapter().getItem(arg2);
-				db.registerUser(inst.username, inst.password, image_name);
+				Log.d("TAG","REGISTER USER: username: " + username + " password: " + password + " Image: " + image_name);
+				db.registerUser(username, password, image_name);
 				Intent i = new Intent();
 				SharedPreferences sp=getSharedPreferences("Login", 0);
 		    	SharedPreferences.Editor Ed=sp.edit();
-		    	int userid = db.getUserId(inst.username);
+		    	int userid = db.getUserId(username);
 		    	Log.d("TAG", "USER ID: " + userid);
 		    	Ed.putString("userId", Integer.toString(userid));                 
 		    	Ed.commit(); 

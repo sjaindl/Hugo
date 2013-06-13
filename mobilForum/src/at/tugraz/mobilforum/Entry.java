@@ -14,6 +14,7 @@ public class Entry {
 	String uploadedImageURI;
 	java.util.Date date;
 	int rating;
+	int userid;
 	
 	
 	public Entry(){
@@ -93,5 +94,13 @@ public class Entry {
 
 	public void setUploadedImageURI(String uploadedImageURI) {
 		this.uploadedImageURI = uploadedImageURI;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 }

@@ -41,7 +41,7 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	}
 
 	public void testPostTopic(){
-		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42);
+		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42, null);
 		assertEquals("Cannot post Topic", 0, errorCode);
 		List<Topic> topics =  AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
 		topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);

@@ -76,7 +76,8 @@ public class TopicPostActivity extends Activity {
 				if(inputText.getText().length()>=1){
 					 entry_title = inputText.getText().toString();
 					 Log.d("DEBUG", "EntryTitle: "+entry_title);
-					 AccessDataBase.getInstance().postTopic(entry_title, topicid, userid);
+					 String username = AccessDataBase.getInstance().getUserName(userid);
+					 AccessDataBase.getInstance().postTopic(entry_title, topicid, userid, username);
 					Toast.makeText(ps, "Entry created", Toast.LENGTH_SHORT).show();
 					ps.finish();
 					

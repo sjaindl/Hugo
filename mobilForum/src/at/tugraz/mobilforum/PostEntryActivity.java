@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,9 +50,16 @@ public class PostEntryActivity extends Activity {
 	@Override
 	@SuppressLint("ShowToast")
 	protected void onCreate(Bundle savedInstanceState) {
-		  this.topicid = getIntent().getIntExtra("topicid", 1);
-		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
-
+		this.topicid = getIntent().getIntExtra("topicid", 1);
+		this.categoryid = getIntent().getIntExtra("categoryid", 1);
+		SharedPreferences sp = this.getSharedPreferences("Login", 0);
+		String user = sp.getString("userId", "");
+		if(user.isEmpty()){
+			this.userid = 0;
+		}
+		else{
+			this.userid = Integer.parseInt(user);
+		}
 		AccessDataBase.setInstance(new AccessDataBase(this.getApplicationContext()));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
@@ -135,8 +143,9 @@ public class PostEntryActivity extends Activity {
 			public boolean onMenuItemClick(MenuItem arg0) {
 				if(inputText.getText().length()>=1){
 					entry.setEntrytext(inputText.getText().toString());
+					Log.d("TAG","Entry: " + topicid + " " + userid + " " + entry.getEntrytext());
 					AccessDataBase.getInstance().postEntry(topicid, userid, entry);
-					Toast.makeText(ps, "Entry posted", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ps, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 					Intent i = new Intent();
 					i.putExtra("topicid",ps.topicid);
 					i.putExtra("categorycid",ps.categoryid);
@@ -242,7 +251,8 @@ public class PostEntryActivity extends Activity {
 		    	 * TODO: copy file to local app storage
 		    	 */
 		    	localfilepath = imageurl; // FIXXXME
-
+		    	
+		    	Log.d("TAG","IMAGE PATH: " + localfilepath);
 		    	this.entry.setUploadedImageURI(localfilepath);
 
 

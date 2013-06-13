@@ -102,7 +102,7 @@ public class AndroidDialog extends Activity {
           alertDialog.dismiss();     
           Toast.makeText(     		 
           AndroidDialog.this,
-          "Loggon Successful ",
+          "Erfolgreich eingeloggt",
           Toast.LENGTH_LONG).show();
           SharedPreferences sp=getSharedPreferences("Login", 0);
     	  SharedPreferences.Editor Ed=sp.edit();
@@ -118,7 +118,7 @@ public class AndroidDialog extends Activity {
     	   alertDialog.dismiss(); 
     	  Toast.makeText(
     	  AndroidDialog.this,
-    	  "Wrong Login, please try again ",
+    	  "Benutzerdaten falsch, bitte versuche es nocheinmal",
     	  Toast.LENGTH_LONG).show();
     	  Intent i = new Intent();
 			i.setClass(getApplicationContext(), AndroidDialog.class);

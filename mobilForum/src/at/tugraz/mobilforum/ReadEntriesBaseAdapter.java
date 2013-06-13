@@ -101,6 +101,7 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 	        	Log.d("getView","NOT expanded. !");
 
 	        	entrytv.setMaxLines(2);
+
 	        }
 	        TextView nametv = (TextView)vi.findViewById(R.id.name);
 	        ImageView avatariv = (ImageView)vi.findViewById(R.id.avatarView);
@@ -110,6 +111,7 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 	        Entry entry = this.getItem(position);
 	        entrytv.setText(entry.getEntrytext());
 	        ImageView img = (ImageView)vi.findViewById(R.id.entry_image);
+	        Log.d("TAG","---->IMAGE PATH: " + entry.getUploadedImageURI());
 	        if(
 	        	(entry.getUploadedImageURI() != null)
 	        	){
@@ -120,10 +122,10 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 		        if(mImageBitmap != null){
 		        img.setImageBitmap(mImageBitmap);
 		        img.bringToFront();
-		    	img.invalidate();
 		    	img.setMaxHeight(500);
 		    	img.setMaxWidth(500);
 		    	img.setPadding(5, 5, 5, 5);
+		    	img.setVisibility(View.VISIBLE);
 		        }
 		        else{
 		        	img.setMaxHeight(0);
@@ -136,8 +138,16 @@ public class ReadEntriesBaseAdapter extends BaseAdapter {
 	        	img.setMaxWidth(0);     
 	        	img.setVisibility(View.GONE);
 	        }
+	        
+	        
+	        if(entry.getUsername().isEmpty()){
+	        	Log.d("TAG","USERNAME EMPTY-> userid: " + entry.getUserid());
+	        	nametv.setText(AccessDataBase.getInstance().getUserName(entry.getUserid()));
+	        }
 	        nametv.setText(entry.getUsername());
-	        avatariv.setImageResource(R.drawable.avatar2);
+	        
+	        int image_id = AccessDataBase.getInstance().getAvatarId(entry.userid);
+	        avatariv.setImageResource(image_id);
 	        
 	        datetv.setText(entry.getDate());
 	        timetv.setText(entry.getTime());

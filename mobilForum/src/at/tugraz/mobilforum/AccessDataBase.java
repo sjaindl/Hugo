@@ -27,7 +27,16 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	private static AccessDataBase instance;
 	private SQLiteDatabase db;
 	public static boolean isDefined;
-
+	private Integer[] mThumbIds = {
+ 			R.drawable.avatar2, R.drawable.bob, R.drawable.calimero,
+			R.drawable.daisy, R.drawable.elefant, R.drawable.ente,
+			R.drawable.maus, R.drawable.mickey, R.drawable.minnie,
+			R.drawable.gary, R.drawable.sandy, R.drawable.spongebob
+};
+	
+	 private String[] imageTitle = {
+			 "avatar","bob","calimero","daisy","elefant","ente","maus","mickey","minnie","gary","sandy","spongebob"
+	 };
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -46,13 +55,17 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + CATEGORY_TABLE
 				+ " VALUES (2,'Lieblingsfilme')");
 		db.execSQL("INSERT INTO " + CATEGORY_TABLE + " VALUES (3,'Hugo')");
-		db.execSQL("INSERT INTO " + CATEGORY_TABLE + " VALUES (4,'ESSEN')");
+		db.execSQL("INSERT INTO " + CATEGORY_TABLE + " VALUES (4,'Essen')");
 		db.execSQL("INSERT INTO " + CATEGORY_TABLE
 				+ " VALUES (5,'Trinken')");
 
 		db.execSQL("INSERT INTO "
 				+ USER_TABLE
-				+ " VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'test/pic', 'my signature')");
+				+ " VALUES (1, 'Hugo', 'hugo123', 'Hugo', 'Mob', 'avatar', '-- \nHugo')");
+		
+		db.execSQL("INSERT INTO "
+				+ USER_TABLE
+				+ " VALUES (2, 'Hansi', 'hansi123', 'Hugo', 'Mob', 'elefant', '-- \nHansi')");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
 				+ " VALUES (1, 1, 1, 'Katze', 190000000, 3)");
@@ -63,18 +76,13 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
 				+ " VALUES (4, 1, 1, 'Kroko', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (5, 1, 1, 'BŠr', 190000000, 3)");
+				+ " VALUES (5, 1, 1, 'Maus', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (6, 2, 1, 'Matrix', 190000000, 3)");
+				+ " VALUES (6, 2, 1, 'Simpsons', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (7, 2, 1, 'Stirb Langsam 1', 190000000, 3)");
-		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (8, 2, 1, 'Stirb Langsam 2', 190000000, 3)");
-		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (9, 2, 1, 'Stirb Langsam 3', 190000000, 3)");
-		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (10, 2, 1, 'Stirb Langsam 4.0', 190000000, 3)");
+				+ " VALUES (7, 2, 1, 'Tom und Jerry', 190000000, 3)");
+		
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
 				+ " VALUES (11, 4, 1, 'Kotlett', 190000000, 3)");
@@ -88,13 +96,13 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (15, 4, 1, 'Ente', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (16, 5, 1, 'Bier', 190000000, 3)");
+				+ " VALUES (16, 5, 1, 'Himbeersaft', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (17, 5, 1, 'Wien', 190000000, 3)");
+				+ " VALUES (17, 5, 1, 'Fanta', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
 				+ " VALUES (18, 5, 1, 'Wasser', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (19, 5, 1, 'Saft', 190000000, 3)");
+				+ " VALUES (19, 5, 1, 'Sprite', 190000000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
 				+ " VALUES (20, 5, 1, 'Cola', 190000000, 3)");
 		
@@ -103,28 +111,10 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (21, 3, 1, 'Best Forum EVER', 190000000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (1, 1, 1, 'Kotlett', NULL, 190000000, 3)");
+				+ " VALUES (1, 1, 1, 'Fell \n \n Meine Katze hat ein sehr weiches Fell und ist ganz schwarz. \n \n \n \n\n Welche Farbe hat eure Katze?', NULL, 190000000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (2, 1, 1, 'Kotlett', NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (3, 1, 1, 'Kotlett', NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (4, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (5, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
-
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (6, 2, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (7, 3, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (8, 4, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (9, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (10, 1, 1, 'Kotlett',  NULL, 190000000, 3)");
-		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (11, 1, 1, 'Kotlett', NULL,  190000000, 3)");
+				+ " VALUES (2, 1, 2, 'Meine Katze ist ganz weiß.', NULL, 190000000, 3)");
+		
 	}
 
 	public void initDatabase(SQLiteDatabase db){
@@ -190,9 +180,17 @@ public class AccessDataBase extends SQLiteOpenHelper {
 			// auth: yes
 			return -2;
 		} else {
-			db.execSQL("Insert into users (username,password,profilepic) values ('"
-					+ username + "','" + password + "','" + profilepic + "')");
-			return this.approveUser(username, password);
+			cursor.close();
+			String insertstring = "Insert into users (username,password,givenname,surname,profilepic,signature) values ('"
+					+ username + "','" + password + "','" + "Vorname" + "','" + "Nachname" + "','"+ profilepic + "','" +  "Signature" + "')";
+			
+			db.execSQL("Insert into users (username,password,givenname,surname,profilepic,signature) values ('"
+					+ username + "','" + password + "','" + "Vorname" + "','" + "Nachname" + "','"+ profilepic + "','" +  "Signature" + "')");
+			Log.d("TAG","Insert -> user: " + username + "password: " + password + "profilepic: " + profilepic);
+			Log.d("TAG","Insert String: " + insertstring);
+			int ret = this.approveUser(username, password);
+			Log.d("TAG","User valid (!=0): " + ret);
+			return ret;
 		}
 	}
 	
@@ -210,7 +208,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		return cursor.getInt(0);
 	}
 
-	public int postTopic(String title, int categoryid, int userid) {
+	public int postTopic(String title, int categoryid, int userid, String username) {
 		db.execSQL("Insert into topics (categoryid,userid,title) values ('"
 				+ categoryid + "','" + userid + "','" + title + "')");
 		return 0;
@@ -293,6 +291,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 
 	public List<Entry> getEntryList(int topicid) {
 
+
 		Log.d(TAG, "read db entries");
 		List<Entry> entries = new ArrayList<Entry>();
 		Cursor cursor = db.query(ENTRY_TABLE, new String[] { "userid",
@@ -301,6 +300,7 @@ public class AccessDataBase extends SQLiteOpenHelper {
 		while (cursor.moveToNext()) {
 			int userid = cursor.getInt(0);
 			Entry entry = new Entry();
+			entry.setUserid(userid);
 			entry.setRating(cursor.getInt(1));
 			entry.setEntrytext(cursor.getString(2));
 			entry.setUploadedImageURI(cursor.getString(3));
@@ -346,6 +346,28 @@ public class AccessDataBase extends SQLiteOpenHelper {
 			avatars.add(cursor.getString(0));
 		}
 		return avatars;
+	}
+	
+	public int getAvatarId(int userid){
+		Cursor cursor = db.query(USER_TABLE, new String[] { "profilepic" },
+				"userid='" + userid + "'", null, null, null, null);
+		cursor.moveToNext();
+		String img = cursor.getString(0);
+		
+		if(img.equals(imageTitle[0])){ return mThumbIds[0];}
+		if(img.equals(imageTitle[1])){ return mThumbIds[1];}
+		if(img.equals(imageTitle[2])){ return mThumbIds[2];}
+		if(img.equals(imageTitle[3])){ return mThumbIds[3];}
+		if(img.equals(imageTitle[4])){ return mThumbIds[4];}
+		if(img.equals(imageTitle[5])){ return mThumbIds[5];}
+		if(img.equals(imageTitle[6])){ return mThumbIds[6];}
+		if(img.equals(imageTitle[7])){ return mThumbIds[7];}
+		if(img.equals(imageTitle[8])){ return mThumbIds[8];}
+		if(img.equals(imageTitle[9])){ return mThumbIds[9];}
+		if(img.equals(imageTitle[10])){ return mThumbIds[10];}
+		
+		return mThumbIds[0];
+		
 	}
 
 	public boolean isUsernameTaken(String username) {
