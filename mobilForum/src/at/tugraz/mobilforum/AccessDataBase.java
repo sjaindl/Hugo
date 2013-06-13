@@ -68,52 +68,52 @@ public class AccessDataBase extends SQLiteOpenHelper {
 				+ " VALUES (2, 'Hansi', 'hansi123', 'Hugo', 'Mob', 'elefant', '-- \nHansi')");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (1, 1, 1, 'Katze', 190000000, 3)");
+				+ " VALUES (1, 1, 1, 'Katze', 1371032261000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (2, 1, 1, 'Hund', 190000000, 3)");
+				+ " VALUES (2, 1, 1, 'Hund', 1371032321000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (3, 1, 1, 'Panda', 190000000, 3)");
+				+ " VALUES (3, 1, 1, 'Panda', 1371032381000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (4, 1, 1, 'Kroko', 190000000, 3)");
+				+ " VALUES (4, 1, 1, 'Kroko', 1371032441000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (5, 1, 1, 'Maus', 190000000, 3)");
+				+ " VALUES (5, 1, 1, 'Maus', 1371032501000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (6, 2, 1, 'Simpsons', 190000000, 3)");
+				+ " VALUES (6, 2, 1, 'Simpsons', 1371032561000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (7, 2, 1, 'Tom und Jerry', 190000000, 3)");
+				+ " VALUES (7, 2, 1, 'Tom und Jerry', 1371032621000, 3)");
 		
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (11, 4, 1, 'Kotlett', 190000000, 3)");
+				+ " VALUES (11, 4, 1, 'Kotlett', 1371032681000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (12, 4, 1, 'Schnitzl', 190000000, 3)");
+				+ " VALUES (12, 4, 1, 'Schnitzl', 1371032741000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (13, 4, 1, 'Pizza', 190000000, 3)");
+				+ " VALUES (13, 4, 1, 'Pizza', 1371032801000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (14, 4, 1, 'Lasagne', 190000000, 3)");
+				+ " VALUES (14, 4, 1, 'Lasagne', 1371032861000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (15, 4, 1, 'Ente', 190000000, 3)");
+				+ " VALUES (15, 4, 1, 'Ente', 1371032921000, 3)");
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (16, 5, 1, 'Himbeersaft', 190000000, 3)");
+				+ " VALUES (16, 5, 1, 'Himbeersaft', 1371032981000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (17, 5, 1, 'Fanta', 190000000, 3)");
+				+ " VALUES (17, 5, 1, 'Fanta', 1371033041000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (18, 5, 1, 'Wasser', 190000000, 3)");
+				+ " VALUES (18, 5, 1, 'Wasser', 1371033101000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (19, 5, 1, 'Sprite', 190000000, 3)");
+				+ " VALUES (19, 5, 1, 'Sprite', 1371033161000, 3)");
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (20, 5, 1, 'Cola', 190000000, 3)");
+				+ " VALUES (20, 5, 1, 'Cola', 1371033221000, 3)");
 		
 
 		db.execSQL("INSERT INTO " + TOPIC_TABLE
-				+ " VALUES (21, 3, 1, 'Best Forum EVER', 190000000, 3)");
+				+ " VALUES (21, 3, 1, 'Best Forum EVER', 1371033281000, 3)");
 
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (1, 1, 1, 'Fell \n \n Meine Katze hat ein sehr weiches Fell und ist ganz schwarz. \n \n \n \n\n Welche Farbe hat eure Katze?', NULL, 190000000, 3)");
+				+ " VALUES (1, 1, 1, 'Fell \n \n Meine Katze hat ein sehr weiches Fell und ist ganz schwarz. \n \n \n \n\n Welche Farbe hat eure Katze?\n', NULL, 1371033341000, 3)");
 		db.execSQL("INSERT INTO " + ENTRY_TABLE
-				+ " VALUES (2, 1, 2, 'Meine Katze ist ganz weiß.', NULL, 190000000, 3)");
+				+ " VALUES (2, 1, 2, 'Meine Katze ist ganz weiß.', NULL, 1371033401000, 3)");
 		
 	}
 
@@ -215,8 +215,8 @@ public class AccessDataBase extends SQLiteOpenHelper {
 	}
 
 	public int postEntry(int topicid, int userid, Entry entry) {
-		db.execSQL("Insert into entries (topicid,userid,entrytext,imageuri) values ('"
-				+ topicid + "','" + userid + "','" + entry.getEntrytext() + "','" + entry.getUploadedImageURI() + "')");
+		db.execSQL("Insert into entries (topicid,userid,entrytext,imageuri,date) values ('"
+				+ topicid + "','" + userid + "','" + entry.getEntrytext() + "','" + entry.getUploadedImageURI() +  "','" + entry.getLongDate() + "')");
 		return 0;
 	}
 

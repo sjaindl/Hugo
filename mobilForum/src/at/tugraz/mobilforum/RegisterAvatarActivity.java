@@ -1,5 +1,6 @@
 package at.tugraz.mobilforum;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class RegisterAvatarActivity extends Activity {
 	
@@ -20,11 +22,14 @@ public class RegisterAvatarActivity extends Activity {
 	private String password;
 	private int topicid = 0;
 	private int categoryid = 0;
+	public Toast toast;
 	
 	@Override
+	@SuppressLint("ShowToast")
 	protected void onCreate(Bundle savedInstanceState) {
 		this.username = "";
 		this.password = "";
+		toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		
 		  this.topicid = getIntent().getIntExtra("topicid", 1);
 		  this.categoryid = getIntent().getIntExtra("categoryid", 1);
@@ -65,6 +70,7 @@ public class RegisterAvatarActivity extends Activity {
 		    	Log.d("TAG", "USER ID: " + userid);
 		    	Ed.putString("userId", Integer.toString(userid));                 
 		    	Ed.commit(); 
+		    	Toast.makeText(inst, "Erfolgreich registriert!", Toast.LENGTH_SHORT).show();
 				i.setClass(getApplicationContext(), SwipeActivity.class);
 				startActivity(i);
 				finish();

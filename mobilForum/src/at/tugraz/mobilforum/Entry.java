@@ -63,8 +63,12 @@ public class Entry {
 		this.entrytext = entrytext;
 	}
 	public String getDate() {
-		DateFormat df = new SimpleDateFormat("dd.MM.",Locale.getDefault()); 
+		DateFormat df = new SimpleDateFormat("dd.MM.yy",Locale.getDefault()); 
 	    return df.format(this.date);
+	}
+	
+	public long getLongDate(){
+		return this.date.getTime();
 	}
 	
 	public void setDate(long date){

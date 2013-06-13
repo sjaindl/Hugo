@@ -101,7 +101,7 @@ public class PostEntryActivity extends Activity {
 
 				        try {
 				            startActivityForResult(
-				                    Intent.createChooser(intent, "Select a File to Upload"),
+				                    Intent.createChooser(intent, "Gespeicherte Bilder"),
 				                    REQUEST_IMAGE_FILE);
 				        } catch (android.content.ActivityNotFoundException ex) {
 				            // Potentially direct the user to the Market with a Dialog
@@ -117,7 +117,7 @@ public class PostEntryActivity extends Activity {
 						uri = Uri.fromFile(new File(imagefilepath + "/tmp","uploadedImage.jpg")); 	
 						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-						Intent chooser = Intent.createChooser(intent, "Select camera");		
+						Intent chooser = Intent.createChooser(intent, "Kamera");		
 						startActivityForResult(chooser, REQUEST_CAMERA);
 					}
 				});
@@ -143,6 +143,7 @@ public class PostEntryActivity extends Activity {
 			public boolean onMenuItemClick(MenuItem arg0) {
 				if(inputText.getText().length()>=1){
 					entry.setEntrytext(inputText.getText().toString());
+					entry.setDate(System.currentTimeMillis());
 					Log.d("TAG","Entry: " + topicid + " " + userid + " " + entry.getEntrytext());
 					AccessDataBase.getInstance().postEntry(topicid, userid, entry);
 					Toast.makeText(ps, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();

@@ -118,7 +118,7 @@ public class AndroidDialog extends Activity {
     	   alertDialog.dismiss(); 
     	  Toast.makeText(
     	  AndroidDialog.this,
-    	  "Benutzerdaten falsch, bitte versuche es nocheinmal",
+    	  "Benutzerdaten falsch, bitte versuche es noch einmal!",
     	  Toast.LENGTH_LONG).show();
     	  Intent i = new Intent();
 			i.setClass(getApplicationContext(), AndroidDialog.class);

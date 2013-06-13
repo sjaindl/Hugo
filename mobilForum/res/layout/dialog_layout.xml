@@ -16,11 +16,13 @@
     </EditText>
  
     <EditText
-        android:id='@+id/password'
-        android:layout_width='match_parent'
-        android:layout_height='wrap_content'
-        android:ems='10'
-        android:inputType='textPassword' >
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/dialog_upassword"
+        android:inputType="textPassword" >
+
     </EditText>
  
     <RelativeLayout

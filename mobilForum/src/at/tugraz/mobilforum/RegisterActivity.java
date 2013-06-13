@@ -1,5 +1,6 @@
 package at.tugraz.mobilforum;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

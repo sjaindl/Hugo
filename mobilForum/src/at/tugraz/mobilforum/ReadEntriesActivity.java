@@ -1,6 +1,7 @@
 package at.tugraz.mobilforum;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +29,13 @@ public class ReadEntriesActivity extends Activity {
 	List<Entry> entries;
 	private int topicid = 1;
 	private int categoryid = 1;
+	private Toast toast;
 
 
 
 	ReadEntriesBaseAdapter adapter;
 	@Override
+	@SuppressLint("ShowToast")
 	protected void onCreate(Bundle savedInstanceState) {
 
 		if(!AccessDataBase.hasInstance()){
@@ -40,7 +44,7 @@ public class ReadEntriesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_read_entry);
-		
+		toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		this.topicid = getIntent().getIntExtra("topicid", 1);
         lv = (ListView) findViewById(R.id.entryListView);
         AccessDataBase db = AccessDataBase.getInstance();
@@ -97,7 +101,7 @@ public class ReadEntriesActivity extends Activity {
 
 				@Override
 				public boolean onMenuItemClick(MenuItem arg0) {
-					// TODO reply
+					//reply
 					Intent i = new Intent();
 					i.putExtra("topicid",rea.topicid);
 					i.putExtra("categorycid",rea.categoryid);
@@ -113,11 +117,12 @@ public class ReadEntriesActivity extends Activity {
 
 				@Override
 				public boolean onMenuItemClick(MenuItem arg0) {
-					// TODO logout
+					//logout
 					SharedPreferences sp = rea.getSharedPreferences("Login", 0);
 					SharedPreferences.Editor Ed=sp.edit();
 		  	  	    Ed.clear();
 			  	  	Ed.commit(); 
+			  	  Toast.makeText(rea, "Erfolgreich ausgeloggt!", Toast.LENGTH_SHORT).show();
 			  	  	Intent i = new Intent();
 					i.setClass(getApplicationContext(), SwipeActivity.class);
 					
