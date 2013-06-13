@@ -16,6 +16,7 @@ public class AccessDataBaseTest extends AndroidTestCase {
 
 	// has to be in the DataBase!
 	private static final String TEST_USER_NAME = "Hugo";
+	private static final int TEST_USER_ID = 1;
 	private static final String TEST_USER_PASSWORD = "hugo123";
 	private static final String TEST_USER_PIC = "hugopic";
 	private static final String TEST_TOPIC_NAME = "hugotopic";
@@ -41,10 +42,9 @@ public class AccessDataBaseTest extends AndroidTestCase {
 	}
 
 	public void testPostTopic(){
-		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, 42, null);
+		int errorCode = AccessDataBase.getInstance().postTopic(TEST_TOPIC_NAME, TEST_CAT_ID, TEST_USER_ID, null);
 		assertEquals("Cannot post Topic", 0, errorCode);
 		List<Topic> topics =  AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
-		topics = AccessDataBase.getInstance().getTopicList(TEST_CAT_ID);
 		boolean isInList = false;
 		for(int i=0;i<topics.size();i++){
 			if(topics.get(i).getTitle().equals(TEST_TOPIC_NAME)){

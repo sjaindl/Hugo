@@ -86,22 +86,4 @@ public class PostEntryTest extends ActivityInstrumentationTestCase2<PostEntryAct
 		assertFalse("Button should not be enabled (text too long)", postButton.isEnabled());
 	}
 	
-	@Test
-	public void testpicture ()
-	{
-	
-		View postimage = solo.getView(R.id.imageUploadButton);
-		solo.waitForView(postimage);
-		assertTrue("button sollte enabled sein", postimage.isEnabled());
-		final ImageView iv = (ImageView)solo.getView(R.id.imageUploadView);
-		Bitmap bmap = BitmapFactory.decodeFile("/tmp/uploadedImage.jpg");
-		iv.setImageBitmap(bmap);
-		assertNull("No image",iv);
-		
-		final EditText newtext = (EditText)solo.getView(R.id.newPostText);
-		solo.enterText(newtext, "blah");
-		
-		
-		
-		}
 }

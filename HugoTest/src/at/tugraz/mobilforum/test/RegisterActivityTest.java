@@ -47,10 +47,9 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-		
 		solo.clickOnButton(0);
 	}
-	
+	/*
 	public void testRegistrationAlertUserExists(){
 		RelativeLayout relativeLayout = (RelativeLayout)solo.getView(R.id.activity_register_layout);
 		assertNotNull(relativeLayout);
@@ -72,7 +71,6 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.enterText(userPassword, "test");
 		solo.clearEditText(userPasswordConfirm);
 		solo.enterText(userPasswordConfirm, "test");
-	
 		solo.clickOnButton(0);
 		assertTrue(solo.searchText(solo.getString(R.string.alert_reg_username)));
 		
@@ -129,5 +127,6 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 		solo.clickOnButton(0);
 		
 	}
+	*/
 	
 }
